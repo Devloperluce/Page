@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>빅스데이터 교육센터 | ABC 과정 · AI 활용 · BI 맞춤형 · 자격증 취득</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0099C8;
+      --primary-dark: #0077A3;
+      --primary-light: #E6F6FB;
+      --accent: #00C4A7;
+      --dark: #0B0F1A;
+      --gray-900: #141824;
+      --gray-700: #2E3547;
+      --gray-600: #4A5568;
+      --gray-500: #636E88;
+      --gray-300: #C8D0E0;
+      --gray-200: #DDE3EE;
+      --gray-100: #EFF2F8;
+      --gray-50: #F6F8FC;
+      --white: #FFFFFF;
+    }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--gray-900); background: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    .site-header { position: sticky; top: 0; z-index: 200; background: rgba(13,17,23,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.07); }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
+    .logo-text span { color: var(--primary); }
+    .gnb { display: flex; list-style: none; }
+    .gnb li a { display: block; padding: 8px 14px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,.65); border-radius: 6px; transition: .15s; }
+    .gnb li a:hover { color: #fff; }
+    .gnb li a.act { color: #fff; font-weight: 600; }
+    .gnb li { position: relative; }
+    .gnb-dropdown { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: #fff; border-radius: 10px; box-shadow: 0 8px 32px rgba(0,0,0,.14); padding: 6px 0; min-width: 148px; z-index: 300; border: 1px solid rgba(0,0,0,.06); }
+    .gnb li .gnb-dropdown a { display: block; padding: 9px 18px; font-size: 13px; font-weight: 500; color: var(--gray-700); }
+    .gnb li .gnb-dropdown a:hover { color: var(--primary); background: var(--primary-light); }
+    .gnb li:hover .gnb-dropdown { display: block; }
+    .hd-btns { display: flex; gap: 8px; }
+    .hbtn { padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: .15s; font-family: inherit; }
+    .hbtn-o { border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.75); background: transparent; }
+    .hbtn-o:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+    .hbtn-f { background: var(--primary); color: white; border: 1px solid transparent; }
+    .hbtn-f:hover { background: var(--primary-dark); }
+
+    /* ── SUB NAV ── */
+    .sub-nav-bar { background: rgba(13,17,23,.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); position: sticky; top: 64px; z-index: 190; }
+    .sub-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; }
+    .sub-nav-inner ul { list-style: none; display: flex; }
+    .sub-nav-inner ul li a { display: block; padding: 13px 20px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,.45); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: .15s; }
+    .sub-nav-inner ul li a:hover { color: rgba(255,255,255,.8); }
+    .sub-nav-inner ul li a.act { color: #fff; font-weight: 600; border-bottom-color: var(--primary); }
+
+    /* ── PAGE WRAP ── */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 40px 80px; }
+
+    /* ── CLIENT TICKER ── */
+    .client-ticker {
+      background: #F8FAFB;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      overflow: hidden;
+      position: relative;
+      z-index: 150;
+      padding: 0;
+    }
+    .client-ticker::before,
+    .client-ticker::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .client-ticker::before { left: 0; background: linear-gradient(to right, #F8FAFB 40%, transparent); }
+    .client-ticker::after  { right: 0; background: linear-gradient(to left, #F8FAFB 40%, transparent); }
+    .ticker-track-wrap { overflow: hidden; padding: 18px 0; }
+    .ticker-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: ticker-scroll 45s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .ticker-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 24px;
+      margin: 0 4px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: -.2px;
+      color: var(--gray-600);
+      white-space: nowrap;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+      transition: border-color .2s, color .2s;
+    }
+    .ticker-chip:hover { border-color: var(--primary); color: var(--primary-dark); }
+
+    /* ── CLIENT LOGO SLIDE ── */
+    .client-slide-section {
+      padding: 56px 0 60px;
+    }
+    .client-slide-head {
+      margin-bottom: 36px;
+    }
+    .client-wall-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .client-wall-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .client-slide-sub {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .client-slide-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .client-slide-wrap::before,
+    .client-slide-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .client-slide-wrap::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+    .client-slide-wrap::after  { right: 0; background: linear-gradient(to left, #fff, transparent); }
+    .client-slide-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: client-slide 40s linear infinite;
+    }
+    .client-slide-track:hover { animation-play-state: paused; }
+    @keyframes client-slide {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .cs-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 80px;
+      padding: 0 36px;
+      border-right: 1px solid var(--gray-100);
+      flex-shrink: 0;
+    }
+    .cs-logo:last-child { border-right: none; }
+    .cl-logo-text {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -.3px;
+      color: #8B95A9;
+      white-space: nowrap;
+      filter: grayscale(1);
+      transition: color .2s, filter .2s;
+    }
+    .cl-logo:hover .cl-logo-text { color: var(--gray-700); filter: grayscale(0); }
+    /* brand-ish colors (muted) */
+    .cl-logo-text.c-samsung  { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: .5px; font-size: 13px; }
+    .cl-logo-text.c-sk       { color: #C0440A; }
+    .cl-logo-text.c-nh       { color: #3D7A3D; font-size: 15px; }
+    .cl-logo-text.c-kakao    { color: #8C7100; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .cl-logo-text.c-lh       { color: #2B5CA6; font-size: 18px; letter-spacing: 2px; }
+    .cl-logo-text.c-hmm      { color: #003580; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1px; }
+    .cl-logo-text.c-kb       { color: #8C6800; }
+    .cl-logo-text.c-cj       { color: #B30000; font-size: 16px; letter-spacing: 1px; }
+    .cl-logo-text.c-mirae    { color: #8A1A1A; font-size: 11.5px; }
+    .cl-logo-text.c-ceragem  { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: .8px; font-size: 12px; }
+    .cl-logo-text.c-bnk      { color: #1A4C8A; letter-spacing: 1px; }
+    .cl-logo-text.c-dalba    { color: #3A3535; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 1.5px; font-size: 12px; }
+    .cl-logo-text.c-11st     { color: #B00000; font-size: 16px; }
+    .cl-logo-text.c-wv       { color: #1A5AA6; font-size: 12px; }
+    .cl-logo-text.c-skmw     { font-size: 11px; }
+    .cl-logo-text.c-gachon   { color: #1A4080; font-size: 12px; }
+    .cl-logo-text.c-hmm2     { color: #1A3A6E; font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .client-logo-grid { grid-template-columns: repeat(3, 1fr); }
+      .cl-logo:nth-child(6n) { border-right: 1px solid var(--gray-100); }
+      .cl-logo:nth-child(3n) { border-right: none; }
+      .cl-logo:nth-last-child(-n+6) { border-bottom: 1px solid var(--gray-100); }
+      .cl-logo:nth-last-child(-n+3) { border-bottom: none; }
+    }
+
+    /* ── HERO ── */
+    .hero-section { padding: 64px 0 48px; }
+    .hero-kicker { font-size: 12px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; }
+    .hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(30px, 3.5vw, 46px); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 18px; letter-spacing: -.5px; }
+    .hero-title em { font-style: normal; color: var(--primary); }
+    .hero-desc { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.8; max-width: 540px; margin-bottom: 48px; }
+
+    /* ── TOP TRACK CARDS ── */
+    .track-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+    .track-card {
+      border-radius: 14px; padding: 28px 26px 24px;
+      cursor: pointer; transition: transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+      min-height: 260px; display: flex; flex-direction: column; justify-content: space-between;
+      text-decoration: none; border: 1px solid;
+    }
+    .track-card:hover { transform: translateY(-4px); }
+    .track-card.t-bi   { background: #071E38; border-color: rgba(0,153,200,.35); }
+    .track-card.t-ai   { background: #061C12; border-color: rgba(0,196,167,.35); }
+    .track-card.t-cert { background: #150E2E; border-color: rgba(138,92,246,.35); }
+    .track-card:hover { box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+    .track-card.t-bi:hover   { border-color: rgba(0,153,200,.7); }
+    .track-card.t-ai:hover   { border-color: rgba(0,196,167,.7); }
+    .track-card.t-cert:hover { border-color: rgba(138,92,246,.7); }
+
+    .tc-top { position: relative; z-index: 1; }
+    .tc-kicker { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 12px; }
+    .t-bi   .tc-kicker { color: #0099C8; }
+    .t-ai   .tc-kicker { color: #00C4A7; }
+    .t-cert .tc-kicker { color: #8A5CF6; }
+    .tc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: #fff; line-height: 1.35; margin-bottom: 10px; }
+    .tc-desc { font-size: 12.5px; color: rgba(255,255,255,.5); line-height: 1.75; }
+    .tc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+    .tc-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; }
+    .t-bi   .tc-tag { background: rgba(0,153,200,.12); color: rgba(0,153,200,.9); }
+    .t-ai   .tc-tag { background: rgba(0,196,167,.12); color: rgba(0,196,167,.9); }
+    .t-cert .tc-tag { background: rgba(138,92,246,.12); color: rgba(138,92,246,.9); }
+    .tc-bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.06); margin-top: 18px; }
+    .tc-stat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: #fff; }
+    .tc-stat-lbl { font-size: 11px; color: rgba(255,255,255,.35); margin-top: 2px; }
+    .tc-arrow { font-size: 15px; color: rgba(255,255,255,.3); transition: .2s; }
+    .track-card:hover .tc-arrow { color: rgba(255,255,255,.8); transform: translateX(3px); }
+
+    /* ── QUICK LINKS ── */
+    .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 60px; }
+    .quick-link {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px; padding: 18px 20px; cursor: pointer; transition: .2s;
+      display: flex; align-items: center; gap: 14px; text-decoration: none;
+    }
+    .quick-link:hover { background: rgba(255,255,255,.06); border-color: rgba(0,153,200,.3); transform: translateY(-1px); }
+    .ql-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,153,200,.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ql-icon svg { width: 18px; height: 18px; stroke: var(--primary); fill: none; stroke-width: 2; }
+    .ql-lbl { font-size: 11px; color: rgba(255,255,255,.35); margin-bottom: 3px; letter-spacing: .04em; }
+    .ql-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.85); margin-bottom: 3px; }
+    .ql-sub { font-size: 11px; color: rgba(255,255,255,.38); line-height: 1.4; }
+    .ql-num { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── CONTENT AREA (white) ── */
+    .content-area { background: var(--gray-50); border-radius: 20px 20px 0 0; padding: 60px 52px 80px; }
+
+    /* ── SECTION HEADER ── */
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+    .sec-eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--primary); border-radius: 2px; }
+    .sec-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; color: var(--dark); line-height: 1.3; margin-bottom: 6px; }
+    .sec-desc { font-size: 14px; color: var(--gray-500); margin-bottom: 36px; line-height: 1.65; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar { background: #fff; border-radius: 12px; padding: 24px 36px; display: flex; align-items: center; justify-content: space-around; border: 1px solid var(--gray-300); margin-bottom: 56px; }
+    .trust-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .trust-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--dark); line-height: 1; }
+    .trust-lbl { font-size: 11px; color: var(--gray-500); }
+    .trust-div { width: 1px; height: 36px; background: var(--gray-300); }
+
+    /* ── INSTRUCTOR ── */
+    .instructor-wrap { background: #fff; border-radius: 16px; border: 1px solid var(--gray-300); overflow: hidden; margin-bottom: 56px; display: grid; grid-template-columns: 260px 1fr; }
+    .inst-left { background: var(--gray-50); padding: 36px 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; border-right: 1px solid var(--gray-300); }
+    .inst-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, #1a3a6e 0%, #0099C8 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .inst-avatar svg { width: 44px; height: 44px; fill: rgba(255,255,255,.85); }
+    .inst-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); }
+    .inst-role { font-size: 12px; color: var(--gray-500); text-align: center; line-height: 1.6; }
+    .inst-badge { display: inline-block; background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-top: 4px; letter-spacing: .3px; }
+    .inst-avatar.ax { background: linear-gradient(135deg, #0b3d33 0%, #00C4A7 100%) !important; }
+    .inst-badge.ax { background: var(--accent); }
+    .instructor-wrap + .instructor-wrap { margin-top: -32px; }
+    .inst-right { padding: 36px 32px; display: flex; flex-direction: column; gap: 24px; }
+    .inst-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; }
+    .inst-kpi { padding: 18px 16px; text-align: center; border-right: 1px solid var(--gray-200); }
+    .inst-kpi:last-child { border-right: none; }
+    .inst-kpi .kn { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 5px; }
+    .inst-kpi .kl { font-size: 11px; color: var(--gray-500); }
+    .inst-lead { font-size: 14px; color: var(--gray-600); line-height: 1.75; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-100); }
+    .track-clients { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; margin-top: 26px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); text-align: center; }
+    .career-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .career-list li { font-size: 13.5px; color: var(--gray-600); padding-left: 14px; position: relative; line-height: 1.6; }
+    .career-list li::before { content: '—'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .career-list li { display: flex; gap: 10px; font-size: 13.5px; color: var(--gray-700); line-height: 1.6; }
+    .career-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 9px; }
+    .career-list li strong { color: var(--dark); font-weight: 700; }
+
+    /* ── INSTRUCTOR CARDS (2-up) ── */
+    .instructor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 56px; align-items: start; }
+    .inst-card { position: relative; background: #fff; border: 1px solid var(--gray-200); border-radius: 18px; overflow: hidden; box-shadow: 0 12px 34px rgba(20,24,36,.05); transition: transform .2s ease, box-shadow .2s ease; display: flex; flex-direction: column; }
+    .inst-card:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(0,153,200,.12); }
+    .inst-card.ax:hover { box-shadow: 0 22px 48px rgba(0,196,167,.12); }
+    .inst-hd { position: relative; padding: 30px 28px 24px; display: flex; align-items: center; gap: 18px; background: linear-gradient(180deg, var(--primary-light), #fff); border-bottom: 1px solid var(--gray-100); }
+    .inst-card.ax .inst-hd { background: linear-gradient(180deg, rgba(0,196,167,.10), #fff); }
+    .inst-hd::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), #46c5e6); }
+    .inst-card.ax .inst-hd::before { background: linear-gradient(90deg, var(--accent), #5fe6cf); }
+    .inst-av { width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a3a6e, #0099C8); box-shadow: 0 0 0 4px rgba(0,153,200,.14), 0 8px 20px rgba(0,153,200,.25); }
+    .inst-card.ax .inst-av { background: linear-gradient(135deg, #0b3d33, #00C4A7); box-shadow: 0 0 0 4px rgba(0,196,167,.14), 0 8px 20px rgba(0,196,167,.25); }
+    .inst-av svg { width: 32px; height: 32px; fill: rgba(255,255,255,.92); }
+    .inst-hd-info { min-width: 0; }
+    .inst-nm { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; font-weight: 800; color: var(--dark); margin-bottom: 7px; }
+    .inst-tag { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 4px 11px; border-radius: 20px; background: var(--primary); color: #fff; letter-spacing: .02em; }
+    .inst-card.ax .inst-tag { background: var(--accent); }
+    .inst-rl { font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-top: 8px; }
+    .inst-bd { padding: 22px 28px 26px; display: flex; flex-direction: column; gap: 16px; }
+    .inst-ld { font-size: 13.5px; color: var(--gray-600); line-height: 1.75; }
+    .inst-cred { list-style: none; display: flex; flex-direction: column; gap: 11px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+    .inst-cred li { position: relative; padding-left: 26px; font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+    .inst-cred li::before { content: '✓'; position: absolute; left: 0; top: 1px; width: 17px; height: 17px; border-radius: 50%; background: var(--primary-light); color: var(--primary-dark); font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .inst-card.ax .inst-cred li::before { background: rgba(0,196,167,.16); color: #00846f; }
+    .inst-cred li strong { color: var(--dark); font-weight: 700; }
+    @media (max-width: 720px) { .instructor-grid { grid-template-columns: 1fr; } }
+
+    /* ── CLIENTS ── */
+    .clients-section { margin-bottom: 56px; }
+    .clients-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .client-card { background: #fff; border: 1px solid var(--gray-300); border-radius: 14px; padding: 24px 20px; transition: .2s; }
+    .client-card:hover { border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,153,200,.08); }
+    .client-sector { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); }
+    .client-sector span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: middle; margin-top: -2px; }
+    .client-card.fin .client-sector span { background: #003087; }
+    .client-card.it  .client-sector span { background: #1428A0; }
+    .client-card.pub .client-sector span { background: #00703C; }
+    .client-card.svc .client-sector span { background: #6B21A8; }
+    .client-chips { display: flex; flex-direction: column; gap: 7px; }
+    .client-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 7px; border: 1px solid;
+      font-size: 12.5px; font-weight: 600;
+    }
+    .chip-mark { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 8.5px; font-weight: 900; color: #fff; flex-shrink: 0; letter-spacing: -.3px; }
+
+    /* 금융 */
+    .chip-nh    { background: #F0F5FF; color: #1A4FA0; border-color: #C8D8F8; } .chip-nh    .chip-mark { background: #003087; }
+    .chip-hana  { background: #F0FAF5; color: #005C32; border-color: #B0E0C8; } .chip-hana  .chip-mark { background: #009B4E; }
+    .chip-mrae  { background: #FFF6F0; color: #9A3A00; border-color: #FFCCAA; } .chip-mrae  .chip-mark { background: #E8570C; }
+    .chip-kb    { background: #FFFBF0; color: #7A5800; border-color: #FFE8A0; } .chip-kb    .chip-mark { background: #FFB81C; color: #5B3F00; }
+    /* IT */
+    .chip-sec   { background: #F0F3FF; color: #1428A0; border-color: #C0C8F8; } .chip-sec   .chip-mark { background: #1428A0; }
+    .chip-sk    { background: #FFF0F0; color: #900000; border-color: #FFBBBB; } .chip-sk    .chip-mark { background: #EA0029; }
+    .chip-kakao { background: #FFFDF0; color: #5A4300; border-color: #FFE870; } .chip-kakao .chip-mark { background: #FEE500; color: #3C1E1E; }
+    .chip-cj    { background: #FFF0F0; color: #A00000; border-color: #FFAAAA; } .chip-cj    .chip-mark { background: #E30613; }
+    /* 공공 */
+    .chip-lh    { background: #F0F4FF; color: #1A3A8F; border-color: #B0C4F8; } .chip-lh    .chip-mark { background: #1A3A8F; }
+    .chip-wv    { background: #FFF4F0; color: #8B3A00; border-color: #FFBBAA; } .chip-wv    .chip-mark { background: #FF6600; }
+    /* 서비스 */
+    .chip-hmm   { background: #F0F4FF; color: #003087; border-color: #AABCF8; } .chip-hmm   .chip-mark { background: #003087; }
+    .chip-smf   { background: #F5F5F5; color: #1A1A1A; border-color: #CCCCCC; } .chip-smf   .chip-mark { background: #1A1A1A; }
+    .chip-sera  { background: #F6F0FF; color: #4A0080; border-color: #CCA8F8; } .chip-sera  .chip-mark { background: #6B21A8; }
+
+    /* ── REVIEWS ── */
+    .reviews-section { margin-bottom: 56px; }
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rev-card { background: #fff; border: 1px solid var(--gray-300); border-radius: 12px; padding: 24px; transition: .2s; }
+    .rev-card:hover { border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,153,200,.08); transform: translateY(-2px); transition: .2s; }
+    .rev-stars { display: flex; gap: 2px; margin-bottom: 12px; }
+    .rev-stars svg { width: 13px; height: 13px; fill: #F59E0B; }
+    .rev-text { font-size: 13.5px; color: var(--gray-700); line-height: 1.8; margin-bottom: 18px; }
+    .rev-author { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--gray-100); padding-top: 14px; }
+    .rev-av { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: var(--primary); flex-shrink: 0; }
+    .rev-name { font-size: 12px; font-weight: 700; color: var(--gray-700); }
+    .rev-co { font-size: 11px; color: var(--gray-500); }
+
+    /* ── STATS ── */
+    .stats-band { background: var(--dark); border-radius: 16px; padding: 44px 52px; margin-bottom: 56px; border: 1px solid rgba(255,255,255,.06); }
+    .stats-band .sec-title { color: #fff; }
+    .stats-band .sec-desc { color: rgba(255,255,255,.45); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .stat-item { text-align: center; padding: 0 20px; border-right: 1px solid rgba(255,255,255,.08); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 42px; font-weight: 800; color: #fff; line-height: 1; }
+    .stat-num sup { font-size: 20px; }
+    .stat-lbl { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 8px; }
+
+    /* ── FAQ ── */
+    .faq-section { margin-bottom: 56px; }
+    .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .faq-item { border: 1px solid var(--gray-300); border-radius: 10px; overflow: hidden; background: #fff; }
+    .faq-q { width: 100%; background: none; border: none; cursor: pointer; padding: 16px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; text-align: left; font-family: 'Noto Sans KR', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--dark); transition: background .15s; }
+    .faq-q:hover { background: var(--gray-50); }
+    .faq-q .arr { width: 20px; height: 20px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: .25s; }
+    .faq-q .arr svg { width: 10px; height: 10px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; transition: .25s; }
+    .faq-item.open .faq-q { background: var(--primary-light); color: var(--primary); }
+    .faq-item.open .faq-q .arr { background: var(--primary); }
+    .faq-item.open .faq-q .arr svg { stroke: #fff; transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .2s ease; font-size: 13px; color: var(--gray-500); line-height: 1.85; padding: 0 18px; }
+    .faq-a.open { max-height: 300px; padding: 0 18px 16px; }
+
+    /* ── CTA ── */
+    .cta-wrap { background: var(--dark); border-radius: 16px; padding: 48px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; border: 1px solid rgba(255,255,255,.06); }
+    .cta-left {}
+    .cta-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; color: #fff; line-height: 1.4; margin-bottom: 12px; }
+    .cta-desc { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.75; margin-bottom: 28px; }
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .contact-item { display: flex; align-items: center; gap: 12px; }
+    .contact-icon { width: 34px; height: 34px; border-radius: 8px; background: rgba(0,153,200,.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-icon svg { width: 15px; height: 15px; stroke: var(--primary); fill: none; stroke-width: 2; }
+    .contact-lbl { font-size: 11px; color: rgba(255,255,255,.3); }
+    .contact-val { font-size: 13.5px; font-weight: 700; color: rgba(255,255,255,.8); }
+    .contact-val a { color: var(--primary); }
+    .form-box { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 12px; padding: 28px; }
+    .form-box h3 { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 20px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fg { display: flex; flex-direction: column; gap: 5px; }
+    .fg.full { grid-column: span 2; }
+    .fg label { font-size: 11.5px; font-weight: 700; color: rgba(255,255,255,.4); }
+    .fg label .req { color: #e05; margin-left: 2px; }
+    .fg input, .fg select, .fg textarea { padding: 9px 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 7px; font-size: 13px; font-family: inherit; color: rgba(255,255,255,.85); background: rgba(255,255,255,.06); transition: border-color .15s; outline: none; }
+    .fg input::placeholder, .fg textarea::placeholder { color: rgba(255,255,255,.2); }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--primary); }
+    .fg select option { background: #1a1f2e; }
+    .fg textarea { resize: vertical; min-height: 80px; }
+    .submit-btn { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; transition: .15s; margin-top: 12px; letter-spacing: -.2px; }
+    .submit-btn:hover { background: var(--primary-dark); }
+
+    /* ── CLOSING CTA ── */
+    .final-cta {
+      position: relative; overflow: hidden; text-align: center;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(0,153,200,.30), transparent 44%),
+        radial-gradient(circle at 18% 92%, rgba(0,196,167,.16), transparent 46%),
+        linear-gradient(135deg, #0B0F1A 0%, #0D1E35 60%, #0A253F 100%);
+      border: 1px solid rgba(255,255,255,.08); border-radius: 22px;
+      padding: 62px 56px; box-shadow: 0 28px 70px rgba(11,15,26,.28);
+    }
+    .fc-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .fc-eyebrow::before, .fc-eyebrow::after { content: ''; width: 18px; height: 2px; background: var(--accent); border-radius: 2px; opacity: .65; }
+    .fc-title { font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif; font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: #fff; line-height: 1.3; letter-spacing: -.5px; margin-bottom: 14px; }
+    .fc-desc { font-size: 14.5px; color: rgba(255,255,255,.55); line-height: 1.75; max-width: 540px; margin: 0 auto 30px; }
+    .fc-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 44px; }
+    .fc-btn-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--primary); color: #fff; padding: 14px 32px; border-radius: 10px; font-size: 14.5px; font-weight: 700; letter-spacing: -.2px; text-decoration: none; transition: .18s; box-shadow: 0 10px 30px rgba(0,153,200,.35); }
+    .fc-btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .fc-btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.9); padding: 14px 28px; border-radius: 10px; font-size: 14.5px; font-weight: 700; text-decoration: none; transition: .18s; }
+    .fc-btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.28); }
+    .fc-stats { display: inline-flex; border-top: 1px solid rgba(255,255,255,.1); padding-top: 30px; }
+    .fc-stats > div { padding: 0 36px; border-right: 1px solid rgba(255,255,255,.1); }
+    .fc-stats > div:last-child { border-right: none; }
+    .fc-stats b { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 30px; font-weight: 800; color: #fff; line-height: 1; }
+    .fc-stats span { display: block; font-size: 11.5px; color: rgba(255,255,255,.4); margin-top: 8px; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: #0A0D15; border-top: 1px solid rgba(255,255,255,.06); padding: 56px 0 28px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    .footer-top { display: grid; grid-template-columns: repeat(5, 1fr) 1.9fr; gap: 28px; padding-bottom: 40px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 18px; letter-spacing: .2px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 13px; color: rgba(255,255,255,.42); text-decoration: none; transition: color .15s; cursor: pointer; }
+    .footer-col a:hover { color: var(--primary); }
+
+    .footer-company { padding-left: 8px; }
+    .footer-company .footer-logo { display: inline-block; margin-bottom: 20px; }
+    .footer-company .footer-logo svg { display: block; }
+    .fco-line { font-size: 12.5px; color: rgba(255,255,255,.5); line-height: 1.55; margin-bottom: 9px; }
+    .fco-line b { color: rgba(255,255,255,.72); font-weight: 600; }
+    .fco-line a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .fco-line a:hover { color: var(--primary); }
+    .fco-inquiry { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); color: #fff; padding: 11px 22px; border-radius: 9px; font-size: 13px; font-weight: 700; text-decoration: none; transition: .18s; cursor: pointer; }
+    .fco-inquiry:hover { background: var(--primary); border-color: var(--primary); }
+    .fco-social { display: flex; gap: 9px; margin-top: 22px; }
+    .fco-social a { width: 38px; height: 38px; border-radius: 9px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; transition: .18s; }
+    .fco-social a:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+    .fco-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,.55); }
+
+    .footer-bottom { display: flex; align-items: center; gap: 10px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); flex-wrap: wrap; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.3); }
+    .footer-bottom .fb-sep { color: rgba(255,255,255,.18); }
+    .footer-bottom a { font-size: 12px; color: rgba(255,255,255,.38); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--primary); }
+
+    @media (max-width: 900px) {
+      .footer-top { grid-template-columns: repeat(3, 1fr); gap: 28px 20px; }
+      .footer-company { grid-column: 1 / -1; padding-left: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.06); }
+    }
+
+    /* ── COURSE DETAIL (curriculum) ── */
+    .cd-sec { margin-bottom: 52px; scroll-margin-top: 88px; }
+    .cd-head { display: flex; align-items: center; gap: 15px; }
+    .cd-badge { width: 50px; height: 50px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .cd-badge.a { background: rgba(0,196,167,.12); }
+    .cd-badge.b { background: rgba(0,153,200,.12); }
+    .cd-badge.c { background: rgba(138,92,246,.12); }
+    .cd-track { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+    .cd-sec.a .cd-track { color: var(--accent); }
+    .cd-sec.b .cd-track { color: var(--primary); }
+    .cd-sec.c .cd-track { color: #8A5CF6; }
+    .cd-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--dark); line-height: 1.25; }
+    .cd-rule { height: 3px; border-radius: 3px; margin: 16px 0 22px; }
+    .cd-lead { font-size: 13.5px; color: var(--gray-600); line-height: 1.7; margin: -6px 0 22px; }
+    .cd-lead strong { color: var(--dark); font-weight: 700; }
+    .cd-sec.a .cd-rule { background: linear-gradient(90deg, var(--accent), rgba(0,196,167,0)); }
+    .cd-sec.b .cd-rule { background: linear-gradient(90deg, var(--primary), rgba(0,153,200,0)); }
+    .cd-sec.c .cd-rule { background: linear-gradient(90deg, #8A5CF6, rgba(138,92,246,0)); }
+    .sc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+    .sc-card { background: #fff; border: 1px solid var(--gray-300); border-radius: 14px; padding: 22px 20px; transition: .2s; }
+    .sc-card:hover { border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,153,200,.08); transform: translateY(-2px); }
+    .sc-card.span2 { grid-column: span 2; }
+    .sc-step { width: 27px; height: 27px; border-radius: 8px; font-size: 12.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 13px; color: #fff; }
+    .cd-sec.a .sc-step { background: var(--accent); }
+    .cd-sec.b .sc-step { background: var(--primary); }
+    .cd-sec.c .sc-step { background: #8A5CF6; }
+    .sc-card h4 { font-size: 14.5px; font-weight: 700; color: var(--dark); margin-bottom: 13px; line-height: 1.45; }
+    .sc-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .sc-card.span2 ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px 22px; }
+    .sc-card li { font-size: 12.5px; color: var(--gray-600); line-height: 1.5; padding-left: 15px; position: relative; }
+    .sc-card li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); }
+    .cd-sec.a .sc-card li::before { background: var(--accent); }
+    .cd-sec.b .sc-card li::before { background: var(--primary); }
+    .cd-sec.c .sc-card li::before { background: #8A5CF6; }
+    .sc-meta { display: flex; align-items: center; gap: 8px; margin-top: 15px; padding-top: 13px; border-top: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); }
+    .sc-meta strong { margin-left: auto; color: var(--dark); font-weight: 800; }
+    .level-pill { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .lp-basic { background: #E6F6FB; color: #0077A3; }
+    .lp-mid { background: #E6F9F4; color: #009B82; }
+    .lp-adv { background: #F3ECFF; color: #7B2FBE; }
+    .course-tbl-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--gray-300); }
+    .course-tbl { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; min-width: 480px; }
+    .course-tbl th { background: var(--gray-50); color: var(--gray-600); font-weight: 700; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-size: 12px; white-space: nowrap; }
+    .course-tbl td { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+    .course-tbl tr:last-child td { border-bottom: none; background: var(--gray-50); font-weight: 700; color: var(--dark); }
+    .course-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; background: var(--dark); border: 1px solid rgba(255,255,255,.06); border-radius: 18px; padding: 32px 40px; margin-top: 8px; }
+    .course-cta h3 { font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .course-cta p { font-size: 13.5px; color: rgba(255,255,255,.5); line-height: 1.6; }
+    .course-cta .cc-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .cc-btn-p { background: var(--primary); color: #fff; padding: 13px 28px; border-radius: 9px; font-size: 14px; font-weight: 700; text-decoration: none; transition: .18s; white-space: nowrap; }
+    .cc-btn-p:hover { background: var(--primary-dark); }
+    .cc-btn-s { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); color: #fff; padding: 13px 28px; border-radius: 9px; font-size: 14px; font-weight: 700; text-decoration: none; transition: .18s; white-space: nowrap; }
+    .cc-btn-s:hover { background: rgba(255,255,255,.12); }
+    .track-card[href] { text-decoration: none; }
+    @media (max-width: 720px) {
+      .sc-grid { grid-template-columns: 1fr; }
+      .sc-card.span2 { grid-column: span 1; }
+      .sc-card.span2 ul { grid-template-columns: 1fr; }
+    }
+
+    /* ── SECTION SNAP SCROLL ── */
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; scroll-padding-top: 78px; }
+    .hero-section,
+    .client-slide-section,
+    .content-area > .trust-bar,
+    .content-area > section,
+    .content-area > .track-cards,
+    .content-area > .course-cta,
+    .site-footer { scroll-snap-align: start; scroll-snap-stop: always; scroll-margin-top: 78px; }
+    html.no-snap { scroll-snap-type: none; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; scroll-behavior: auto; } }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s cubic-bezier(.16,.84,.44,1), transform .65s cubic-bezier(.16,.84,.44,1); will-change: opacity, transform; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1 !important; transform: none !important; transition: none; } }
+
+    /* ── HERO SIGNATURE VISUAL ── */
+    .hero-visual { position: absolute; top: 44px; right: 46px; width: 306px; z-index: 1; pointer-events: none; }
+    .hv-card { position: relative; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 18px 18px 14px; backdrop-filter: blur(6px); box-shadow: 0 20px 50px rgba(0,0,0,.35); animation: hvFloat 7s ease-in-out infinite; }
+    .hv-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .hv-title { font-size: 11.5px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: .02em; }
+    .hv-dot { display: flex; gap: 4px; }
+    .hv-dot span { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.25); }
+    .hv-dot span:first-child { background: #00C4A7; }
+    .hv-bars { display: flex; align-items: flex-end; gap: 9px; height: 88px; padding-top: 6px; }
+    .hv-bars i { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, #0099C8, rgba(0,153,200,.25)); animation: hvGrow 1s cubic-bezier(.16,.84,.44,1) both; transform-origin: bottom; }
+    .hv-bars i:nth-child(2) { background: linear-gradient(180deg, #00C4A7, rgba(0,196,167,.25)); }
+    .hv-bars i:nth-child(4) { background: linear-gradient(180deg, #8A5CF6, rgba(138,92,246,.25)); }
+    .hv-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.09); }
+    .hv-foot .hv-k { font-size: 20px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; }
+    .hv-foot .hv-l { font-size: 10.5px; color: rgba(255,255,255,.45); }
+    .hv-trend { font-size: 11px; font-weight: 700; color: #00C4A7; }
+    .hv-chip { position: absolute; bottom: -18px; left: -22px; display: flex; align-items: center; gap: 8px; background: rgba(16,23,37,.92); border: 1px solid rgba(255,255,255,.14); border-radius: 12px; padding: 9px 13px; box-shadow: 0 16px 36px rgba(0,0,0,.4); animation: hvFloat 7s ease-in-out infinite reverse; }
+    .hv-chip .hv-spark { width: 26px; height: 26px; border-radius: 8px; background: rgba(0,196,167,.16); display: flex; align-items: center; justify-content: center; }
+    .hv-chip .hv-spark svg { width: 15px; height: 15px; stroke: #00C4A7; fill: none; stroke-width: 2.4; }
+    .hv-chip .hv-ct { font-size: 10px; color: rgba(255,255,255,.5); }
+    .hv-chip .hv-cv { font-size: 12.5px; font-weight: 800; color: #fff; }
+    @keyframes hvFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @keyframes hvGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @media (prefers-reduced-motion: reduce) { .hv-card, .hv-chip { animation: none; } .hv-bars i { animation: none; } }
+    @media (max-width: 1100px) { .hero-visual { display: none; } }
+
+    /* ── BROCHURE CTA (교육문의) ── */
+    .brochure-cta { margin-top: 26px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); }
+    .brochure-title { font-size: 14.5px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .brochure-sub { font-size: 12.5px; color: rgba(255,255,255,.45); line-height: 1.6; margin-bottom: 16px; }
+    .brochure-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,153,200,.14); border: 1px solid rgba(0,153,200,.4); color: var(--primary); padding: 12px 22px; border-radius: 10px; font-size: 13.5px; font-weight: 700; font-family: inherit; cursor: pointer; transition: .18s; }
+    .brochure-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; z-index: 500; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(6,9,15,.72); backdrop-filter: blur(4px); overflow-y: auto; }
+    .modal-overlay.open { display: flex; animation: modalFade .2s ease both; }
+    /* 모달 열림 동안 스냅 스크롤 해제 (fixed 위치 밀림 방지) */
+    html.modal-open { scroll-snap-type: none; }
+    @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+    .modal-box { position: relative; width: 100%; max-width: 520px; max-height: calc(100vh - 48px); overflow-y: auto; overflow-x: hidden; margin: auto; background: linear-gradient(160deg, #101725, #0B0F1A); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 36px 36px 32px; box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: modalUp .25s ease both; }
+    @keyframes modalUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-close { position: absolute; top: 16px; right: 16px; width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.6); font-size: 13px; cursor: pointer; transition: .15s; }
+    .modal-close:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .modal-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(0,153,200,.15); display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 16px; }
+    .modal-box h3 { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -.3px; }
+    .modal-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65; margin-bottom: 22px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; margin-bottom: 4px; }
+    .modal-grid .fg { min-width: 0; }
+    .modal-box .fg input { width: 100%; min-width: 0; box-sizing: border-box; }
+
+    /* ── SPA ── */
+    .page-section { display: none; }
+    .page-section.active { display: block; animation: fadeUp .3s ease both; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .track-cards { grid-template-columns: 1fr; }
+      .quick-links { grid-template-columns: repeat(2, 1fr); }
+      .instructor-wrap { grid-template-columns: 1fr; }
+      .clients-grid { grid-template-columns: repeat(2, 1fr); }
+      .rev-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .stat-item { border-right: none; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .cta-wrap { grid-template-columns: 1fr; }
+      .content-area { padding: 44px 28px 60px; }
+    }
+    @media (max-width: 640px) {
+      .page-wrap { padding: 0 16px 60px; }
+      .gnb { display: none; }
+      .quick-links { grid-template-columns: 1fr 1fr; }
+      .clients-grid { grid-template-columns: 1fr 1fr; }
+      .rev-grid { grid-template-columns: 1fr; }
+      .inst-right { grid-template-columns: 1fr; }
+      .inst-career { grid-column: span 1; }
+      .form-grid { grid-template-columns: 1fr; }
+      .fg.full { grid-column: span 1; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  
+    /* --- BigxData brand refresh: modern, but locked to official colors --- */
+    body {
+      background:
+        linear-gradient(180deg, #FFFFFF 0%, var(--gray-50) 46%, #FFFFFF 100%);
+      color: var(--gray-900);
+    }
+
+    .site-header {
+      background: #000000;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: none;
+    }
+    .logo-text { display: flex; align-items: center; min-width: 150px; }
+    .logo-text img { display: none !important; }
+    .gnb li a { color: rgba(255,255,255,.78); }
+    .gnb li a:hover,
+    .gnb li a.act { color: #fff; background: rgba(255,255,255,.08); }
+    .hbtn-o { border-color: rgba(255,255,255,.18); color: rgba(255,255,255,.72); }
+    .hbtn-f { background: var(--primary); box-shadow: 0 8px 18px rgba(0,153,200,.24); }
+
+    .sub-nav-bar {
+      background: rgba(255,255,255,.92);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 8px 24px rgba(20,24,36,.04);
+    }
+    .sub-nav-inner ul li a { color: var(--gray-500); }
+    .sub-nav-inner ul li a:hover { color: var(--gray-900); }
+    .sub-nav-inner ul li a.act { color: var(--primary); border-bottom-color: var(--primary); }
+
+    .page-wrap { max-width: 1180px; padding: 28px 40px 88px; }
+
+    .logo-band {
+      margin: 32px 0 20px;
+      padding: 26px 28px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      box-shadow: 0 14px 40px rgba(20,24,36,.05);
+    }
+    .logo-band-label {
+      color: var(--gray-500);
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .logo-grid { gap: 8px; }
+    .logo-item {
+      height: 46px;
+      background: #fff;
+      border: 1px solid var(--gray-100);
+      color: var(--gray-500);
+      border-radius: 8px;
+      font-size: 12.5px;
+      box-shadow: none;
+    }
+    .logo-item:hover {
+      background: var(--primary-light);
+      border-color: rgba(0,153,200,.22);
+      color: var(--primary-dark);
+    }
+
+    .hero-section {
+      position: relative;
+      padding: 58px 52px 34px;
+      margin: 0 0 26px;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(0,153,200,.26), transparent 28%),
+        radial-gradient(circle at 72% 82%, rgba(0,196,167,.16), transparent 30%),
+        linear-gradient(135deg, #0B0F1A 0%, #0D1E35 62%, #0A253F 100%);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(11,15,26,.22);
+    }
+    .hero-section::before { display: none; }
+    .hero-kicker { color: #7DD8EF; margin-bottom: 14px; }
+    .hero-title { max-width: 620px; letter-spacing: -.8px; }
+    .hero-title em { color: #7DD8EF; }
+    .hero-desc { max-width: 620px; color: rgba(255,255,255,.68); margin-bottom: 34px; }
+
+    .track-cards { gap: 12px; margin-bottom: 12px; }
+    .track-card {
+      min-height: 238px;
+      padding: 24px 24px 22px;
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .track-card::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 3px;
+      opacity: .95;
+    }
+    .track-card.t-bi::after   { background: #0099C8; }
+    .track-card.t-ai::after   { background: #00C4A7; }
+    .track-card.t-cert::after { background: #8A5CF6; }
+    .track-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    /* 트랙별 색상 글로우 */
+    .track-card.t-bi:hover   { box-shadow: 0 20px 46px rgba(0,153,200,.30), inset 0 1px 0 rgba(255,255,255,.08); }
+    .track-card.t-ai:hover   { box-shadow: 0 20px 46px rgba(0,196,167,.30), inset 0 1px 0 rgba(255,255,255,.08); }
+    .track-card.t-cert:hover { box-shadow: 0 20px 46px rgba(138,92,246,.30), inset 0 1px 0 rgba(255,255,255,.08); }
+    .track-card.t-bi:hover::after,
+    .track-card.t-ai:hover::after,
+    .track-card.t-cert:hover::after { height: 4px; }
+    .tc-title { font-size: 20px; letter-spacing: -.2px; }
+    .tc-desc { color: rgba(255,255,255,.64); }
+    .tc-tag { border-radius: 999px; border: 1px solid rgba(255,255,255,.1); }
+    .tc-bottom { border-top-color: rgba(255,255,255,.10); }
+    .tc-stat-lbl { color: rgba(255,255,255,.46); }
+
+    .quick-links { margin-bottom: 0; }
+    .quick-link {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.12);
+      border-radius: 12px;
+    }
+    .quick-link:hover {
+      background: rgba(255,255,255,.10);
+      border-color: rgba(0,153,200,.42);
+    }
+    .ql-icon { background: rgba(0,153,200,.16); }
+    .ql-title { color: rgba(255,255,255,.88); }
+
+    .content-area {
+      background: transparent;
+      border-radius: 0;
+      padding: 34px 0 80px;
+    }
+    .trust-bar,
+    .instructor-wrap,
+    .client-card,
+    .rev-card,
+    .faq-item {
+      border-color: var(--gray-200);
+      box-shadow: 0 12px 34px rgba(20,24,36,.045);
+    }
+    .trust-bar {
+      border-radius: 16px;
+      padding: 24px 36px;
+    }
+    .trust-val { color: var(--primary-dark); }
+    .sec-title { letter-spacing: -.3px; }
+    .inst-avatar { background: linear-gradient(135deg, var(--dark), var(--primary)); }
+    .inst-left { background: linear-gradient(180deg, #fff, var(--primary-light)); }
+    .inst-kpi .kn { color: var(--primary); }
+
+    .client-card:hover,
+    .rev-card:hover,
+    .faq-item:hover {
+      border-color: rgba(0,153,200,.28);
+    }
+    .client-card.fin .client-sector span,
+    .client-card.it .client-sector span,
+    .client-card.pub .client-sector span,
+    .client-card.svc .client-sector span {
+      background: var(--primary);
+    }
+    .client-chip {
+      background: var(--gray-50) !important;
+      border-color: var(--gray-200) !important;
+      color: var(--gray-700) !important;
+    }
+    .chip-mark {
+      background: var(--primary) !important;
+      color: #fff !important;
+    }
+
+    .stats-band,
+    .cta-wrap {
+      background:
+        radial-gradient(circle at 90% 20%, rgba(0,153,200,.18), transparent 28%),
+        linear-gradient(135deg, var(--dark), #0D1E35);
+      border-radius: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-section { padding: 46px 32px 30px; }
+      .logo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .page-wrap { padding: 0 16px 64px; }
+      .logo-band { padding: 20px 16px; margin-top: 20px; }
+      .logo-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-section { padding: 38px 22px 24px; border-radius: 18px; }
+      .track-card { min-height: 216px; }
+      .trust-bar { padding: 18px 16px; }
+    }
+  
+
+    /* --- Client logo wall refinement --- */
+    .logo-band {
+      display: grid;
+      gap: 22px;
+      margin: 28px 0 22px;
+      padding: 28px 30px 26px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 18px;
+      box-shadow: 0 14px 38px rgba(20,24,36,.05);
+    }
+    .logo-band-head {
+      display: grid;
+      grid-template-columns: minmax(220px, .8fr) 1.2fr;
+      gap: 28px;
+      align-items: end;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .logo-band-label {
+      color: var(--primary);
+      text-align: left;
+      margin-bottom: 7px;
+    }
+    .logo-band-title {
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -.4px;
+      color: var(--dark);
+    }
+    .logo-band-copy {
+      max-width: 560px;
+      justify-self: end;
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: var(--gray-500);
+      word-break: keep-all;
+    }
+    .logo-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0;
+      border: 1px solid var(--gray-100);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .logo-item {
+      height: 62px;
+      border: 0;
+      border-right: 1px solid var(--gray-100);
+      border-bottom: 1px solid var(--gray-100);
+      border-radius: 0;
+      background: #fff;
+      color: #707B91;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+      filter: grayscale(1);
+    }
+    .logo-item:nth-child(6n) { border-right: 0; }
+    .logo-item:nth-last-child(-n + 6) { border-bottom: 0; }
+    .logo-item:hover {
+      background: linear-gradient(180deg, #fff, var(--primary-light));
+      color: var(--primary-dark);
+      filter: grayscale(0);
+    }
+    .logo-item.samsung,
+    .logo-item.sk,
+    .logo-item.hmm,
+    .logo-item.sera {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+      letter-spacing: .2px;
+    }
+    .logo-band-more {
+      font-size: 12.5px;
+      color: var(--gray-500);
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    .client-overview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .client-group {
+      min-height: 210px;
+      padding: 20px 18px;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff 0%, #FAFCFE 100%);
+      box-shadow: 0 10px 24px rgba(20,24,36,.035);
+    }
+    .client-group-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .client-dot {
+      width: 9px;
+      height: 9px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0,153,200,.10);
+      flex-shrink: 0;
+    }
+    .client-group:nth-child(2) .client-dot,
+    .client-group:nth-child(4) .client-dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0,196,167,.10);
+    }
+    .client-group h3 {
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: -.3px;
+      color: var(--dark);
+    }
+    .client-group p {
+      margin-top: 3px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: var(--gray-500);
+    }
+    .client-logo-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .client-logo-list span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -.2px;
+      white-space: nowrap;
+    }
+    .client-logo-list span:first-child {
+      border-color: rgba(0,153,200,.25);
+      color: var(--primary-dark);
+      background: var(--primary-light);
+    }
+
+    @media (max-width: 960px) {
+      .logo-band-head {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        align-items: start;
+      }
+      .logo-band-copy { justify-self: start; }
+      .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .client-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .logo-item:nth-child(6n) { border-right: 1px solid var(--gray-100); }
+      .logo-item:nth-child(3n) { border-right: 0; }
+      .logo-item:nth-last-child(-n + 6) { border-bottom: 1px solid var(--gray-100); }
+      .logo-item:nth-last-child(-n + 3) { border-bottom: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .logo-band {
+        padding: 22px 18px;
+        border-radius: 16px;
+      }
+      .logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .client-overview { grid-template-columns: 1fr; }
+      .client-group { min-height: auto; }
+      .logo-item {
+        height: 54px;
+        font-size: 12px;
+      }
+      .logo-item:nth-child(3n) { border-right: 1px solid var(--gray-100); }
+      .logo-item:nth-child(2n) { border-right: 0; }
+      .logo-item:nth-last-child(-n + 3) { border-bottom: 1px solid var(--gray-100); }
+      .logo-item:nth-last-child(-n + 2) { border-bottom: 0; }
+      .logo-band-more {
+        text-align: left;
+        line-height: 1.7;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo-text" aria-label="빅스데이터 홈">
+      <svg viewBox="0 0 148 36" height="28" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <!-- B 아이콘 박스 -->
+        <rect x="0" y="0" width="34" height="36" rx="6" fill="#6B21A8"/>
+        <!-- B 글자 -->
+        <text x="7" y="27" font-family="Arial Black,sans-serif" font-weight="900" font-size="24" fill="white">B</text>
+        <!-- BIGX -->
+        <text x="40" y="27" font-family="'Plus Jakarta Sans',Arial Black,sans-serif" font-weight="800" font-size="20" fill="white" letter-spacing="-0.5">BIGX</text>
+        <!-- data -->
+        <text x="97" y="27" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-weight="500" font-size="20" fill="rgba(255,255,255,.88)">data</text>
+        <!-- + 마크 -->
+        <text x="139" y="10" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#9D4EDD">+</text>
+      </svg>
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAB/AtYDASIAAhEBAxEB/8QAHQABAAMBAAMBAQAAAAAAAAAAAAcICQYDBAUBAv/EAFoQAAEDAgMCBQsNCwoGAwEAAAEAAgMEBQYHEQghEhgxQVUJEzdRVmF1lJWz0xQVIjI4cXaSsrTR0tQXNTZCUld0gZGlsRYjJDM0U2Jzk6ElQ1RygsFEouLw/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AKZIiICIpz2KcBYTzEzTudkxjafXOggsktVHF6olh4MrZ4Gh2sbmn2r3DTXTf7yCDEWmXFcyJ7hv3tW+mTiuZE9w372rfTIMzUWmXFcyJ7hv3tW+mTiuZE9w372rfTIMzUWmXFcyJ7hv3tW+mTiuZE9w372rfTIMzUWmXFcyJ7hv3tW+mTiuZE9w372rfTIMzUWmXFcyJ7hv3tW+mXrXDZTyPqYDHBhWponH/mQXSpLh8d7h/sgzWRXIzO2KnxU0tZl3iWSoe0Ei33YNDn95szABrzAOaB23BVMxXh2+YVvtRY8RWuptlxpzpLBOzguHaI5iDzEag8xQfKREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEV8ckdmvKbFOUmGMRXizVs1wuFvjnqHsuErA55G8gA6BR3tn5K5f5Z4Es12wjbamlq6q6CnldLVySgs6092mjidN7RvQVSREQEREBERAREQFZnqcXZvvPwbn+c0yrMrM9Ti7N95+Dc/zmmQX/AERVn2yM7Ma5VYgw/Q4VNtEVfSSyzeqqYyHhNeANN403FBZhFnbxw84PysP+Tz9dOOHnB+Vh/wAnn66DRJFnbxw84PysP+Tz9dfrdsTOAOBP8nnDtGgP10GiKKjeEdtvE0FQxmK8H2qug10c+3SyU8gHb0eXhx73sf1K0eT2cWBc06J0mGbmRWxN4VRbqpojqYR2y3Uhzf8AE0kb+XVBIKIiAo02gsn7Bm1hKSgrY4qW807HOttyDfZwP/JdpvdGTyt/WN4CktEGPOJ7Hc8NYhr7BeqV1LcKCd0FRE78VzTpuPODygjcQQQvmq3XVG8EQ0V9sWP6OEM9cWmgryBudLGOFE49slnCb70YVRUBFabZV2dcE5q5aT4mxDdMQ0tZHcpaQMoKiFkfAayNwOj4nHXV55+1uUs8SrKzp/GfjlN9nQUARX/4lWVnT+M/HKb7OnEqys6fxn45TfZ0FAEV/wDiVZWdP4z8cpvs6cSrKzp/GfjlN9nQUARX/wCJVlZ0/jPxym+zr4uLNiTC8tvecKYwvNJWAasFzbHPG49omNrC0d/fp2igo0i6fMvAmJcu8VT4cxTQGlrIxw2PaeFFPGeSSN34zToe+CCCAQQuYQEVotlDZ4wVmxlxW4kxFdMQUtXBdZaJrKCohZGWNiieCQ+J511kPPpyblKty2MMrqa3VNTHfsYl8UL3tDqum0JAJ3/zCChCIvt4IwrfsaYmpMOYat8lfcap2kcbNwAHK5xO5rQN5J3BB8RFdzBGxJZW26OTGuL7jNWubq+G0tZFHGe0HyNcX+/wW+8uj4lWVnT+M/HKb7OgoAiv/wASrKzp/GfjlN9nTiVZWdP4z8cpvs6CgCK//Eqys6fxn45TfZ04lWVnT+M/HKb7OgoAivtcdibLqSle23YoxVT1BHsXzy08zAe+0RMJ/aFWDP3InFuUdXHPcDHc7HUP4FNdKdhDC7l4EjTqY36DXTUg79CdDoEUIv7iMYlYZWufGHDhta7gkjnAOh0Pf0KuhlNs0ZHZlYJo8UWDEuMzDMODPA6tpeuU0wA4UTx6n5Rr+sEEbiEFLEV/+JVlZ0/jPxym+zqouf8AlTecpscS2Wu4dRbZ9ZbZXcHRtTFrz8we3UBzeY6HkIJCOkREBEXuWS13C93ektFppJayvrJWw08ETdXSPcdAAg9nC+Hb9ii6i1Ycs9ddq4sMnWKSF0j+COV2g5hu399dX9xTNz83GJvJ8n0K/mzFkzb8pMGhk4iqcSXBrX3OraNQDyiFh/Ib/wDY6k8wEuIMoK/J/NK30M9dXYBxDTUtPG6WaaWie1kbGjVznEjQAAa6rhlajbXz6/lPXz5dYQrdbHSycG51cTt1bK0/1bSOWNpHL+M4doAmq6AiIgIiICIiAiIgIiICIiAiIgIiICIiAikbLbJLMnMWwSX3CNhjr7fHUOpnyurYIiJGta4jR7weR7d+mm9dDXbL+ddFRT1lThOFkMEbpZHeulKdGtGpOgk7QQQwiIgIiICIiAiIgIiICIuksGAcdYgtzblYcF4ju1E5xa2porXNPEXDlAcxpGoQXPyP2kspML5R4Yw9eb7VQXC32+OCojbb5nhrwN4Dg3Q/qXs5tttG1XgiO0ZX4go+u2K5RVNa+5QTwNDXxStaG/zZJJIPNzKm33J80/zaYz8hVP1FbjqemFMUYXo8aNxLhu82Q1MlEYBcKGSn67wRPwuDw2jhaajXTk1CCNOJPmT3S4S/1qj0Krni6yVOGsV3fDlbLDLVWqunopnwkljnxSOY4t1AOhLTpqAthFk1nt2b8efCS4/OZEHGIiICIiAiIgKzPU4uzfefg3P85plWZWZ6nF2b7z8G5/nNMgv+qO9Uq/DDCHg+fzjVeJUd6pV+GGEPB8/nGoKkoi6LLG20V5zJwvaLlD1+hrrxSU1TFwi3hxvmY1zdWkEagkaggoOdRaZcVzInuG/e1b6ZczmNsiZZXbDtTHhCiqcO3dsZdSytrJZ4XvA3NkbK5x4J5NWkEcu/kIZ5r6WGL7d8M36jvtir5qC40cgkgnido5pH8QeQg7iCQdxXo1UEtLUy007DHLE8skaeVrgdCP2rxoNWdn/MWnzRyvtuKWRshrDrT3CBh3RVDNOGB3iCHDvOC79VG6mnUVLsL4ypHF3qaOtppIxzcNzHh3+zGK3KAiIgr51QCjjqdnyaZ7QXUl1ppmHtE8Jn8HlZ1LR/bz9zndP06k86FnAg0J6nf2B6zw9UeahVj1XDqd/YHrPD1R5qFWKq3OZSTPadHNY4g9/RB5UWN9ZXVtZVS1dXWVFRUTPL5JZJC5z3HeSSd5K8XXpf71/xig2VRY1del/vX/GKdel/vX/GKDZVFjWJpgdRLICP8RWs2Sc89VkzgiqqZpJp5sPUEkskji5z3GnjJcSeUk79UEX7deCqHEuSNZfjC31zw89tVTy6ey6257WSs1/JLSHe+wLOVan7UXufMbeCpP4hZYINAupz9g26fCKf5vTqxV9+8lf+jSfJKrr1OfsG3T4RT/N6dWKvv3kr/wBGk+SUGOa0s2Hfcz4a/zKz51Ks01pZsO+5nw1/mVnzqVB22fnYNx38Ha/wCbvWTq1iz87BuO/g7X/N3rJ1AREQEVqNhXLDAmYVpxVNjHD8V2kop6ZtMXzyx9bDmyFw9g4a68EcvaVlOLVkh3BUvjlT6RBmGi084tWSHcFS+OVPpE4tWSHcFS+OVPpEGYaL7eP6KltuO8QW6iiENLS3OphhjBJ4DGyua0anfuAHKviICuJsQZ9epn0mV2Ma3+ZeRHY62V3tCeSmcTzH8Q8x9jztAp2v1rnNcHNJa4HUEHeCg2XVaNs3In+WtsfjzCVG04nt8etVTsYCbhC0dr8aRoG78oex36NC+lsU5xXLMfCVTYMQxVM15sUcbX3AsJZVRO1DC93IJRoQQd7gOFv9lpYVBDuyxnDbc0sEsglZT0WIrVGyG4UMbQxugGjZY28zDpyD2p3cmhPQ595p2XKfA019uJbPXTaxW2h4WjqmbTk7zBuLncw75AMDbS+XV8ytxxFnxlczrAil4d7oY2nrfsj7OQtHLE/keOYkOHbbVjOrMu/Zp42nxJe3daZp1uio2PLo6SEHcxvbPOXabyeYaAB8HGuJ71jHFFfiTEFY6ruNdKZJZDyDmDWjmaBoAOYAL4yIgLQ/qe/YBf4ZqfkxrPBaH9T37AL/DNT8mNBKWfOIbphTJ/E2I7JO2C40FEZqeR0YeGu1A14J3Hl51RHjYZ290dF5Mg+qrs7VHueca+DXfKass0E58bDO3ujovJkH1U42GdvdHReTIPqqDEQTnxsM7e6Oi8mQfVVw9kLHeJcxMpXYgxVWR1dwFymp+uRwMiHAa1hA0aAPxisyVof1PfsAv8M1PyY0Hf7UYDtnvGwIBHrW87/fCy5tk7Ka5UtTIHFkUzHuA5dAQdy1H2ofc+Y28FSf8ApZYINAuOllV0LjDxOn9OnHSyq6Fxh4nT+nVJMt8BYqzDxC2x4TtUtfU6cKV3tYoGflyPO5o9/l5BqdytfgvYit7aRkmM8aVUlQ4avgtMLWMYe0JJAS73+AEHWcdLKroXGHidP6dOOllV0LjDxOn9Ov44lOVnT+M/HKb7OnEqys6fxn45TfZ0H98dLKroXGHidP6dexQbZeUtTVxwTUWKaKN7tHTz0MRYwdshkrnae8CvU4lWVnT+M/HKb7OoE2v8kcKZP02GpMNXC9VZur6ls/rhNE/g9bEXB4PAjZp7c6668yDQex3W23yz0l4tFbDW0FZEJaeohdqyRh5CCob218B0uMckblcmwNNzw8x1xpZdN4jaP55uvaMYJ07bG9pfN6n/AFU9Rs+xRTSOeymutTFECfaN9i/Qf+TnH9al/NRrX5YYrY8BzXWWsBB5x1h6DItaAx7aOVTY2tNmxfqAB/Y6f06z+RBrFk1mZYM1cKTYkw5TXGno4qx9G5ldGxknDa1jiQGOcNNHjn7a6651cVvttVXzB7oqaF8zwwauLWgk6d/cq69Tr7BVw+EFR5mBT5jP8D714Pn825BX/jpZVdC4w8Tp/Tqt215m5hrNzEdjuOGqS600NBSSQSiviYxxc5/CHB4D3ajT3lByIPrYLuUFmxjZbxVNkdT0NwgqZWxgFxayRriACQNdB2wr2cdLKroXGHidP6dZ+rr8rMtsX5l371owna3VT2aGoqHngQUzT+NI87hz6DeTodAUF0+OllV0LjDxOn9OnHSyq6Fxh4nT+nXMYQ2IrMykY/F2NK+epcNXxWuFkTGHtB8gcXe/wW+8uk4lWVnT+M/HKb7Og/vjpZVdC4w8Tp/Tpx0squhcYeJ0/p1/HEqys6fxn45TfZ04lWVnT+M/HKb7Og9607ZGUdbXxU1RT4lt0cjgDUVNDGY4++7rcjnae80qwdtraO5W+nuFvqYqqkqYmywTRODmSMcNWuaRygg6rOXa8ydwzlDdsPUmGq68VbLlBNJMbhLG8tLHMA4PAjZp7Y8uqttsPVU9Ts24d6/I6TrMtVEwuOpDRUSaD9WunvIPibemA6XEuTsuJ4oG+umHJGzskA9k6ne4NlZ7w1a//wAD2yqnZWbRWYOW+EYsL4dZZzQRSvlb6ppXPfwnnU7w4fwV/toVrX5E46DgCPWCsO/tiFxH+6yhQWJ442b393hzxB3pF6122uM17naqu21LMPdYq4HwScGhcDwXtLToeHy6FV/RAREQEREBERAREQFZnqcXZvvPwbn+c0yrMrM9Ti7N95+Dc/zmmQX/AFR3qlX4YYQ8Hz+carxKjvVKvwwwh4Pn841BUlfRwzaKnEGJLZYaJ8TKq5VkVHC6UkMD5HhjS4gEgauGugK+cutyX7MWCvhBQfOGIJp4lmavTWD/AByo9Avj4s2R83rDapbhBT2e9iJpe6C21bnSkDl0bIxnCPeGpPMCtGkQY0yMfG90cjXMe0kOa4aEEcxX8rv9oyqtFbnpjKqsbonUEl1lLHRacB7tfZuBG4gv4R159VwCDQfYYzcrcdYPqsJYhqnVN7sTGGKeR2r6mlO5pcedzD7EnnBZynUqyKzh2C66opNou208LiGVtDVQTAc7BGZBr/5RtWjyAiIggbbz9zndP06k86FnAtH9vP3Od0/TqTzoWcCDQnqd/YHrPD1R5qFWJrv7DP8A5bv4Ku3U7+wPWeHqjzUKsTXf2Gf/AC3fwQY7WqpbR3Skq3NLmwTMkLRykNcDp/sru8d7CvcPevGYlRlEF5uO9hXuHvXjMScd7CvcPevGYlRlEF5uO9hXuHvXjMSlnZ7zysecfrxHa7PX2ue1daMrKlzXB7ZOFoWlvaLDqCO1y82YCuH1M/7646/yKL5U6C6qyg2gKCC25341oqVgZDHe6osYBoGgyOdoO8NdFq+sp9o865944Ouv/G6nzhQXC6nP2Dbp8Ip/m9OrFX37yV/6NJ8kquvU5+wbdPhFP83p1Yq+/eSv/RpPklBjmtLNh33M+Gv8ys+dSrNNaWbDvuZ8Nf5lZ86lQdtn52Dcd/B2v+bvWTq1iz87BuO/g7X/ADd6ydQEREFt9gDHODsH2fF0eKcTWuzPqqildA2sqWxGQNbJwi3U79NR+1Wi+7XlH+cfDPlCP6VlMiDXrCGMsKYwjqZMLYhtt5ZSlrZ3UdQ2URl2vBDtOTXQ/sX3lUDqaP3jxv8ApNH8mVW/QZFZo9k3FPhms889c4ujzR7JuKfDNZ5565xAXS5ZYIv2YWMqLC2HqfrtXVO9k92vW4Ix7aV55mtH7dwGpIC+PY7Vcb5eKSz2ijlrK+slbDTwRDV0j3HQALTHZlyat2UmDRDKIqnEde1r7pWNGu/mhYfyG/8A2OpPMAHVZP5eWHLHBFJhixR6tjHDqqlzQJKqYgcKR3fOmgHMABzLsF46meGmp5ampmjhgiYXySSODWsaBqSSdwAG/VUNzr2qsQ1ebNDW4CrHQ4csVQetxO1DLofavdK38gjUNHKAeFucdwXyqYIammlpqmGOaCVhZJHI0Oa9pGhBB3EEbtFnNtd5GTZY4jN+sEEkmErlKesEan1FKd/WXH8nlLSeUAg7xqb35R5gWHMvBNJiiwS/zUo4FRTucDJSzADhRP7415ecEEbivtYsw/aMVYcrsPX6ijrbbXRGKeF/ODzg8xB0II3ggEciDHtFJW0NlLd8pMbyWmq65U2mq4Utrri3dPFr7U8wkbqA4e8eQhRqgLQ/qe/YBf4ZqfkxrPBaH9T37AL/AAzU/JjQd7tUe55xr4Nd8pqyzWpm1R7nnGvg13ymrLNAREQFof1PfsAv8M1PyY1ngtD+p79gF/hmp+TGgkDah9z5jbwVJ/6WX+HrRX3+/UFjtcJnrq+pjpqeMfjPe4NaO9vPKtQNqH3PmNvBUn/pUi2GLXBctoyyyVDQ4UNPU1TGnkLhEWtP6i/X9SC92SeW1kyuwLSYctETHz8ESV9XwdH1c+nsnnvczRzDQdsnuCQASSABykoqG7fuZOIKvMaTLykraikslupon1EETy0VU0jA/V+ntmhrmgNO4EE+8F5vXa19JUf+u36U9drV0nRf67fpWOaINjPXa1dJ0X+u36VT/qlFXSVVFgX1NVQT8GSu4XW5A7TdT8uipmiDQ/qe/YBf4ZqfkxqZs0exninwNV+ZeoZ6nv2AX+Gan5MambNHsZ4p8DVfmXoMikREGg3U6+wVcPhBUeZgU+Yz/A+9eD5/NuUB9Tr7BVw+EFR5mBT5jP8AA+9eD5/NuQY+oiIPsYJw5ccXYuteGbSwPrblUsp4teRpcd7j/hA1JPaBWquVOArDlvgqiwxYKcMhgaDPOWgSVMpHspXnncT+waAbgFRrqfFrp7hn86qmaC+22apqodeZ5dHDr8WVy0QQfjnNa0uc4NaBqSToAF6nrtauk6L/AF2/SqBbdeZOIL1mvcMER1tRTWGyiKMUrHlrKiV0bXukeB7Ygu4I13AN1GhJVcEGxnrtauk6L/Xb9Keu1q6Tov8AXb9KxzRBbfqklVS1WIcGGmqYZw2kquEY3h2ns4+0pv2Ffc22P9Jq/nD1mytJthX3Ntj/AEmr+cPQdztBdgrHXwfrfMPWUC1f2guwVjr4P1vmHrKBAREQEREBERAREQEREBWZ6nF2b7z8G5/nNMqzKzPU4uzfefg3P85pkF/1R3qlX4YYQ8Hz+carxKjvVKvwwwh4Pn841BUle5Y7nWWW90N5t0giraCpjqad5aHBskbg5p0O46EDcV6aIJw41ud/dTS+S6b6i+PivaMzjxNapbXccZTxUkzSyVlHTQ0zntPKC+NodoeQjXQqJ0QERSnkbkZjXNS5QuoKOS3WIP0qLvUxkQtbrvEY3dcf3m7tdNSOVBLHU6MGVNfj2744nhcKG10ho4HkbnVEuhOh5+DGDr/3tV7VzmW2C7Fl/g2hwth2nMNFSM9s7e+Z53ukeedzjvP7BoAAujQEREEDbeZHFzuffrqTzoWcC0B6oneoqHJi3Wfhj1Rc7vHoztxxse5x/U4xj9az+QaE9Tv7A9Z4eqPNQqxszBLC+MkgPaWkjvquXU7+wPWeHqjzUKsegopU7EeMxUSCnxlYHwhx626SOZri3mJAaQD3tSvHxJMc91+HPizfUV70QUQ4kmOe6/DnxZvqJxJMc91+HPizfUV70QUQ4kmOe6/DnxZvqKd9k7Iu7ZOuxBUXi90NxmuogYxlIxwbG2PhnUl2hJPD5NN2nPrunhEBZPZ+1EdVnhjieJwcx1/rQ1w5DpM4a/7LRDaMzfsmVGC6mplqoZcQVULm2ug4QL3yHcJHN5o2neSeXTQbysvKmeapqZamokdLNK8vke46lzidST3yUF/upz9g26fCKf5vTqxV9+8lf+jSfJKrr1OfsG3T4RT/ADenVir795K/9Gk+SUGOa0p2GZY5NmvDzGPDnRT1jHgfin1TI7T9jgf1rNZWi2GM6bZguvqsCYqrGUdoudQJ6KsldpHT1BAa5ryfaseA3fyAjfucSAuvmPYpsUZe4iw1TTxwT3W11NFFLIDwWOlicwOOm/QE79FR87FOaeu6/wCDPHKn7Or/ADXNc0Oa4OaRqCDqCF+oKAcSrNPp/BnjlT9nTiVZp9P4M8cqfs6v+iCgHEqzT6fwZ45U/Z04lWafT+DPHKn7Or/oggzZEyaxBlBZb/BiO5WusqbpUQvY2gfI9jGRtcN7nsadSXndpzcu/dOaKFNqrOu1ZY4Oq7bQVscuLbhA6Ohpo3avpw4adff+SG8rdfbEDTcCQGeOZE8dTmHiSphcHxS3aqexw5CDM4gr4LWuc4Na0ucToABqSUJJOpOpKuLsP5C9ffSZo4xov5ppEljopW+3PNUuB5h+IOf235JISDsaZDtwDZ2YzxVSD+VNfF/MQyN326Fw9r3pXD2x5QPY7vZa2RRVk20c+Rgu1y4DwlWaYkrYv6ZUxO32+Fw5ARySuB3c7QddxLSgjzbez69dKiqyxwdW/wBAhdwL1WRO/r3g76dpH4jT7Y859jyA8Koq/SSTqTqV+IJO2dM3btlJjZlzg65U2arLYrpQh26aPXc9uu4SN1JaffHIStOML3204nw9Q3+x1sdbba6IS080Z3Oaf4EHUEHeCCDvCx5VgNkHPSXLPEIw5iGoe/CVylHXCdT6gmO7rzR+SdweBzaEbxoQvRnBl5YczsEVeGL7Ho2T2dLUtaDJSzAHgyN97XQjnBI51l7mbgi/ZeYyrcLYhp+tVdK7Vj269bnjPtZWHna4fs3g6EELW+CaKogjnglZLDI0PjkY4Oa5pGoII5QRzqKdpnJu25t4NMMYipsRUDXPtdY4ab+eJ5/Idp/4nQjnBDMBaH9T37AL/DNT8mNZ+3203KxXmrs13o5aK4UcroaiCUaOje06EH6edaBdT37AL/DNT8mNB3u1R7nnGvg13ymrMbDGH71ie8RWfD9rqrncJWudHTU0Ze9waCSQB2gCVpztUe55xr4Nd8pqpNsKe6Ssf6NV+Yeg4/7h+b35usR+JOT7h+b35usR+JOWqqIMqvuH5vfm6xH4k5Xj2I8M4gwpks61YltFZaa711nl6xVRlj+AWx6O0PMdD+xTkiCNtqL3PmNvBUn8QqC7JuKafCOfuGblWyiKjqJ3UM73HQNEzDG0k8wD3MJPaBVqtvbM62WHLmbL+jqmS3y+cDr8THaup6Vrg4ud2i8tDQDyguPMqADcdQg2YVcNrHZzqM0LnBivCtbSUd/igEFRBVEtiq2N14J4QB4LxqRvBBGm8ab/AFNkraMteLLNRYMxrcY6PE1MxsFNVVDw1lxaNzfZHcJeQEH23KNSSBZpBnJxRc5+jbR5RYnFGzn6MtPlFi0bRBnJxRs5+jLT5RYnFGzn6MtPlFi0bRBEGyRgHEWW+VDsO4ohp4a83Gao4MMwkbwHNYBvH/aV3maPYzxT4Gq/MvXRrnM0exninwNV+ZegyKREQaBdTnmjfkhdIWuHDjxBPwhzjWCAg/8A92lYfEdLLXYeuVFAAZaikliZqdBwnMIH+5VEtgHMqjwtjquwZeKhsFFiHgepJHnRrKtmoa3vcNriP+5rBzq/iDG+40dXbq+ooK+nlpqumkdFNDK0tfG9p0c0g8hBC9da44iy7wDiK4OuN+wXh66VrgA6oqrdFJI4DkBc5upUV7SGWGXFnyMxdc7TgTDdDXU9vc+Gop7bFHJG7hDe1wbqCgqbsT4pp8L7QNn9WSiKmu8Ulse8nQB0mhjH65GRj9a0tWNMUkkMrJYnujkY4OY9p0LSOQg8xWiGyvtEWfMCzUmGsU10NDi+Bgi/nXBjLlpuD4zydcP4zO3vbu1DQ+PtW7NFdmLiQ40wbW0dPeZYmR11JVuLI6ngANa9rwDo/ggNII0IA3gg6wFxRs5+jLT5RYtG0QZycUbOfoy0+UWJxRs5+jLT5RYtG0QZycUbOfoy0+UWK5my5gu+5f5NWvC+I4oYrlTTVD5GwyiRoD5XOb7Id4hSeiDhtoLsFY6+D9b5h6ygWr+0F2CsdfB+t8w9ZQICIiAiIgIiICIiAiIgKzPU4uzfefg3P85plWZWZ6nF2b7z8G5/nNMgv+o8zYyawLmhXUNbi6hq6mahidFAYap8QDXHU6hvLvCkNEEDcUnJboe5+UpfpTik5LdD3PylL9KnlEEDcUnJboe5+UpfpX6NknJYHX1muZ73rlL9KnhEEW4V2esm8NzsqKDA1vnnYdQ+uc+r39vgyuc0H3gFKEUccMTIomNjjYA1rWjQNA5ABzBf0iAiIgIvFV1FPSUstVVzxU9PE0vklleGsY0cpJO4AdtU02rNqGkrbfV4IyzrTLHO0w3C9RkhpYdzo4Dz68hk7XtddeEgizbUzMgzCzWdR2moE9ksDHUdLI06tmlJ1mlHbBIDQRuIYDzqCkRB32X+cmZWAbG+yYSxPJbLe+d1Q6FtLBIDI4AF2r2OPI0c+m5dFxms8u7ybyfS+iUPogmDjNZ5d3k3k+l9EnGazy7vJvJ9L6JQ+iCYOM1nl3eTeT6X0ScZrPLu8m8n0volD6IJg4zWeXd5N5PpfRLw1m0lndV07oJcfVjWuGhMVLTxO/U5sYI/UVEqIPcvF0uV5uM1yu9wq7hWzHhS1FVM6WR57Zc4klemiIO9y9zizIy/sktlwhiaS10EtQ6pfC2lgk1kc1rS7V7HHkY0aa6bl0E+0tndPDJDLjqZ0cjS1w9QUu8EaH/lKIkQEREHe4LzkzQwbQsoMO40ulJRxjSOne9s0UY7TWSBwaO8AF0fGazy7vJvJ9L6JQ+iCYOM1nl3eTeT6X0ScZrPLu8m8n0volD6IJg4zWeXd5N5PpfRJxms8u7ybyfS+iUPogle5bRuddwpXU0+P7gxjhoTTwQwP/U6NjXD9RUX19XV19ZLW11VPVVUzi+WaaQve9x5S5x3k98rwIg/uGR0UrJWhpcxwcA5ocNR2wdxHeO5S3FtLZ3RRMiixxJHGxoaxjbdSANA5AB1rcFEKIJg4zWeXd5N5PpfRKKbtca67XSqulzqpautq5XTTzyu4T5HuOpcT2yV6qICIiAiIgkvCefWbmFcP0lgsWM6qmttG3gU8L6aCXrbddeCHPY52g13DXQDcNy+rxms8u7ybyfS+iUPog6DHuM8R46vvr5iq4MuFyMTYnVApoonPa3k4XW2tDiOTU6nTQcgC7fKrP8AzBy1wucOYZltjaA1D6jSopOuO4bgAd+o3exCihEE1Y22nM0MX4UuOGbxNaDb7jCYZxFRcB/BJB3HXdyKOstMbXzL3F9NinDrqdtxpmSMjM8XXGaPaWu1GvaJXNIgsHxwM4v7+xeT/wD9JxwM4v7+xeT/AP8ASr4iCwfHAzi/v7F5P/8A0vRvW1jnPcaJ9LHe6C38MaGWkoIxJp3i7hae+N6gpEHtXW4V91uM9yulbUVtbUPL5qiokMkkjjzucd5K9VEQFJmC8+83MI0jKKz41rzSRjgsgrGsqmNbzNb11ri0d5pCjNEE7Dazzr0+/wBb/JkP1U42edfT1v8AJkP1VBKIJ242edfT1v8AJkP1U42edfT1v8mQ/VUEognbjZ519PW/yZD9Verd9qTOK62mstdbe6B9LWQPp5mi3Qglj2lrhqBu3EqE0QEREH61zmuDmktcDqCDvBVrMkNsG7Yft9PZMxbfU32lhaGR3KmcPVbWjkEjXENlP+LVp7fCO9VSRBpLRbWGSVRA2SXEdbSOI3xzWycuHxGuH+647PvaKyjxVk7ifD1jxNLU3KvojFTxG3VDA92oOnCcwAcnOVQtEBfoJaQQSCN4IX4iCUsIbQecOFqRlHbcbV01MwaNirmR1QA5gDK1zgO8CF0nGzzr6et/kyH6qglEE7cbPOvp63+TIfqpxs86+nrf5Mh+qoJRBO3Gzzr6et/kyH6qcbPOvp63+TIfqqCUQTNibaazcxFh242C6XqhloLjTSUtSxtviaXRvaWuAIGo3E7woZREBERAREQEREBERAREQF3WSmaF/wApsVVOI8OUdsqqupoX0T2V8b3xhjnxvJAY9h4WsbefTQncuFRBZnjq5p9AYM8TqftCcdXNPoDBnidT9oVZkQWZ46uafQGDPE6n7QnHVzT6AwZ4nU/aFWZEFmeOrmn0BgzxOp+0Jx1c0+gMGeJ1P2hVmRBZnjq5p9AYM8TqftCcdXNPoDBnidT9oVZkQWZ46uafQGDPE6n7QvWuG2bmzVQGOCgwrROP/MgoZS4fHlcP9lW9EHaZh5qZhY/PBxZimvuEHC4QpQ4RU4PMetMAZqO3pquLREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQf/Z"
+           alt="BigxData | 빅스데이터"
+           style="height:26px; width:auto; display:block;" />
+    </a>
+    <nav>
+      <ul class="gnb">
+        <li><a href="#" class="spa-link act" data-page="intro">교육소개</a></li>
+        <li><a href="#" class="spa-link" data-page="course">교육과정</a></li>
+        <li><a href="#" class="spa-link" data-page="submit">교육문의</a></li>
+      </ul>
+    </nav>
+    <div class="hd-btns">
+      <a href="#" class="hbtn hbtn-f spa-link" data-page="submit">무료 상담 신청</a>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+
+  <!-- ══ PAGE: 교육소개 ══ -->
+  <div class="page-section active" id="page-intro">
+
+    <div class="hero-section">
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hv-card">
+          <div class="hv-head">
+            <span class="hv-title">Sales Dashboard</span>
+            <span class="hv-dot"><span></span><span></span><span></span></span>
+          </div>
+          <div class="hv-bars">
+            <i style="height:48%; animation-delay:.05s"></i>
+            <i style="height:72%; animation-delay:.12s"></i>
+            <i style="height:40%; animation-delay:.19s"></i>
+            <i style="height:88%; animation-delay:.26s"></i>
+            <i style="height:60%; animation-delay:.33s"></i>
+            <i style="height:76%; animation-delay:.40s"></i>
+          </div>
+          <div class="hv-foot">
+            <div><span class="hv-k">4.9</span> <span class="hv-l">/ 5.0 만족도</span></div>
+            <span class="hv-trend">▲ 12.4%</span>
+          </div>
+          <div class="hv-chip">
+            <span class="hv-spark"><svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/></svg></span>
+            <div><div class="hv-ct">누적 교육</div><div class="hv-cv">700+</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="hero-kicker">빅스데이터 교육센터</p>
+      <h1 class="hero-title">데이터로 일하는 방식을<br><em>근본부터</em> 바꿉니다</h1>
+      <p class="hero-desc">변화 관리 스페셜리스트이자 국내 유일 태블로 공인 인증 강사가 직접 강의합니다. 삼성전자·SK하이닉스·NH투자증권 등 700회 이상의 기업 교육 이력.</p>
+
+      <!-- TRACK CARDS -->
+      <div class="track-cards">
+        <a href="#" class="track-card t-bi spa-link" data-page="course">
+          <div class="tc-top">
+            <div class="tc-kicker">Track B &nbsp;·&nbsp; BI 맞춤형</div>
+            <div class="tc-title">기업 맞춤형<br>BI 데이터 시각화</div>
+            <div class="tc-desc">현업 데이터로 직접 실습하는 Tableau 교육. 귀사의 데이터와 목적에 맞게 커리큘럼을 설계합니다.</div>
+            <div class="tc-tags">
+              <span class="tc-tag">Tableau Desktop</span>
+              <span class="tc-tag">Tableau Prep</span>
+              <span class="tc-tag">대시보드</span>
+            </div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">700+</div><div class="tc-stat-lbl">누적 기업 교육</div></div>
+            <div class="tc-arrow">→</div>
+          </div>
+        </a>
+        <a href="#" class="track-card t-ai spa-link" data-page="course">
+          <div class="tc-top">
+            <div class="tc-kicker">Track A &nbsp;·&nbsp; AI 활용</div>
+            <div class="tc-title">AI 업무 효율화<br>Claude</div>
+            <div class="tc-desc">Claude를 활용한 업무 자동화. 반복 업무를 줄이고 실무 생산성을 높입니다.</div>
+            <div class="tc-tags">
+              <span class="tc-tag">Claude AI</span>
+              <span class="tc-tag">업무 자동화</span>
+              <span class="tc-tag">바이브 코딩</span>
+            </div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">2026</div><div class="tc-stat-lbl">신규 과정</div></div>
+            <div class="tc-arrow">→</div>
+          </div>
+        </a>
+        <a href="#" class="track-card t-cert spa-link" data-page="course">
+          <div class="tc-top">
+            <div class="tc-kicker">Track C &nbsp;·&nbsp; 자격취득</div>
+            <div class="tc-title">데이터 분석<br>자격증 취득</div>
+            <div class="tc-desc">경영정보시각화능력(국가기술자격)과 Tableau 공인 자격증(TTD)까지, 목표 자격에 맞춰 취득을 준비합니다.</div>
+            <div class="tc-tags">
+              <span class="tc-tag">경영정보시각화능력</span>
+              <span class="tc-tag">Tableau 공인</span>
+              <span class="tc-tag">국가자격</span>
+            </div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">97%</div><div class="tc-stat-lbl">재계약률</div></div>
+            <div class="tc-arrow">→</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div class="quick-links">
+        <a href="#" class="quick-link">
+          <div class="ql-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div>
+            <div class="ql-lbl">교육 이력</div>
+            <div class="ql-num">700+</div>
+            <div class="ql-title">기업 교육 사례 보기</div>
+            <div class="ql-sub">삼성전자·SK하이닉스·카카오 등</div>
+          </div>
+        </a>
+        <a href="#" class="quick-link">
+          <div class="ql-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div>
+            <div class="ql-lbl">수강 후기</div>
+            <div class="ql-num">4.9점</div>
+            <div class="ql-title">실제 후기 보기</div>
+            <div class="ql-sub">97% 재계약률 · 수강생 직접 작성</div>
+          </div>
+        </a>
+        <a href="#" class="quick-link spa-link" data-page="submit">
+          <div class="ql-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div>
+            <div class="ql-lbl">교육 문의</div>
+            <div class="ql-num">무료</div>
+            <div class="ql-title">상담 신청하기</div>
+            <div class="ql-sub">맞춤 커리큘럼 · 견적 안내</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CLIENT LOGO SLIDE -->
+    <section class="client-slide-section">
+      <div class="client-slide-head">
+        <p class="client-wall-label">Education Clients</p>
+        <h2 class="client-wall-title">함께한 고객사</h2>
+        <p class="client-slide-sub">금융·제조·IT·공공·서비스 분야의 현업 조직과 함께 데이터 교육을 진행해 왔습니다.</p>
+      </div>
+      <div class="client-slide-wrap">
+        <div class="client-slide-track">
+          <div class="cs-logo"><span class="cl-logo-text c-samsung">SAMSUNG</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-sk">SK hynix</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-nh">NH투자증권</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-kakao">kakao</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-lh">LH</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-hmm">HMM</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-kb">KB국민은행</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-cj">CJ제일제당</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-mirae">미래에셋자산운용</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-ceragem">CERAGEM</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-bnk">BNK경남은행</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-dalba">DALBA</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-11st">11번가</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-wv">World Vision</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-skmw">삼성물산패션</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-gachon">가천대학교</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-skmw">숙명여자대학교</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-hmm2">하나금융그룹</span></div>
+          <!-- duplicate for seamless loop -->
+          <div class="cs-logo"><span class="cl-logo-text c-samsung">SAMSUNG</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-sk">SK hynix</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-nh">NH투자증권</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-kakao">kakao</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-lh">LH</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-hmm">HMM</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-kb">KB국민은행</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-cj">CJ제일제당</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-mirae">미래에셋자산운용</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-ceragem">CERAGEM</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-bnk">BNK경남은행</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-dalba">DALBA</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-11st">11번가</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-wv">World Vision</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-skmw">삼성물산패션</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-gachon">가천대학교</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-skmw">숙명여자대학교</span></div>
+          <div class="cs-logo"><span class="cl-logo-text c-hmm2">하나금융그룹</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHITE AREA -->
+    <div class="content-area">
+
+      <!-- TRUST BAR -->
+      <div class="trust-bar">
+        <div class="trust-item"><div class="trust-val">국내 유일</div><div class="trust-lbl">태블로 공인 인증 강사</div></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><div class="trust-val">700+</div><div class="trust-lbl">누적 교육 횟수</div></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><div class="trust-val">4.9/5</div><div class="trust-lbl">전체 만족도</div></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><div class="trust-val">97%</div><div class="trust-lbl">재계약률</div></div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><div class="trust-val">27년</div><div class="trust-lbl">데이터 컨설팅 경력</div></div>
+      </div>
+
+      <!-- INSTRUCTOR -->
+      <section style="margin-bottom:56px;">
+        <p class="sec-eyebrow">Instructor</p>
+        <h2 class="sec-title">강사 소개</h2>
+        <p class="sec-desc">국내 유일 태블로 공인 인증 강사와 AI 활용(AX) 전문 강사가 직접 강의합니다</p>
+        <div class="instructor-grid">
+          <div class="inst-card">
+            <div class="inst-hd">
+              <div class="inst-av">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="inst-hd-info">
+                <div class="inst-nm">강승일</div>
+                <span class="inst-tag">국내 유일 공인 인증 강사</span>
+                <div class="inst-rl">빅스데이터(주) DX팀 이사 · 변화 관리 스페셜리스트</div>
+              </div>
+            </div>
+            <div class="inst-bd">
+              <p class="inst-ld">국내 유일 태블로 공인 인증 강사로서, 현업 데이터로 직접 실습하는 강의 방식으로 배운 내용을 바로 업무에 적용할 수 있도록 이끕니다.</p>
+              <ul class="inst-cred">
+                <li>국내 유일 <strong>Tableau Certified Instructor</strong> (Salesforce 공식 인증, 2024)</li>
+                <li>Tableau Ambassador 2025 선정</li>
+                <li>데이터 시각화 교육 700회 이상 진행 (2018~)</li>
+                <li>변화 관리 스페셜리스트 (2022~)</li>
+                <li>저서 3권 — 『2026 시나공 경영정보시각화능력 실기 Tableau』 외</li>
+              </ul>
+            </div>
+          </div>
+          <div class="inst-card ax">
+            <div class="inst-hd">
+              <div class="inst-av">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="inst-hd-info">
+                <div class="inst-nm">김서연</div>
+                <span class="inst-tag">AX 전문 강사</span>
+                <div class="inst-rl">빅스데이터(주) DX팀 · AI 활용(AX) 강사</div>
+              </div>
+            </div>
+            <div class="inst-bd">
+              <p class="inst-ld">AI 활용(AX) 과정을 담당하는 강사입니다. AI 프로젝트 수행 경험을 바탕으로 Claude·ChatGPT 등 생성형 AI를 실무에 접목하는 업무 효율화 과정을 설계·진행합니다.</p>
+              <ul class="inst-cred">
+                <li>AI 관련 프로젝트 수행 경험 보유</li>
+                <li>생성형 AI(<strong>Claude·ChatGPT</strong>) 활용 실무 경험</li>
+                <li>AI 활용 업무 효율화(AX) 과정 담당</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BIGXDATA TRACK RECORD -->
+      <section style="margin-bottom:56px;">
+        <p class="sec-eyebrow">Track Record</p>
+        <h2 class="sec-title">빅스데이터 교육 경력</h2>
+        <p class="sec-desc">2018년부터 현업 데이터로 실습하는 기업 교육을 이어오고 있습니다.</p>
+        <div class="stats-band">
+          <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="stat-item"><div class="stat-num">700<sup>+</sup></div><div class="stat-lbl">누적 기업 교육 횟수</div></div>
+            <div class="stat-item"><div class="stat-num">4.9<sup style="font-size:18px">/5</sup></div><div class="stat-lbl">평균 교육 만족도</div></div>
+            <div class="stat-item"><div class="stat-num">97<sup>%</sup></div><div class="stat-lbl">재계약률</div></div>
+          </div>
+          <p class="track-clients">주요 교육 기업 &nbsp;—&nbsp; 삼성전자 · SK하이닉스 · NH투자증권 · 카카오 · HMM · LH · CJ제일제당 · KB국민은행 등 전 분야 대기업</p>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="reviews-section">
+        <p class="sec-eyebrow">Reviews</p>
+        <h2 class="sec-title">수강생 후기</h2>
+        <p class="sec-desc">실제 교육에 참여한 기업 담당자와 수강생의 이야기</p>
+        <div class="rev-grid">
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">실습 위주의 강의라 바로 업무에 적용할 수 있었습니다. 단순 기능 교육이 아니라 현업에서 어떻게 활용할 수 있는지 구체적인 사례로 알려주셔서 좋았어요.</p>
+            <div class="rev-author">
+              <div class="rev-av">김</div>
+              <div><div class="rev-name">김○○ 과장</div><div class="rev-co">NH투자증권</div></div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">태블로를 처음 접했는데 수강생 수준에 맞게 눈높이 교육을 해주셔서 빠르게 따라갈 수 있었습니다. 다음에도 꼭 신청할 예정입니다.</p>
+            <div class="rev-author">
+              <div class="rev-av">이</div>
+              <div><div class="rev-name">이○○ 대리</div><div class="rev-co">삼성전자</div></div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">우리 회사 데이터로 직접 실습하는 커스터마이징 교육이라 실용성이 매우 높았습니다. HRD 담당자로서 직원들 만족도가 역대 최고였습니다.</p>
+            <div class="rev-author">
+              <div class="rev-av">박</div>
+              <div><div class="rev-name">박○○ HRD 팀장</div><div class="rev-co">카카오</div></div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">Claude로 반복 업무를 자동화하는 실습이 인상적이었습니다. 교육 다음 주부터 주간 보고서 작성 시간이 절반으로 줄었어요. 현업에 바로 쓸 수 있는 내용이었습니다.</p>
+            <div class="rev-author">
+              <div class="rev-av">정</div>
+              <div><div class="rev-name">정○○ 책임</div><div class="rev-co">SK하이닉스</div></div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">TTD 자격증 과정을 들었는데, 시험 출제 포인트를 정확히 짚어주셔서 한 번에 합격했습니다. 공인 인증 강사님께 직접 배운다는 게 확실히 달랐습니다.</p>
+            <div class="rev-author">
+              <div class="rev-av">최</div>
+              <div><div class="rev-name">최○○ 선임</div><div class="rev-co">LH 한국토지주택공사</div></div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rev-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="rev-text">여러 교육을 받아봤지만 이렇게 우리 부서 데이터로 직접 대시보드를 완성해보는 교육은 처음이었습니다. 강사님의 피드백이 특히 실질적이고 꼼꼼했어요.</p>
+            <div class="rev-author">
+              <div class="rev-av">한</div>
+              <div><div class="rev-name">한○○ 매니저</div><div class="rev-co">CJ제일제당</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <p class="sec-eyebrow">FAQ</p>
+        <h2 class="sec-title">자주 묻는 질문</h2>
+        <p class="sec-desc">교육 문의 전 확인하세요</p>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">빅스데이터 교육이 다른 곳과 다른 점은 무엇인가요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">변화 관리 스페셜리스트이자 <strong>국내 유일 태블로 공인 인증 강사(Tableau Certified Instructor)</strong>가 직접 강의합니다. 700회 이상의 기업 교육 경험을 바탕으로 각 기업의 현업 데이터와 직무에 맞는 맞춤형 커리큘럼을 제공합니다.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">어떤 기업들이 교육을 받았나요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">삼성전자, SK하이닉스, NH투자증권, 카카오, LH, HMM, 삼성물산 패션부문, 월드비전, KB국민은행, CJ제일제당, 미래에셋자산운용 등 <strong>금융·IT·공공·제조·서비스 전 분야 대기업</strong>이 수강했습니다.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">태블로를 몰라도 수강 가능한가요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">네, 가능합니다. <strong>기초부터 고급까지 수준별 맞춤 커리큘럼</strong>을 제공하며, 사전 수준 진단을 통해 최적화된 교육을 설계해 드립니다.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">기업 맞춤형 교육은 어떻게 진행되나요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">교육 문의 → 수준 진단 상담 → <strong>귀사 데이터와 직무에 맞는 커리큘럼 설계</strong> → 교육 진행 순서로 진행됩니다. 인원, 기간, 난이도, 활용 데이터 모두 협의하여 최적화합니다.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">자격증 과정의 합격률은 어느 정도인가요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">국내 유일 공인 인증 강사가 직접 강의하므로 <strong>시험 출제 경향과 핵심 포인트</strong>를 정확히 짚어드립니다. TTD101/TTD201 및 경영정보시각화능력 모두 높은 합격률을 유지하고 있습니다.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">교육 비용은 어떻게 되나요?<span class="arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+            <div class="faq-a">과정·인원·기간에 따라 달라집니다. 교육 문의 신청 후 맞춤 견적을 제공해 드립니다. 국가 직무능력표준(NCS) 기반 훈련비 환급 가능 여부도 안내해 드립니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLOSING CTA -->
+      <section class="final-cta">
+        <p class="fc-eyebrow">Start Now</p>
+        <h2 class="fc-title">데이터로 일하는 방식,<br>지금 바꿔보세요</h2>
+        <p class="fc-desc">현업 데이터로 실습하는 맞춤형 교육. 상담은 무료이며, 영업일 기준 1일 이내에 답변드립니다.</p>
+        <div class="fc-actions">
+          <a class="fc-btn-primary spa-link" data-page="submit">무료 상담 신청 →</a>
+          <a class="fc-btn-ghost" href="tel:02-0000-0000">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.29 6.29l.9-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            02-0000-0000
+          </a>
+        </div>
+        <div class="fc-stats">
+          <div><b>700+</b><span>누적 기업 교육</span></div>
+          <div><b>4.9/5</b><span>고객 만족도</span></div>
+          <div><b>97%</b><span>재계약률</span></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ══ PAGE: 교육문의 ══ -->
+  <div class="page-section" id="page-submit">
+    <div class="hero-section">
+      <p class="hero-kicker">Education Inquiry</p>
+      <h1 class="hero-title">교육 문의 및<br><em>맞춤 상담 신청</em></h1>
+      <p class="hero-desc">귀사의 데이터 교육 니즈를 알려주세요. 맞춤 커리큘럼 설계부터 일정 조율까지 전문 컨설턴트가 도와드립니다.</p>
+    </div>
+    <div class="content-area">
+      <div class="cta-wrap">
+        <div class="cta-left">
+          <div class="cta-title">직접 연락하셔도<br>됩니다</div>
+          <p class="cta-desc">빠른 답변을 원하신다면 전화나 이메일로 바로 문의해 주세요. 영업일 기준 1일 이내 답변드립니다.</p>
+          <ul class="contact-list">
+            <li class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.29 6.29l.9-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div><div class="contact-lbl">전화 문의</div><div class="contact-val">02-559-5317</div></div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div><div class="contact-lbl">이메일 문의</div><div class="contact-val"><a href="mailto:support@bigxdata.io">support@bigxdata.io</a></div></div>
+            </li>
+            <li class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div><div class="contact-lbl">운영 시간</div><div class="contact-val">평일 09:00 – 18:00</div></div>
+            </li>
+          </ul>
+          <div class="brochure-cta">
+            <div class="brochure-txt">
+              <div class="brochure-title">교육 소개서가 필요하신가요?</div>
+              <p class="brochure-sub">전체 과정·커리큘럼·교육 이력을 담은 PDF 소개서를 이메일로 보내드립니다.</p>
+            </div>
+            <button type="button" class="brochure-btn" onclick="openBrochureModal()">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              교육 소개서 받기
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="form-box">
+            <h3>교육 문의 신청</h3>
+            <form onsubmit="submitForm(event)">
+              <div class="form-grid">
+                <div class="fg"><label>회사명 <span class="req">*</span></label><input name="company" type="text" placeholder="(주)빅스데이터" required /></div>
+                <div class="fg"><label>담당자명 <span class="req">*</span></label><input name="name" type="text" placeholder="홍길동" required /></div>
+                <div class="fg"><label>연락처 <span class="req">*</span></label><input name="phone" type="tel" placeholder="010-0000-0000" required /></div>
+                <div class="fg"><label>이메일</label><input name="email" type="email" placeholder="name@company.com" /></div>
+                <div class="fg full"><label>관심 과정</label>
+                  <select name="course">
+                    <option value="">선택해 주세요</option>
+                    <option>TRACK A — AI 활용 업무 효율화</option>
+                    <option>TRACK B — BI 기업 맞춤형</option>
+                    <option>TRACK C — 데이터 분석 자격증 취득</option>
+                    <option>복수 과정 / 기타</option>
+                  </select>
+                </div>
+                <div class="fg full"><label>문의 내용</label><textarea name="message" placeholder="교육 목적, 예상 인원, 희망 일정 등을 자유롭게 작성해 주세요."></textarea></div>
+              </div>
+              <button class="submit-btn" type="submit">문의 신청하기 →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: 교육과정 ══ -->
+  <div class="page-section" id="page-course">
+    <div class="hero-section">
+      <p class="hero-kicker">Education Courses</p>
+      <h1 class="hero-title">ABC <em>3트랙</em> 교육과정</h1>
+      <p class="hero-desc">기업의 데이터 역량 수준과 목표에 따라 선택할 수 있는 3가지 교육 트랙.</p>
+    </div>
+    <div class="content-area">
+      <!-- 트랙 오버뷰 (앵커 점프) -->
+      <div class="track-cards" style="margin-bottom:52px;">
+        <a href="#cd-a" class="track-card t-ai">
+          <div class="tc-top">
+            <div class="tc-kicker">Track A &nbsp;·&nbsp; AI 활용</div>
+            <div class="tc-title">AI 업무 효율화 (AX)</div>
+            <div class="tc-desc">Claude · ChatGPT · Gemini로 데이터 업무를 자동화. Gmail·Excel·PPT 연동, 바이브 코딩 포함.</div>
+            <div class="tc-tags"><span class="tc-tag">Claude AI</span><span class="tc-tag">바이브 코딩</span><span class="tc-tag">업무 자동화</span></div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">4~14H</div><div class="tc-stat-lbl">과목당 1~2일</div></div>
+            <div class="tc-arrow">↓</div>
+          </div>
+        </a>
+        <a href="#cd-b" class="track-card t-bi">
+          <div class="tc-top">
+            <div class="tc-kicker">Track B &nbsp;·&nbsp; BI 맞춤형</div>
+            <div class="tc-title">기업 맞춤형 BI 교육</div>
+            <div class="tc-desc">현업 데이터로 직접 실습. 리터러시 → 시각화 → Prep 전처리 → 대시보드 → 닥터 세션.</div>
+            <div class="tc-tags"><span class="tc-tag">데이터 리터러시</span><span class="tc-tag">Tableau Desktop</span><span class="tc-tag">Tableau Prep</span></div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">최대 40H</div><div class="tc-stat-lbl">최대 10일</div></div>
+            <div class="tc-arrow">↓</div>
+          </div>
+        </a>
+        <a href="#cd-c" class="track-card t-cert">
+          <div class="tc-top">
+            <div class="tc-kicker">Track C &nbsp;·&nbsp; 자격취득</div>
+            <div class="tc-title">데이터 분석 자격증 과정</div>
+            <div class="tc-desc">경영정보시각화능력(국가기술자격)부터 Tableau 공인 자격증(TTD101·TTD201)까지 목표 자격에 맞춰 준비.</div>
+            <div class="tc-tags"><span class="tc-tag">경영정보시각화능력</span><span class="tc-tag">Tableau 공인</span><span class="tc-tag">국가자격</span></div>
+          </div>
+          <div class="tc-bottom">
+            <div><div class="tc-stat-val">최대 44H</div><div class="tc-stat-lbl">최대 8일</div></div>
+            <div class="tc-arrow">↓</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- ═══ TRACK A : AI 활용 업무 효율화 ═══ -->
+      <section class="cd-sec a" id="cd-a">
+        <div class="cd-head">
+          <div class="cd-badge a">🤖</div>
+          <div>
+            <div class="cd-track">Track A · AI 활용</div>
+            <h2 class="cd-title">AI 활용 업무 효율화 과정 (AX)</h2>
+          </div>
+        </div>
+        <div class="cd-rule"></div>
+        <div class="sc-grid">
+          <div class="sc-card span2">
+            <div class="sc-step">1</div>
+            <h4>Claude AI — 업무 자동화 &amp; 바이브 코딩</h4>
+            <ul>
+              <li>프롬프트 엔지니어링 기초 및 Claude 프로젝트 관리</li>
+              <li>Gmail · Excel · PowerPoint 커넥터 실습 (업무 자동화)</li>
+              <li>Claude Artifacts로 업무용 앱·도구 제작 체험</li>
+              <li>주식·코인 데이터 수집 → 대시보드 바이브 코딩</li>
+              <li>데이터 스케치 요청 및 Tableau 대시보드 기획·제작</li>
+            </ul>
+            <div class="sc-meta">수준 <span class="level-pill lp-mid">기본~중급</span> <strong>1일 4h ~ 2일 14h</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">2</div>
+            <h4>ChatGPT — 데이터 생성·전처리·시각화</h4>
+            <ul>
+              <li>웹 데이터 수집 및 ChatGPT로 구조화</li>
+              <li>Excel / Google Sheets 내보내기</li>
+              <li>Tableau Prep 전처리 연결</li>
+              <li>Tableau Desktop 대시보드 제작</li>
+            </ul>
+            <div class="sc-meta">수준 <span class="level-pill lp-mid">기본~중급</span> <strong>1~2일</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">3</div>
+            <h4>Gemini — 심층 분석 및 시각적 분석</h4>
+            <ul>
+              <li>공공 데이터 / 웹 데이터 수집</li>
+              <li>Gemini Deep Research 보고서 출력</li>
+              <li>AI 오디오 오버뷰 생성</li>
+              <li>Canvas 앱 → Tableau 연결</li>
+            </ul>
+            <div class="sc-meta">수준 <span class="level-pill lp-mid">기본~중급</span> <strong>1~2일</strong></div>
+          </div>
+        </div>
+        <div class="course-tbl-wrap">
+          <table class="course-tbl">
+            <thead><tr><th>과정명</th><th>AI 도구</th><th>기간</th></tr></thead>
+            <tbody>
+              <tr><td>1. Claude AI 업무 자동화 &amp; 바이브 코딩</td><td>Claude</td><td>1일 4h ~ 2일 14h</td></tr>
+              <tr><td>2. ChatGPT 활용 데이터 생성·전처리·시각화</td><td>ChatGPT</td><td>1일 4h ~ 2일 14h</td></tr>
+              <tr><td>3. Gemini 활용 심층 분석 및 시각적 분석</td><td>Gemini</td><td>1일 4h ~ 2일 14h</td></tr>
+              <tr><td>전체</td><td>—</td><td>과정별 맞춤 구성</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ TRACK B : BI 기업 맞춤형 ═══ -->
+      <section class="cd-sec b" id="cd-b">
+        <div class="cd-head">
+          <div class="cd-badge b">🏢</div>
+          <div>
+            <div class="cd-track">Track B · BI 맞춤형</div>
+            <h2 class="cd-title">BI 기업 맞춤형 과정</h2>
+          </div>
+        </div>
+        <div class="cd-rule"></div>
+        <div class="sc-grid">
+          <div class="sc-card">
+            <div class="sc-step">1</div>
+            <h4>데이터 리터러시 및 이해</h4>
+            <ul>
+              <li>데이터 기반 의사결정의 이해</li>
+              <li>올바른 시각화 원칙과 잘못된 사례 분석</li>
+              <li>차트 유형 선택 기준 및 스토리텔링</li>
+              <li>현업 데이터 품질 관리 방법</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-basic">기본</span> <strong>1일 · 4h</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">2</div>
+            <h4>데이터 역량 강화를 위한 태블로 시각화</h4>
+            <ul>
+              <li>핵심 지표 시각화 및 퀵 테이블 계산</li>
+              <li>LOD 계산식 활용</li>
+              <li>직관적인 UI/UX 화면 구성</li>
+              <li>인터랙티브 대시보드 제작 및 배포</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-adv">기본~고급</span> <strong>4일 · 16h</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">3</div>
+            <h4>Tableau Prep 데이터 전처리 과정</h4>
+            <ul>
+              <li>데이터 결합 — 조인 &amp; 유니온</li>
+              <li>데이터 변형 — 피벗(Pivot)</li>
+              <li>Prep 계산식 및 전처리 자동화</li>
+              <li>추출 파일 및 Desktop 연결</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-mid">기본~중급</span> <strong>2일 · 8h</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">4</div>
+            <h4>데이터 스케치 및 대시보드 개발</h4>
+            <ul>
+              <li>분석 주제 선정 및 KPI 설계</li>
+              <li>PPT(A4) 기반 화면 스케치</li>
+              <li>UI / UX / Look &amp; Feel 기획</li>
+              <li>셀프 대시보드 제작 실습</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-mid">중급</span> <strong>1일 · 4h</strong></div>
+          </div>
+          <div class="sc-card span2">
+            <div class="sc-step">5</div>
+            <h4>닥터 세션 (Doctor Session · QnA)</h4>
+            <ul>
+              <li>현업 FAQ 집중 해결</li>
+              <li>데이터 탐색 노하우 공유</li>
+              <li>시각화 Best Practice 안내</li>
+              <li>1:1 QnA 및 피드백 제공</li>
+              <li>수강생 프로젝트 발표 및 상호 피드백</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-adv">기본~고급</span> <strong>2일 · 8h</strong></div>
+          </div>
+        </div>
+        <div class="course-tbl-wrap">
+          <table class="course-tbl">
+            <thead><tr><th>과정명</th><th>수준</th><th>기간</th><th>1일</th><th>전체</th></tr></thead>
+            <tbody>
+              <tr><td>1. 데이터 리터러시 및 이해</td><td><span class="level-pill lp-basic">기본</span></td><td>1일</td><td>4h</td><td>4h</td></tr>
+              <tr><td>2. 태블로 데이터 시각화 과정</td><td><span class="level-pill lp-adv">기본~고급</span></td><td>4일</td><td>4h</td><td>16h</td></tr>
+              <tr><td>3. Tableau Prep 데이터 전처리</td><td><span class="level-pill lp-mid">기본~중급</span></td><td>2일</td><td>4h</td><td>8h</td></tr>
+              <tr><td>4. 데이터 스케치 및 대시보드 개발</td><td><span class="level-pill lp-mid">중급</span></td><td>1일</td><td>4h</td><td>4h</td></tr>
+              <tr><td>5. 닥터 세션 (QnA)</td><td><span class="level-pill lp-adv">기본~고급</span></td><td>2일</td><td>4h</td><td>8h</td></tr>
+              <tr><td>전체</td><td>—</td><td>10일</td><td>4h</td><td>40h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ TRACK C : Certified 자격 취득 ═══ -->
+      <section class="cd-sec c" id="cd-c">
+        <div class="cd-head">
+          <div class="cd-badge c">🏅</div>
+          <div>
+            <div class="cd-track">Track C · 자격취득</div>
+            <h2 class="cd-title">데이터 분석 자격증 취득 과정</h2>
+          </div>
+        </div>
+        <div class="cd-rule"></div>
+        <p class="cd-lead">국가기술자격 <strong>경영정보시각화능력</strong>부터 Salesforce 공인 <strong>Tableau 자격증(TTD101·TTD201)</strong>까지, 목표 자격에 맞춘 맞춤 커리큘럼으로 준비합니다.</p>
+        <div class="sc-grid">
+          <div class="sc-card">
+            <div class="sc-step">1</div>
+            <h4>TTD101 · Tableau Desktop Foundations (기초)</h4>
+            <ul>
+              <li>데이터 원본 생성 및 추출·계산식 (4h)</li>
+              <li>고급 계산 및 매개 변수 생성 (4h)</li>
+              <li>데이터 하위 집합 및 대시보드 (4h)</li>
+              <li>Foundations 자격증 모의 테스트 (4h)</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-basic">기초</span> <strong>2일 · 14h</strong></div>
+          </div>
+          <div class="sc-card">
+            <div class="sc-step">2</div>
+            <h4>TTD201 · Tableau Desktop Intermediate (중급)</h4>
+            <ul>
+              <li>태블로 고급 계산 및 LOD 계산 (4h)</li>
+              <li>시간 기반 데이터·고객 행동 분석 (4h)</li>
+              <li>지리적 분석 및 대시보드 고급 기술 (4h)</li>
+              <li>Data Analyst 자격증 모의 테스트 (4h)</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-mid">중급</span> <strong>2일 · 14h</strong></div>
+          </div>
+          <div class="sc-card span2">
+            <div class="sc-step">3</div>
+            <h4>경영정보시각화능력 필기 &amp; 실기 — 국가기술자격 (대한상공회의소)</h4>
+            <ul>
+              <li>작업 준비 — 데이터 모델링·전처리 (4h)</li>
+              <li>주요 함수 및 대시보드 구성 (4h)</li>
+              <li>모의 문제 풀이 1회 (4h)</li>
+              <li>모의 문제 풀이 2회 및 최종 점검 (4h)</li>
+              <li>강승일 이사 집필 교재 활용 강의</li>
+            </ul>
+            <div class="sc-meta"><span class="level-pill lp-mid">기본~중급</span> <strong>4일 · 16h</strong></div>
+          </div>
+        </div>
+        <div class="course-tbl-wrap">
+          <table class="course-tbl">
+            <thead><tr><th>과정명</th><th>수준</th><th>기간</th><th>1일</th><th>전체</th></tr></thead>
+            <tbody>
+              <tr><td>1. TTD101 · Tableau Desktop Foundations</td><td><span class="level-pill lp-basic">기초</span></td><td>2일</td><td>7h</td><td>14h</td></tr>
+              <tr><td>2. TTD201 · Tableau Desktop Intermediate</td><td><span class="level-pill lp-mid">중급</span></td><td>2일</td><td>7h</td><td>14h</td></tr>
+              <tr><td>3. 경영정보시각화능력 필기 &amp; 실기</td><td><span class="level-pill lp-mid">기본~중급</span></td><td>4일</td><td>4h</td><td>16h</td></tr>
+              <tr><td>전체</td><td>—</td><td>8일</td><td>—</td><td>44h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 교육 문의 CTA -->
+      <div class="course-cta">
+        <div>
+          <h3>기업 맞춤형 교육이 필요하신가요?</h3>
+          <p>담당자가 직접 커리큘럼을 설계하고 제안드립니다. 지금 바로 문의하세요.</p>
+        </div>
+        <div class="cc-btns">
+          <a class="cc-btn-p spa-link" data-page="submit">교육 문의하기</a>
+          <a class="cc-btn-s" onclick="openBrochureModal()" style="cursor:pointer;">교육 소개서 받기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>회사소개</h4>
+        <ul>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">빅스데이터</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">CEO 인사말</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">회사연혁</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">채용</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>솔루션</h4>
+        <ul>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">태블로</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">에이전트웍스</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">데이터웍스</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">스노우플레이크</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">세일즈포스</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>사업분야</h4>
+        <ul>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">데이터 컨설팅</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">데이터 플랫폼 운영</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">데이터 플랫폼 구축</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">교육 및 변화관리</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>교육센터</h4>
+        <ul>
+          <li><a class="spa-link" data-page="intro">교육소개</a></li>
+          <li><a class="spa-link" data-page="course">교육과정</a></li>
+          <li><a class="spa-link" data-page="submit">교육문의</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>리소스</h4>
+        <ul>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">블로그</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">동영상</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">뉴스레터</a></li>
+          <li><a href="https://bigxdata.io" target="_blank" rel="noopener">고객사례</a></li>
+        </ul>
+      </div>
+      <div class="footer-company">
+        <a href="https://bigxdata.io" target="_blank" rel="noopener" class="footer-logo" aria-label="빅스데이터 홈">
+          <svg viewBox="0 0 148 36" height="26" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="34" height="36" rx="6" fill="#6B21A8"/>
+            <text x="7" y="27" font-family="Arial Black,sans-serif" font-weight="900" font-size="24" fill="white">B</text>
+            <text x="40" y="27" font-family="'Plus Jakarta Sans',Arial Black,sans-serif" font-weight="800" font-size="20" fill="white" letter-spacing="-0.5">BIGX</text>
+            <text x="97" y="27" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-weight="500" font-size="20" fill="rgba(255,255,255,.88)">data</text>
+            <text x="139" y="10" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#9D4EDD">+</text>
+          </svg>
+        </a>
+        <div class="fco-line">사업자명 : <b>빅스데이터(주)</b>&nbsp;&nbsp;|&nbsp;&nbsp;대표자명 : 김대중</div>
+        <div class="fco-line">대표전화 : <b>02-559-5317</b>&nbsp;&nbsp;|&nbsp;&nbsp;팩스 : 02-559-5316</div>
+        <div class="fco-line">이메일 : <a href="mailto:support@bigxdata.io">support@bigxdata.io</a></div>
+        <div class="fco-line">주소 : 서울시 강남구 테헤란로 616, 미래에셋벤처타워 B동 5층</div>
+        <div class="fco-line">사업자등록번호 : 214-86-30316</div>
+        <div class="fco-line">통신판매업신고번호 : 2020-서울강남-00881</div>
+        <a class="fco-inquiry spa-link" data-page="submit">문의하기 →</a>
+        <div class="fco-social">
+          <a href="https://bigxdata.io" target="_blank" rel="noopener" aria-label="블로그"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm3 5v6h2v-2h1.5a2 2 0 0 0 0-4H7zm2 2h1.5a.5.5 0 0 1 0 1H9v-1zm5-2v6h2v-6h-2z"/></svg></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="인스타그램"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 .01 4.1.06 1.06.05 1.79.22 2.42.46.66.26 1.21.6 1.77 1.16.56.56.9 1.11 1.16 1.77.24.63.41 1.36.46 2.42C21.99 9 22 9.3 22 12s-.01 3-.06 4.1c-.05 1.06-.22 1.79-.46 2.42a4.9 4.9 0 0 1-1.16 1.77c-.56.56-1.11.9-1.77 1.16-.63.24-1.36.41-2.42.46C15 21.99 14.7 22 12 22s-3-.01-4.1-.06c-1.06-.05-1.79-.22-2.42-.46a4.9 4.9 0 0 1-1.77-1.16 4.9 4.9 0 0 1-1.16-1.77c-.24-.63-.41-1.36-.46-2.42C2.01 15 2 14.7 2 12s.01-3 .06-4.1c.05-1.06.22-1.79.46-2.42.26-.66.6-1.21 1.16-1.77.56-.56 1.11-.9 1.77-1.16.63-.24 1.36-.41 2.42-.46C9 2.01 9.3 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.8 5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="링크드인"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.75-2.05 4 0 4.75 2.65 4.75 6.1V21h-4v-5.3c0-1.26-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8V21h-4z"/></svg></a>
+          <a href="https://bigxdata.io" target="_blank" rel="noopener" aria-label="빅스데이터"><svg viewBox="0 0 24 24"><path d="M12 2v6l4-4-4-2zm0 20v-6l-4 4 4 2zM2 12h6L4 8l-2 4zm20 0h-6l4 4 2-4zM5.6 5.6l4.2 4.2-.7-4.9-3.5.7zm12.8 12.8l-4.2-4.2.7 4.9 3.5-.7zM18.4 5.6l-4.2 4.2 4.9-.7-.7-3.5zM5.6 18.4l4.2-4.2-4.9.7.7 3.5z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 빅스데이터(주) All rights reserved.</span>
+      <span class="fb-sep">|</span>
+      <a href="https://bigxdata.io" target="_blank" rel="noopener">이용약관</a>
+      <span class="fb-sep">|</span>
+      <a href="https://bigxdata.io" target="_blank" rel="noopener">개인정보처리방침</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ 교육 소개서 받기 모달 ══ -->
+<div class="modal-overlay" id="brochureModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="brochureModalTitle">
+    <button type="button" class="modal-close" onclick="closeBrochureModal()" aria-label="닫기">✕</button>
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </div>
+    <h3 id="brochureModalTitle">교육 소개서 받기</h3>
+    <p class="modal-desc">정보를 입력하시면 빅스데이터 교육 소개서(PDF)를 입력하신 이메일로 보내드립니다.</p>
+    <form onsubmit="submitBrochure(event)">
+      <div class="modal-grid">
+        <div class="fg"><label>회사명 <span class="req">*</span></label><input type="text" name="company" placeholder="빅스데이터(주)" required /></div>
+        <div class="fg"><label>부서 <span class="req">*</span></label><input type="text" name="dept" placeholder="DX팀" required /></div>
+        <div class="fg"><label>이름 <span class="req">*</span></label><input type="text" name="name" placeholder="홍길동" required /></div>
+        <div class="fg"><label>이메일 <span class="req">*</span></label><input type="email" name="email" placeholder="name@company.com" required /></div>
+      </div>
+      <button class="submit-btn" type="submit">소개서 받기 →</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.spa-link').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      const page = this.dataset.page;
+      if (!page) return;
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('page-' + page)?.classList.add('active');
+      document.querySelectorAll('.gnb li a, .sub-nav-inner ul li a').forEach(a => {
+        a.classList.toggle('act', a.dataset.page === page);
+      });
+      // 폼 위주 페이지(교육문의)는 섹션 스냅 해제 — 자유 스크롤
+      document.documentElement.classList.toggle('no-snap', page === 'submit');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // 교육 소개서 받기 모달
+  function openBrochureModal() {
+    const m = document.getElementById('brochureModal');
+    m.classList.add('open');
+    m.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBrochureModal() {
+    const m = document.getElementById('brochureModal');
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('brochureModal').addEventListener('click', function(e) {
+    if (e.target === this) closeBrochureModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeBrochureModal();
+  });
+  async function submitBrochure(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button[type=submit]');
+    const data = Object.fromEntries(new FormData(form).entries());
+    const email = data.email;
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = '발송 중…';
+    try {
+      const res = await fetch('/api/brochure', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('request failed');
+      alert(email + ' 으로\n빅스데이터 교육 소개서(PDF)를 발송했습니다.\n잠시 후 메일함을 확인해 주세요.');
+      form.reset();
+      closeBrochureModal();
+    } catch (err) {
+      alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도하시거나 support@bigxdata.io로 문의해 주세요.');
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const ans  = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').classList.remove('open');
+    });
+    if (!isOpen) { item.classList.add('open'); ans.classList.add('open'); }
+  }
+
+  async function submitForm(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.submit-btn');
+    const data = Object.fromEntries(new FormData(form).entries());
+    btn.disabled = true; const orig = btn.textContent; btn.textContent = '접수 중…';
+    try {
+      const res = await fetch('/api/inquiry', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('request failed');
+      alert('문의가 접수되었습니다.\n영업일 기준 1일 이내에 연락드리겠습니다.');
+      form.reset();
+    } catch (err) {
+      alert('접수 중 오류가 발생했습니다. 잠시 후 다시 시도하시거나 02-559-5317로 문의해 주세요.');
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  }
+
+  // ── 스크롤 리빌 + 숫자 카운트업 ──
+  (function() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const countSel = '.trust-val, .stat-num, .fc-stats b, .hv-foot .hv-k, .hv-chip .hv-cv';
+
+    // 숫자 카운트업 (화면에 들어올 때마다 0부터 다시 올라감)
+    function countUp(el) {
+      const tn = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.textContent));
+      if (!tn) return;
+      // 원본 값은 최초 1회만 저장(재실행 시 손상 방지)
+      if (!el.dataset.cval) {
+        const raw = tn.textContent;
+        const m = raw.match(/(\d+(?:\.\d+)?)/);
+        if (!m) { el.dataset.cval = 'none'; return; }
+        el.dataset.cval = m[1];
+        el.dataset.cpre = raw.slice(0, m.index);
+        el.dataset.cpost = raw.slice(m.index + m[1].length);
+      }
+      if (el.dataset.cval === 'none') return;
+      const target = parseFloat(el.dataset.cval);
+      const dec = (el.dataset.cval.split('.')[1] || '').length;
+      const pre = el.dataset.cpre, post = el.dataset.cpost;
+      if (reduce) { tn.textContent = pre + target.toFixed(dec) + post; return; }
+      if (el._animating) return;
+      el._animating = true;
+      tn.textContent = pre + (0).toFixed(dec) + post;   // 0부터 시작(눈에 보이게)
+      const dur = 1500; let start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        tn.textContent = pre + (target * eased).toFixed(dec) + post;
+        if (p < 1) requestAnimationFrame(step);
+        else { tn.textContent = pre + target.toFixed(dec) + post; el._animating = false; }
+      }
+      requestAnimationFrame(step);
+    }
+
+    // ── 리빌 (한 번만) ──
+    const revealSel = '.hero-section, .client-slide-section, .content-area > .trust-bar, .content-area > section, .content-area > .track-cards, .content-area > .course-cta, .footer-top';
+    const targets = document.querySelectorAll(revealSel);
+    targets.forEach(el => {
+      const inView = el.offsetParent !== null && el.getBoundingClientRect().top < window.innerHeight * 0.92;
+      el.classList.add('reveal');
+      if (inView || reduce) el.classList.add('in');
+    });
+
+    const countEls = [...document.querySelectorAll(countSel)];
+
+    function check() {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      // 리빌
+      targets.forEach(el => {
+        if (el.classList.contains('in') || el.offsetParent === null) return;
+        if (el.getBoundingClientRect().top < vh * 0.9) el.classList.add('in');
+      });
+      // 카운트업 (화면에 들어오는 순간 트리거, 벗어나면 리셋되어 재진입 시 다시 실행)
+      countEls.forEach(el => {
+        if (el.offsetParent === null) { el._inview = false; return; }
+        const r = el.getBoundingClientRect();
+        const visible = r.top < vh * 0.85 && r.bottom > vh * 0.15;
+        if (visible && !el._inview) { el._inview = true; countUp(el); }
+        else if (!visible) { el._inview = false; }
+      });
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check, { passive: true });
+
+    // IntersectionObserver도 병행(지원 시) — 리빌 보강
+    if ('IntersectionObserver' in window) {
+      const revIO = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      targets.forEach(el => revIO.observe(el));
+    }
+
+    check();            // 첫 화면 즉시 반영
+    setTimeout(check, 60);
+  })();
+</script>
+</body>
+</html>
