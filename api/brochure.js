@@ -47,13 +47,13 @@ export default async function handler(req, res) {
     await resend.emails.send({
       from: process.env.MAIL_FROM,
       to: email,
-      subject: '[빅스데이터] 교육 소개서를 보내드립니다',
+      subject: '[빅스데이터] 회사 소개서를 보내드립니다',
       text:
         `${name}님, 안녕하세요.\n\n` +
-        `요청하신 빅스데이터 교육 소개서(PDF)를 첨부해 드립니다.\n` +
+        `요청하신 빅스데이터 소개서(PDF)를 첨부해 드립니다.\n` +
         `교육 관련 문의는 회신 또는 02-559-5317로 연락 주세요.\n\n` +
         `감사합니다.\n빅스데이터 교육센터`,
-      attachments: [{ filename: '빅스데이터_교육소개서.pdf', content: pdfBuffer }],
+      attachments: [{ filename: '빅스데이터_회사소개서_2026.pdf', content: pdfBuffer }],
     });
 
     // 발송 완료 표시
