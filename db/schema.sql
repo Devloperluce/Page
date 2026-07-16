@@ -7,8 +7,8 @@ create table if not exists public.inquiries (
   created_at  timestamptz not null default now(),
   company     text not null,          -- 회사명
   name        text not null,          -- 담당자명
-  phone       text not null,          -- 연락처
-  email       text,                   -- 이메일(선택)
+  email       text not null,          -- 이메일(필수)
+  phone       text,                   -- 연락처(선택)
   course      text,                   -- 관심 과정
   message     text,                   -- 문의 내용
   user_agent  text,

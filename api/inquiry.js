@@ -6,8 +6,8 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { company, name, phone, email, course, message } = req.body || {};
-  if (!company || !name || !phone) {
-    return res.status(400).json({ error: '회사명·담당자명·연락처는 필수입니다.' });
+  if (!company || !name || !email) {
+    return res.status(400).json({ error: '회사명·담당자명·이메일은 필수입니다.' });
   }
 
   const { data, error } = await supabase
@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     .insert({
       company,
       name,
-      phone,
-      email: email || null,
+      email,
+      phone: phone || null,
       course: course || null,
       message: message || null,
       user_agent: req.headers['user-agent'] || null,
