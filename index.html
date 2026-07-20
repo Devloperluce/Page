@@ -1041,6 +1041,26 @@
         line-height: 1.7;
       }
     }
+
+    /* ── 모바일 가로 스크롤/여백 보정 ── */
+    html, body { overflow-x: hidden; }
+    @media (max-width: 640px) {
+      .stats-band { padding: 26px 18px; }
+      .stats-band .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 0; }
+      .stat-item { padding: 0 8px; }
+      .final-cta { padding: 40px 22px; }
+      .fc-stats { display: flex; flex-wrap: wrap; justify-content: center; border-top: none; padding-top: 18px; gap: 6px 0; }
+      .fc-stats > div { border-right: none; padding: 8px 22px; }
+      .fc-actions { flex-direction: column; }
+      .fc-btn-primary, .fc-btn-ghost { justify-content: center; }
+      .cta-wrap { grid-template-columns: 1fr; padding: 26px 20px; gap: 28px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .fg.full { grid-column: auto; }
+      .course-cta { padding: 26px 20px; }
+      .trust-bar { flex-wrap: wrap; gap: 14px 0; }
+      .trust-item { flex: 0 0 33.33%; }
+      .trust-div { display: none; }
+    }
   </style>
 </head>
 <body>
