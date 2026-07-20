@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>빅스데이터 교육센터 | ABC 과정 · AI 활용 · BI 맞춤형 · 자격증 취득</title>
+  <meta name="description" content="변화 관리 스페셜리스트이자 국내 유일 태블로 공인 인증 강사가 직접 강의하는 기업 맞춤형 데이터 교육. AI 활용·BI 맞춤형·자격증 취득 ABC 3트랙. 삼성전자·SK하이닉스·NH투자증권 등 700회 이상 교육 이력." />
+  <!-- favicon (B 로고 SVG) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%236B21A8'/%3E%3Ctext x='50%25' y='53%25' font-family='Arial Black,Arial,sans-serif' font-size='24' font-weight='900' fill='white' text-anchor='middle' dominant-baseline='central'%3EB%3C/text%3E%3C/svg%3E" />
+  <!-- Open Graph / 공유 미리보기 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="빅스데이터 교육센터 | 기업 맞춤형 데이터 교육" />
+  <meta property="og:description" content="국내 유일 태블로 공인 인증 강사가 직접 강의. AI 활용·BI 맞춤형·자격증 취득 ABC 3트랙 기업 교육." />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -31,7 +40,8 @@
 
     /* ── HEADER ── */
     .site-header { position: sticky; top: 0; z-index: 200; background: rgba(13,17,23,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.07); }
-    .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .header-inner { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-toggle { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; background: none; border: none; color: #fff; cursor: pointer; }
     .logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
     .logo-text span { color: var(--primary); }
     .gnb { display: flex; list-style: none; }
@@ -1045,6 +1055,11 @@
     /* ── 모바일 가로 스크롤/여백 보정 ── */
     html, body { overflow-x: hidden; }
     @media (max-width: 640px) {
+      .nav-toggle { display: flex; }
+      #mainNav { position: absolute; top: 100%; left: 0; right: 0; background: rgba(11,15,26,.98); border-bottom: 1px solid rgba(255,255,255,.08); box-shadow: 0 16px 40px rgba(0,0,0,.4); display: none; }
+      #mainNav.open { display: block; }
+      #mainNav .gnb { display: flex; flex-direction: column; padding: 6px 0; }
+      #mainNav .gnb li a { padding: 14px 28px; font-size: 15px; border-radius: 0; }
       .stats-band { padding: 26px 18px; }
       .stats-band .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 20px 0; }
       .stat-item { padding: 0 8px; }
@@ -1085,7 +1100,7 @@
            alt="BigxData | 빅스데이터"
            style="height:26px; width:auto; display:block;" />
     </a>
-    <nav>
+    <nav id="mainNav">
       <ul class="gnb">
         <li><a href="#" class="spa-link act" data-page="intro">교육소개</a></li>
         <li><a href="#" class="spa-link" data-page="course">교육과정</a></li>
@@ -1094,6 +1109,9 @@
     </nav>
     <div class="hd-btns">
       <a href="#" class="hbtn hbtn-f spa-link" data-page="submit">무료 상담 신청</a>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="메뉴 열기" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -1186,7 +1204,7 @@
 
       <!-- QUICK LINKS -->
       <div class="quick-links">
-        <a href="#" class="quick-link">
+        <a href="#clients" class="quick-link">
           <div class="ql-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
           <div>
             <div class="ql-lbl">교육 이력</div>
@@ -1195,7 +1213,7 @@
             <div class="ql-sub">삼성전자·SK하이닉스·카카오 등</div>
           </div>
         </a>
-        <a href="#" class="quick-link">
+        <a href="#reviews" class="quick-link">
           <div class="ql-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
           <div>
             <div class="ql-lbl">수강 후기</div>
@@ -1217,7 +1235,7 @@
     </div>
 
     <!-- CLIENT LOGO SLIDE -->
-    <section class="client-slide-section">
+    <section class="client-slide-section" id="clients">
       <div class="client-slide-head">
         <p class="client-wall-label">Education Clients</p>
         <h2 class="client-wall-title">함께한 고객사</h2>
@@ -1349,7 +1367,7 @@
       </section>
 
       <!-- REVIEWS -->
-      <section class="reviews-section">
+      <section class="reviews-section" id="reviews">
         <p class="sec-eyebrow">Reviews</p>
         <h2 class="sec-title">수강생 후기</h2>
         <p class="sec-desc">실제 교육에 참여한 기업 담당자와 수강생의 이야기</p>
@@ -1946,9 +1964,24 @@
       });
       // 폼 위주 페이지(교육문의)는 섹션 스냅 해제 — 자유 스크롤
       document.documentElement.classList.toggle('no-snap', page === 'submit');
+      closeNav();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // 모바일 네비 토글
+  function toggleNav() {
+    const nav = document.getElementById('mainNav');
+    const btn = document.querySelector('.nav-toggle');
+    const open = nav.classList.toggle('open');
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function closeNav() {
+    const nav = document.getElementById('mainNav');
+    if (nav) nav.classList.remove('open');
+    const btn = document.querySelector('.nav-toggle');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
 
   // 교육 소개서 받기 모달
   function openBrochureModal() {
