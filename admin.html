@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>빅스데이터 교육센터 · 관리자</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#0099C8;--primary-dark:#0077A3;--accent:#00C4A7;--dark:#0B0F1A;--g5:#636E88;--g3:#C8D0E0;--line:rgba(255,255,255,.08)}
+    body{font-family:'Noto Sans KR',sans-serif;background:#0B0F1A;color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary)}
+    /* 로그인 */
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+      background:radial-gradient(circle at 80% 15%,rgba(0,153,200,.18),transparent 40%),radial-gradient(circle at 15% 90%,rgba(0,196,167,.12),transparent 45%),#0B0F1A}
+    .login-card{width:100%;max-width:400px;background:linear-gradient(160deg,#101725,#0B0F1A);border:1px solid var(--line);border-radius:18px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .brand{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;margin-bottom:4px}
+    .brand span{color:var(--primary)}
+    .login-card h1{font-size:20px;font-weight:800;margin:14px 0 6px}
+    .login-card p.sub{font-size:13px;color:var(--g5);margin-bottom:24px}
+    label{display:block;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:6px}
+    input{width:100%;padding:11px 13px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:.15s}
+    input:focus{border-color:var(--primary)}
+    .fg{margin-bottom:14px}
+    .btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:.15s;margin-top:6px}
+    .btn:hover{background:var(--primary-dark)}
+    .btn:disabled{opacity:.6;cursor:default}
+    .err{color:#ff8080;font-size:12.5px;margin-top:12px;min-height:16px;line-height:1.5}
+    /* 대시보드 */
+    .hidden{display:none!important}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 26px;border-bottom:1px solid var(--line);background:rgba(13,17,23,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}
+    .topbar .who{font-size:12.5px;color:var(--g5)}
+    .topbar .who b{color:rgba(255,255,255,.85);font-weight:600}
+    .logout{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+    .logout:hover{background:rgba(255,255,255,.12)}
+    .wrap{max-width:1200px;margin:0 auto;padding:26px}
+    .tabs{display:flex;gap:8px;margin-bottom:18px}
+    .tab{padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+    .tab.act{background:var(--primary);border-color:var(--primary);color:#fff}
+    .tab .cnt{opacity:.7;font-weight:600;margin-left:4px}
+    .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+    .search{flex:1;min-width:200px;max-width:340px}
+    .search input{padding:9px 12px}
+    .csv{background:rgba(0,196,167,.14);border:1px solid rgba(0,196,167,.4);color:var(--accent);padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+    .csv:hover{background:var(--accent);color:#06231d}
+    .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+    table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+    th{position:sticky;top:0;background:#141824;color:rgba(255,255,255,.55);font-weight:700;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12px}
+    td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.82);vertical-align:top}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    td.msg{max-width:320px;white-space:pre-wrap;color:rgba(255,255,255,.6);font-size:12.5px}
+    .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(0,153,200,.15);color:#6fd0ec}
+    .empty{padding:48px;text-align:center;color:var(--g5);font-size:14px}
+    .loading{padding:48px;text-align:center;color:var(--g5)}
+    .count-note{font-size:12px;color:var(--g5);margin-top:10px}
+  </style>
+</head>
+<body>
+  <!-- 로그인 -->
+  <div class="login-wrap" id="loginView">
+    <div class="login-card">
+      <div class="brand">BIGX<span>data</span> 교육센터</div>
+      <h1>관리자 로그인</h1>
+      <p class="sub">문의·소개서 요청 내역 관리</p>
+      <form id="loginForm">
+        <div class="fg"><label>이메일</label><input type="email" id="email" required autocomplete="username" /></div>
+        <div class="fg"><label>비밀번호</label><input type="password" id="password" required autocomplete="current-password" /></div>
+        <button class="btn" type="submit" id="loginBtn">로그인</button>
+        <div class="err" id="loginErr"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 대시보드 -->
+  <div id="dashView" class="hidden">
+    <div class="topbar">
+      <div class="brand">BIGX<span>data</span> 관리자</div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="who"><b id="whoEmail"></b> 님</span>
+        <button class="logout" id="logoutBtn">로그아웃</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="tabs">
+        <button class="tab act" data-tab="inquiries">교육 문의 <span class="cnt" id="cntInq"></span></button>
+        <button class="tab" data-tab="brochure">소개서 요청 <span class="cnt" id="cntBro"></span></button>
+      </div>
+      <div class="toolbar">
+        <div class="search"><input type="text" id="search" placeholder="회사명·담당자·이메일 검색…" /></div>
+        <button class="csv" id="csvBtn">CSV 내보내기</button>
+      </div>
+      <div class="tbl-wrap">
+        <table id="table"><thead id="thead"></thead><tbody id="tbody"></tbody></table>
+      </div>
+      <div class="count-note" id="countNote"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    let supabase = null;
+    let currentTab = 'inquiries';
+    const cache = { inquiries: [], brochure: [] };
+
+    const $ = (id) => document.getElementById(id);
+    const fmtDate = (s) => { try { const d = new Date(s); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); } catch(e){ return s||'-'; } };
+    const esc = (v) => (v==null?'':String(v)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+    async function init() {
+      const cfg = await fetch('/api/config').then(r=>r.json()).catch(()=>({}));
+      if (!cfg.url || !cfg.anonKey) {
+        $('loginErr').textContent = '설정 오류: SUPABASE_URL / SUPABASE_ANON_KEY 환경변수를 확인하세요.';
+        return;
+      }
+      supabase = createClient(cfg.url, cfg.anonKey);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) showDash(session.user);
+    }
+
+    function showDash(user) {
+      $('loginView').classList.add('hidden');
+      $('dashView').classList.remove('hidden');
+      $('whoEmail').textContent = user?.email || '';
+      loadData();
+    }
+    function showLogin() {
+      $('dashView').classList.add('hidden');
+      $('loginView').classList.remove('hidden');
+    }
+
+    $('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = $('loginBtn'); const err = $('loginErr');
+      err.textContent=''; btn.disabled=true; btn.textContent='로그인 중…';
+      const { data, error } = await supabase.auth.signInWithPassword({ email: $('email').value, password: $('password').value });
+      btn.disabled=false; btn.textContent='로그인';
+      if (error) { err.textContent = '로그인 실패: 이메일 또는 비밀번호를 확인하세요.'; return; }
+      showDash(data.user);
+    });
+
+    $('logoutBtn').addEventListener('click', async () => { await supabase.auth.signOut(); showLogin(); });
+
+    document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('act'));
+      t.classList.add('act'); currentTab = t.dataset.tab; render();
+    }));
+    $('search').addEventListener('input', render);
+    $('csvBtn').addEventListener('click', exportCsv);
+
+    async function loadData() {
+      $('tbody').innerHTML = '<tr><td class="loading">불러오는 중…</td></tr>';
+      const [inq, bro] = await Promise.all([
+        supabase.from('inquiries').select('*').order('created_at',{ascending:false}),
+        supabase.from('brochure_requests').select('*').order('created_at',{ascending:false}),
+      ]);
+      if (inq.error || bro.error) {
+        $('tbody').innerHTML = '<tr><td class="empty">데이터 조회 실패: 로그인 계정의 조회 권한(RLS)을 확인하세요.</td></tr>';
+        return;
+      }
+      cache.inquiries = inq.data||[]; cache.brochure = bro.data||[];
+      $('cntInq').textContent = '('+cache.inquiries.length+')';
+      $('cntBro').textContent = '('+cache.brochure.length+')';
+      render();
+    }
+
+    const COLS = {
+      inquiries: [
+        ['created_at','접수일시',fmtDate],['company','회사명'],['name','담당자'],['email','이메일'],
+        ['phone','연락처'],['course','관심 과정'],['message','문의 내용',null,'msg'],['status','상태',v=>`<span class="badge">${esc(v||'new')}</span>`],
+      ],
+      brochure: [
+        ['created_at','요청일시',fmtDate],['company','회사명'],['dept','부서'],['name','이름'],
+        ['email','이메일'],['sent','발송',v=>v?'<span class="badge">완료</span>':'대기'],
+      ],
+    };
+
+    function filtered() {
+      const q = $('search').value.trim().toLowerCase();
+      let rows = cache[currentTab];
+      if (q) rows = rows.filter(r => ['company','name','email','dept','course','message'].some(k => (r[k]||'').toString().toLowerCase().includes(q)));
+      return rows;
+    }
+
+    function render() {
+      const cols = COLS[currentTab];
+      $('thead').innerHTML = '<tr>'+cols.map(c=>`<th>${c[1]}</th>`).join('')+'</tr>';
+      const rows = filtered();
+      if (!rows.length) { $('tbody').innerHTML = `<tr><td class="empty" colspan="${cols.length}">데이터가 없습니다.</td></tr>`; $('countNote').textContent=''; return; }
+      $('tbody').innerHTML = rows.map(r => '<tr>'+cols.map(c=>{
+        const raw = r[c[0]];
+        const val = c[2] ? c[2](raw) : esc(raw==null?'-':raw);
+        const cls = c[3] ? ` class="${c[3]}"` : '';
+        return `<td${cls}>${val}</td>`;
+      }).join('')+'</tr>').join('');
+      $('countNote').textContent = `총 ${rows.length}건`;
+    }
+
+    function exportCsv() {
+      const cols = COLS[currentTab];
+      const rows = filtered();
+      const head = cols.map(c=>c[1]).join(',');
+      const body = rows.map(r => cols.map(c=>{
+        let v = r[c[0]]; if (c[0]==='created_at') v = fmtDate(v); if (c[0]==='sent') v = v?'완료':'대기';
+        v = (v==null?'':String(v)).replace(/"/g,'""');
+        return `"${v}"`;
+      }).join(',')).join('\n');
+      const csv = '﻿'+head+'\n'+body;
+      const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (currentTab==='inquiries'?'교육문의':'소개서요청')+'_'+new Date().toISOString().slice(0,10)+'.csv';
+      a.click();
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -36,3 +36,11 @@ create index if not exists idx_brochure_created on public.brochure_requests (cre
 --  정책을 따로 만들지 않으면 anon/public 클라이언트는 접근 불가 → 안전합니다.)
 alter table public.inquiries enable row level security;
 alter table public.brochure_requests enable row level security;
+
+-- 관리자 페이지(/admin): 로그인(인증)된 사용자에게만 조회(SELECT) 허용.
+-- 공개 가입은 Supabase Authentication 설정에서 비활성화하고, 담당자 계정만 직접 발급하세요.
+-- (insert는 서버의 service_role 키가 RLS를 우회하므로 정책 불필요)
+create policy "authenticated read inquiries"
+  on public.inquiries for select to authenticated using (true);
+create policy "authenticated read brochure"
+  on public.brochure_requests for select to authenticated using (true);
