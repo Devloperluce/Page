@@ -1052,6 +1052,37 @@
       }
     }
 
+    /* ── 왜 빅스데이터 (차별점) ── */
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .why-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 16px; padding: 26px 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; box-shadow: 0 12px 34px rgba(20,24,36,.05); }
+    .why-card:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(0,153,200,.10); border-color: rgba(0,153,200,.32); }
+    .why-ic { width: 46px; height: 46px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .why-ic svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .why-card:nth-child(2) .why-ic { background: rgba(0,196,167,.14); color: #00846f; }
+    .why-card:nth-child(3) .why-ic { background: rgba(138,92,246,.12); color: #7B2FBE; }
+    .why-card:nth-child(4) .why-ic { background: #FFF3E0; color: #C77700; }
+    .why-card h3 { font-size: 15.5px; font-weight: 800; color: var(--dark); line-height: 1.4; margin-bottom: 9px; }
+    .why-card p { font-size: 13px; color: var(--gray-600); line-height: 1.7; }
+    .why-card p strong { color: var(--dark); font-weight: 700; }
+
+    /* ── 교육 진행 프로세스 ── */
+    .process { display: grid; grid-template-columns: repeat(5, 1fr); }
+    .proc-step { position: relative; text-align: center; padding: 0 10px; }
+    .proc-step::before { content: ''; position: absolute; top: 23px; left: 50%; width: 100%; height: 2px; background: var(--gray-200); z-index: 0; }
+    .proc-step:last-child::before { display: none; }
+    .proc-num { position: relative; z-index: 1; width: 48px; height: 48px; margin: 0 auto 14px; border-radius: 50%; background: var(--primary); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,153,200,.3); }
+    .proc-step h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .proc-step p { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+    @media (max-width: 860px) {
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .process { grid-template-columns: 1fr 1fr; gap: 26px 0; }
+      .proc-step::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .process { grid-template-columns: 1fr; gap: 22px 0; }
+    }
+
     /* ── 모바일 가로 스크롤/여백 보정 ── */
     html, body { overflow-x: hidden; }
     @media (max-width: 640px) {
@@ -1300,6 +1331,35 @@
         <div class="trust-item"><div class="trust-val">27년</div><div class="trust-lbl">데이터 컨설팅 경력</div></div>
       </div>
 
+      <!-- WHY BIGXDATA (차별점) -->
+      <section style="margin-bottom:56px;">
+        <p class="sec-eyebrow">Why Bigxdata</p>
+        <h2 class="sec-title">빅스데이터가 다른 이유</h2>
+        <p class="sec-desc">강의 수·강사 풀이 아니라, 공인 인증 강사가 귀사의 현업 데이터로 직접 가르칩니다.</p>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 22l5-3 5 3-1.21-8.11"/></svg></div>
+            <h3>국내 유일 공인 인증 강사 직강</h3>
+            <p><strong>Tableau Certified Instructor · Ambassador</strong>가 처음부터 끝까지 직접 강의합니다. 외주 강사 풀에 맡기지 않습니다.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <h3>귀사의 현업 데이터로 실습</h3>
+            <p>정형화된 강의가 아니라 <strong>회사의 실제 데이터와 직무</strong>에 맞춰 커리큘럼을 설계하고 실습합니다.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+            <h3>AI·BI·자격증까지 한 번에</h3>
+            <p>AI 업무 효율화, BI 시각화, <strong>국가기술자격·공인 자격증</strong>까지 목표에 맞춘 ABC 3트랙.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-ic"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            <h3>숫자로 검증된 신뢰</h3>
+            <p><strong>700회+</strong> 기업 교육, 만족도 <strong>4.9/5</strong>, 재계약률 <strong>97%</strong>가 성과를 증명합니다.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- INSTRUCTOR -->
       <section style="margin-bottom:56px;">
         <p class="sec-eyebrow">Instructor</p>
@@ -1363,6 +1423,20 @@
             <div class="stat-item"><div class="stat-num">97<sup>%</sup></div><div class="stat-lbl">재계약률</div></div>
           </div>
           <p class="track-clients">주요 교육 기업 &nbsp;—&nbsp; 삼성전자 · SK하이닉스 · NH투자증권 · 카카오 · HMM · LH · CJ제일제당 · KB국민은행 등 전 분야 대기업</p>
+        </div>
+      </section>
+
+      <!-- PROCESS (교육 진행 프로세스) -->
+      <section style="margin-bottom:56px;">
+        <p class="sec-eyebrow">Process</p>
+        <h2 class="sec-title">교육 진행 프로세스</h2>
+        <p class="sec-desc">문의부터 사후 지원까지, 귀사에 맞춘 5단계로 진행됩니다.</p>
+        <div class="process">
+          <div class="proc-step"><div class="proc-num">1</div><h4>교육 문의</h4><p>목표·대상·니즈 접수</p></div>
+          <div class="proc-step"><div class="proc-num">2</div><h4>수준 진단 상담</h4><p>수준·활용 데이터 파악</p></div>
+          <div class="proc-step"><div class="proc-num">3</div><h4>맞춤 커리큘럼 설계</h4><p>현업 데이터·직무 반영</p></div>
+          <div class="proc-step"><div class="proc-num">4</div><h4>실습 중심 교육</h4><p>공인 인증 강사 직강</p></div>
+          <div class="proc-step"><div class="proc-num">5</div><h4>사후 지원</h4><p>닥터 세션·QnA 피드백</p></div>
         </div>
       </section>
 
