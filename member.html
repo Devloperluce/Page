@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>빅스데이터 교육센터 · 회원</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--primary:#0099C8;--primary-dark:#0077A3;--primary-light:#E6F6FB;--accent:#00C4A7;--dark:#0B0F1A;--g5:#636E88;--g6:#4A5568;--g2:#DDE3EE;--line:rgba(255,255,255,.08)}
+    body{font-family:'Noto Sans KR',sans-serif;background:#0B0F1A;color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary);text-decoration:none}
+    .brand{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px}
+    .brand span{color:var(--primary)}
+    /* 인증 화면 */
+    .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+      background:radial-gradient(circle at 80% 15%,rgba(0,153,200,.18),transparent 40%),radial-gradient(circle at 15% 90%,rgba(0,196,167,.12),transparent 45%),#0B0F1A}
+    .auth-card{width:100%;max-width:420px;background:linear-gradient(160deg,#101725,#0B0F1A);border:1px solid var(--line);border-radius:18px;padding:36px 32px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .auth-card h1{font-size:20px;font-weight:800;margin:14px 0 6px}
+    .auth-card p.sub{font-size:13px;color:var(--g5);margin-bottom:22px}
+    label{display:block;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:6px}
+    input,select{width:100%;padding:11px 13px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none;transition:.15s}
+    input:focus,select:focus{border-color:var(--primary)}
+    select option{background:#141824}
+    .fg{margin-bottom:14px}
+    .btn{width:100%;padding:12px;background:var(--primary);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:.15s;margin-top:6px}
+    .btn:hover{background:var(--primary-dark)}
+    .btn:disabled{opacity:.6;cursor:default}
+    .btn-ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+    .btn-ghost:hover{background:rgba(255,255,255,.1)}
+    .switch{font-size:13px;color:var(--g5);text-align:center;margin-top:18px}
+    .switch a{cursor:pointer;font-weight:600}
+    .msg{font-size:12.5px;margin-top:12px;min-height:16px;line-height:1.5}
+    .msg.err{color:#ff8080}.msg.ok{color:#5fe6cf}
+    .hidden{display:none!important}
+    /* 대시보드 */
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 26px;border-bottom:1px solid var(--line);background:rgba(13,17,23,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}
+    .topbar .who{font-size:12.5px;color:var(--g5)}.topbar .who b{color:rgba(255,255,255,.85);font-weight:600}
+    .topbar-actions{display:flex;align-items:center;gap:12px}
+    .home-link{font-size:13px;color:rgba(255,255,255,.6)}
+    .logout{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:8px 15px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+    .logout:hover{background:rgba(255,255,255,.12)}
+    .wrap{max-width:920px;margin:0 auto;padding:26px}
+    .tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .tab{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+    .tab.act{background:var(--primary);border-color:var(--primary);color:#fff}
+    .panel{display:none}.panel.act{display:block}
+    .card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:24px}
+    .card h2{font-size:16px;font-weight:800;margin-bottom:4px}
+    .card .desc{font-size:13px;color:var(--g5);margin-bottom:20px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full{grid-column:1/-1}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .row{border:1px solid var(--line);border-radius:11px;padding:15px 17px;background:rgba(255,255,255,.02)}
+    .row .rt{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .row .rtitle{font-size:14px;font-weight:700}
+    .row .rdate{font-size:11.5px;color:var(--g5);white-space:nowrap}
+    .row .rmeta{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:5px;line-height:1.6}
+    .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(0,153,200,.15);color:#6fd0ec}
+    .badge.done{background:rgba(0,196,167,.16);color:#5fe6cf}
+    .empty{padding:34px;text-align:center;color:var(--g5);font-size:13.5px}
+    .dl{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--primary);margin-top:8px}
+    textarea{width:100%;min-height:84px;resize:vertical;padding:11px 13px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none}
+    textarea:focus{border-color:var(--primary)}
+    @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- 인증 -->
+  <div class="auth-wrap" id="authView">
+    <div class="auth-card">
+      <div class="brand">BIGX<span>data</span> 교육센터</div>
+
+      <!-- 로그인 -->
+      <div id="loginBox">
+        <h1>로그인</h1>
+        <p class="sub">회원 서비스를 이용하려면 로그인하세요.</p>
+        <form id="loginForm">
+          <div class="fg"><label>이메일</label><input type="email" id="li_email" required autocomplete="username" /></div>
+          <div class="fg"><label>비밀번호</label><input type="password" id="li_pw" required autocomplete="current-password" /></div>
+          <button class="btn" type="submit">로그인</button>
+          <div class="msg err" id="li_msg"></div>
+        </form>
+        <div class="switch"><a onclick="showReset()">비밀번호를 잊으셨나요?</a></div>
+        <div class="switch">아직 회원이 아니신가요? <a onclick="showSignup()">회원가입</a></div>
+      </div>
+
+      <!-- 회원가입 -->
+      <div id="signupBox" class="hidden">
+        <h1>회원가입</h1>
+        <p class="sub">교육 신청·자료실 이용을 위한 회원 가입입니다.</p>
+        <form id="signupForm">
+          <div class="fg"><label>이름 <span style="color:#e05">*</span></label><input type="text" id="su_name" required /></div>
+          <div class="fg"><label>회사명</label><input type="text" id="su_company" /></div>
+          <div class="fg"><label>이메일 <span style="color:#e05">*</span></label><input type="email" id="su_email" required autocomplete="email" /></div>
+          <div class="fg"><label>비밀번호 <span style="color:#e05">*</span> <span style="color:var(--g5);font-weight:400">(6자 이상)</span></label><input type="password" id="su_pw" minlength="6" required autocomplete="new-password" /></div>
+          <button class="btn" type="submit">회원가입</button>
+          <div class="msg" id="su_msg"></div>
+        </form>
+        <div class="switch">이미 회원이신가요? <a onclick="showLogin()">로그인</a></div>
+      </div>
+
+      <!-- 비밀번호 재설정 -->
+      <div id="resetBox" class="hidden">
+        <h1>비밀번호 재설정</h1>
+        <p class="sub">가입한 이메일로 재설정 링크를 보내드립니다.</p>
+        <form id="resetForm">
+          <div class="fg"><label>이메일</label><input type="email" id="rs_email" required /></div>
+          <button class="btn" type="submit">재설정 메일 받기</button>
+          <div class="msg" id="rs_msg"></div>
+        </form>
+        <div class="switch"><a onclick="showLogin()">← 로그인으로</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 대시보드 -->
+  <div id="dashView" class="hidden">
+    <div class="topbar">
+      <div class="brand">BIGX<span>data</span> 회원</div>
+      <div class="topbar-actions">
+        <a class="home-link" href="/">← 홈으로</a>
+        <span class="who"><b id="whoName"></b> 님</span>
+        <button class="logout" id="logoutBtn">로그아웃</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="tabs">
+        <button class="tab act" data-tab="profile">내 프로필</button>
+        <button class="tab" data-tab="enroll">수강 신청</button>
+        <button class="tab" data-tab="inquiry">내 문의 내역</button>
+        <button class="tab" data-tab="materials">자료실</button>
+      </div>
+
+      <!-- 프로필 -->
+      <div class="panel act" id="panel-profile">
+        <div class="card">
+          <h2>내 프로필</h2>
+          <p class="desc">기본 정보를 관리합니다.</p>
+          <form id="profileForm">
+            <div class="grid2">
+              <div class="fg"><label>이름</label><input type="text" id="pf_name" /></div>
+              <div class="fg"><label>이메일</label><input type="email" id="pf_email" disabled /></div>
+              <div class="fg"><label>회사명</label><input type="text" id="pf_company" /></div>
+              <div class="fg"><label>부서</label><input type="text" id="pf_dept" /></div>
+              <div class="fg full"><label>연락처</label><input type="tel" id="pf_phone" placeholder="010-0000-0000" /></div>
+            </div>
+            <button class="btn" type="submit" style="max-width:200px">저장</button>
+            <div class="msg ok" id="pf_msg"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 수강 신청 -->
+      <div class="panel" id="panel-enroll">
+        <div class="card" style="margin-bottom:18px">
+          <h2>수강 신청</h2>
+          <p class="desc">관심 과정을 신청하면 담당자가 확인 후 연락드립니다.</p>
+          <form id="enrollForm">
+            <div class="fg"><label>과정 선택</label>
+              <select id="en_course" required>
+                <option value="">선택해 주세요</option>
+                <option>TRACK A — AI 활용 업무 효율화</option>
+                <option>TRACK B — BI 기업 맞춤형</option>
+                <option>TRACK C — 데이터 분석 자격증 취득</option>
+                <option>복수 과정 / 기타</option>
+              </select>
+            </div>
+            <div class="fg"><label>요청 사항 (선택)</label><textarea id="en_msg" placeholder="예상 인원, 희망 일정 등"></textarea></div>
+            <button class="btn" type="submit" style="max-width:200px">신청하기</button>
+            <div class="msg ok" id="en_msg2"></div>
+          </form>
+        </div>
+        <h2 style="font-size:15px;font-weight:800;margin:0 0 12px 2px">내 신청 내역</h2>
+        <div class="list" id="enrollList"><div class="empty">불러오는 중…</div></div>
+      </div>
+
+      <!-- 내 문의 -->
+      <div class="panel" id="panel-inquiry">
+        <div class="list" id="inquiryList"><div class="empty">불러오는 중…</div></div>
+      </div>
+
+      <!-- 자료실 -->
+      <div class="panel" id="panel-materials">
+        <div class="list" id="materialsList"><div class="empty">불러오는 중…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    let sb = null, user = null;
+    const $ = id => document.getElementById(id);
+    const fmt = s => { try{const d=new Date(s);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}catch(e){return s||'-';} };
+    const esc = v => (v==null?'':String(v)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+    // 인증 화면 전환
+    window.showLogin=()=>{$('loginBox').classList.remove('hidden');$('signupBox').classList.add('hidden');$('resetBox').classList.add('hidden');};
+    window.showSignup=()=>{$('signupBox').classList.remove('hidden');$('loginBox').classList.add('hidden');$('resetBox').classList.add('hidden');};
+    window.showReset=()=>{$('resetBox').classList.remove('hidden');$('loginBox').classList.add('hidden');$('signupBox').classList.add('hidden');};
+
+    async function init(){
+      const cfg = await fetch('/api/config').then(r=>r.json()).catch(()=>({}));
+      if(!cfg.url||!cfg.anonKey){$('li_msg').textContent='설정 오류: 환경변수(SUPABASE_URL/ANON_KEY)를 확인하세요.';return;}
+      sb = createClient(cfg.url, cfg.anonKey);
+      const { data:{ session } } = await sb.auth.getSession();
+      if(session){ user = session.user; showDash(); }
+    }
+
+    function showDash(){
+      $('authView').classList.add('hidden');
+      $('dashView').classList.remove('hidden');
+      loadProfile();
+    }
+    function showAuth(){ $('dashView').classList.add('hidden'); $('authView').classList.remove('hidden'); showLogin(); }
+
+    // 로그인
+    $('loginForm').addEventListener('submit', async e=>{
+      e.preventDefault(); const m=$('li_msg'); m.textContent='';
+      const { data, error } = await sb.auth.signInWithPassword({ email:$('li_email').value, password:$('li_pw').value });
+      if(error){ m.textContent = error.message.includes('confirm')?'이메일 인증이 필요합니다. 메일함을 확인해 주세요.':'로그인 실패: 이메일 또는 비밀번호를 확인하세요.'; return; }
+      user = data.user; showDash();
+    });
+    // 회원가입
+    $('signupForm').addEventListener('submit', async e=>{
+      e.preventDefault(); const m=$('su_msg'); m.className='msg'; m.textContent='';
+      const { data, error } = await sb.auth.signUp({
+        email:$('su_email').value, password:$('su_pw').value,
+        options:{ data:{ name:$('su_name').value, company:$('su_company').value } }
+      });
+      if(error){ m.classList.add('err'); m.textContent='가입 실패: '+error.message; return; }
+      if(data.session){ user=data.session.user; showDash(); }
+      else { m.classList.add('ok'); m.textContent='가입 완료! 인증 메일을 보냈습니다. 메일의 링크를 클릭한 뒤 로그인해 주세요.'; }
+    });
+    // 비밀번호 재설정
+    $('resetForm').addEventListener('submit', async e=>{
+      e.preventDefault(); const m=$('rs_msg'); m.className='msg'; m.textContent='';
+      const { error } = await sb.auth.resetPasswordForEmail($('rs_email').value, { redirectTo: location.origin + '/member' });
+      if(error){ m.classList.add('err'); m.textContent='오류: '+error.message; return; }
+      m.classList.add('ok'); m.textContent='재설정 메일을 보냈습니다. 메일함을 확인해 주세요.';
+    });
+    $('logoutBtn').addEventListener('click', async ()=>{ await sb.auth.signOut(); user=null; showAuth(); });
+
+    // 탭
+    document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('act'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('act'));
+      t.classList.add('act'); $('panel-'+t.dataset.tab).classList.add('act');
+      if(t.dataset.tab==='enroll') loadEnrollments();
+      if(t.dataset.tab==='inquiry') loadInquiries();
+      if(t.dataset.tab==='materials') loadMaterials();
+    }));
+
+    // 프로필
+    async function loadProfile(){
+      const { data } = await sb.from('profiles').select('*').eq('id', user.id).single();
+      const p = data||{};
+      $('whoName').textContent = p.name || user.email;
+      $('pf_name').value=p.name||''; $('pf_email').value=user.email||'';
+      $('pf_company').value=p.company||''; $('pf_dept').value=p.dept||''; $('pf_phone').value=p.phone||'';
+    }
+    $('profileForm').addEventListener('submit', async e=>{
+      e.preventDefault(); const m=$('pf_msg'); m.textContent='';
+      const { error } = await sb.from('profiles').update({
+        name:$('pf_name').value, company:$('pf_company').value, dept:$('pf_dept').value, phone:$('pf_phone').value
+      }).eq('id', user.id);
+      m.textContent = error ? ('저장 실패: '+error.message) : '저장되었습니다.';
+      m.className = 'msg '+(error?'err':'ok');
+      if(!error) $('whoName').textContent = $('pf_name').value || user.email;
+    });
+
+    // 수강 신청
+    $('enrollForm').addEventListener('submit', async e=>{
+      e.preventDefault(); const m=$('en_msg2'); m.textContent='';
+      const { error } = await sb.from('enrollments').insert({ user_id:user.id, course:$('en_course').value, message:$('en_msg').value||null });
+      if(error){ m.className='msg err'; m.textContent='신청 실패: '+error.message; return; }
+      m.className='msg ok'; m.textContent='수강 신청이 접수되었습니다.';
+      e.target.reset(); loadEnrollments();
+    });
+    async function loadEnrollments(){
+      const { data, error } = await sb.from('enrollments').select('*').order('created_at',{ascending:false});
+      const el=$('enrollList');
+      if(error){ el.innerHTML='<div class="empty">불러오기 실패</div>'; return; }
+      if(!data.length){ el.innerHTML='<div class="empty">아직 신청 내역이 없습니다.</div>'; return; }
+      el.innerHTML = data.map(r=>`<div class="row"><div class="rt"><div class="rtitle">${esc(r.course)}</div><div class="rdate">${fmt(r.created_at)}</div></div>${r.message?`<div class="rmeta">${esc(r.message)}</div>`:''}<div style="margin-top:8px"><span class="badge ${r.status==='done'?'done':''}">${esc(({requested:'접수',contacted:'상담중',done:'완료'})[r.status]||r.status)}</span></div></div>`).join('');
+    }
+
+    // 내 문의 (본인 이메일 기준 RLS)
+    async function loadInquiries(){
+      const { data, error } = await sb.from('inquiries').select('*').order('created_at',{ascending:false});
+      const el=$('inquiryList');
+      if(error){ el.innerHTML='<div class="empty">불러오기 실패</div>'; return; }
+      if(!data.length){ el.innerHTML='<div class="empty">가입 이메일로 접수된 문의가 없습니다.</div>'; return; }
+      el.innerHTML = data.map(r=>`<div class="row"><div class="rt"><div class="rtitle">${esc(r.course||'교육 문의')}</div><div class="rdate">${fmt(r.created_at)}</div></div><div class="rmeta">${esc(r.company||'')} · ${esc(r.name||'')}${r.message?'<br>'+esc(r.message):''}</div><div style="margin-top:8px"><span class="badge ${r.status==='done'?'done':''}">${esc(r.status||'new')}</span></div></div>`).join('');
+    }
+
+    // 자료실
+    async function loadMaterials(){
+      const { data, error } = await sb.from('materials').select('*').order('created_at',{ascending:false});
+      const el=$('materialsList');
+      if(error){ el.innerHTML='<div class="empty">불러오기 실패</div>'; return; }
+      if(!data.length){ el.innerHTML='<div class="empty">등록된 자료가 없습니다.</div>'; return; }
+      el.innerHTML = data.map(r=>`<div class="row"><div class="rt"><div class="rtitle">${esc(r.title)}</div>${r.category?`<div class="rdate">${esc(r.category)}</div>`:''}</div>${r.description?`<div class="rmeta">${esc(r.description)}</div>`:''}${r.file_url?`<a class="dl" href="${esc(r.file_url)}" target="_blank" rel="noopener">↓ 다운로드</a>`:''}</div>`).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>
