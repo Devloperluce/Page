@@ -282,6 +282,20 @@
     .ql-lbl { font-size: 11px; color: rgba(255,255,255,.35); margin-bottom: 3px; letter-spacing: .04em; }
     .ql-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.85); margin-bottom: 3px; }
     .ql-sub { font-size: 11px; color: rgba(255,255,255,.38); line-height: 1.4; }
+
+    /* ── CREDENTIAL BADGES ── */
+    .cred-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
+    .cred-badge { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); font-size: 12px; font-weight: 600; color: rgba(255,255,255,.75); white-space: nowrap; }
+    .cred-badge svg { width: 14px; height: 14px; fill: none; stroke: #7DD8EF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    @media (max-width: 640px) { .cred-badges { gap: 8px; } .cred-badge { font-size: 11px; padding: 6px 11px; } }
+
+    /* ── FLOATING CONSULT BUTTON ── */
+    .float-cta { position: fixed; right: 22px; bottom: 22px; z-index: 250; display: inline-flex; align-items: center; gap: 9px; padding: 14px 22px; border-radius: 999px; background: var(--primary); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; box-shadow: 0 12px 30px rgba(0,153,200,.4); transition: transform .18s, box-shadow .18s; opacity: 0; pointer-events: none; transform: translateY(10px); }
+    .float-cta.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .float-cta:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,153,200,.5); }
+    .float-cta svg { width: 17px; height: 17px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    @media (max-width: 640px) { .float-cta { right: 14px; bottom: 14px; padding: 13px 18px; font-size: 13px; } .float-cta span.fc-label { display: none; } }
+    html.modal-open .float-cta { display: none; }
     .ql-num { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; }
 
     /* ── CONTENT AREA (white) ── */
@@ -1270,6 +1284,26 @@
           </div>
         </a>
       </div>
+
+      <!-- CREDENTIAL BADGES -->
+      <div class="cred-badges">
+        <span class="cred-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7l-9-5z"/></svg>
+          Salesforce 공식 태블로 파트너
+        </span>
+        <span class="cred-badge">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 22l5-3 5 3-1.21-8.11"/></svg>
+          Tableau Certified Instructor
+        </span>
+        <span class="cred-badge">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Tableau Ambassador 2025
+        </span>
+        <span class="cred-badge">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          경영정보시각화능력(국가기술자격)
+        </span>
+      </div>
     </div>
 
     <!-- CLIENT LOGO SLIDE -->
@@ -2011,6 +2045,12 @@
   </div>
 </footer>
 
+<!-- ══ 플로팅 상담 버튼 ══ -->
+<a href="#" id="floatCta" class="float-cta spa-link" data-page="submit">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="fc-label">무료 상담 신청</span>
+</a>
+
 <!-- ══ 회사 소개서 받기 모달 ══ -->
 <div class="modal-overlay" id="brochureModal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="brochureModalTitle">
@@ -2046,9 +2086,21 @@
       // 폼 위주 페이지(교육문의)는 섹션 스냅 해제 — 자유 스크롤
       document.documentElement.classList.toggle('no-snap', page === 'submit');
       closeNav();
+      updateFloatCta();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // 플로팅 상담 버튼: 스크롤 일정 이상 + 교육문의 페이지가 아닐 때만 표시
+  function updateFloatCta() {
+    const btn = document.getElementById('floatCta');
+    if (!btn) return;
+    const onSubmitPage = document.getElementById('page-submit')?.classList.contains('active');
+    const scrolled = (window.scrollY || document.documentElement.scrollTop) > 480;
+    btn.classList.toggle('show', scrolled && !onSubmitPage);
+  }
+  window.addEventListener('scroll', updateFloatCta, { passive: true });
+  updateFloatCta();
 
   // 모바일 네비 토글
   function toggleNav() {
