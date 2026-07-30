@@ -54,6 +54,33 @@
     .empty{padding:48px;text-align:center;color:var(--g5);font-size:14px}
     .loading{padding:48px;text-align:center;color:var(--g5)}
     .count-note{font-size:12px;color:var(--g5);margin-top:10px}
+    /* 교육현장(Cases) 관리 */
+    .cases-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+    .new-btn{background:var(--accent);color:#06231d;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+    .new-btn:hover{opacity:.88}
+    .case-list-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(255,255,255,.02)}
+    .cli-main{min-width:0}
+    .cli-title{font-size:13.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cli-meta{font-size:12px;color:var(--g5);margin-top:4px}
+    .cli-actions{display:flex;gap:8px;flex-shrink:0}
+    .cli-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:7px 13px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit}
+    .cli-btn:hover{background:rgba(255,255,255,.12)}
+    .cli-btn.danger:hover{background:rgba(255,80,80,.18);border-color:rgba(255,80,80,.4);color:#ff9d9d}
+    .draft-tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);margin-left:8px}
+    /* 폼 모달 */
+    .case-form-overlay{position:fixed;inset:0;background:rgba(6,9,15,.72);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
+    .case-form-box{width:100%;max-width:640px;background:linear-gradient(160deg,#101725,#0B0F1A);border:1px solid var(--line);border-radius:16px;padding:28px;margin:auto}
+    .case-form-box h3{font-size:17px;font-weight:800;margin-bottom:18px}
+    .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .cf-grid .full{grid-column:1/-1}
+    textarea{width:100%;padding:11px 13px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none;resize:vertical;min-height:70px}
+    textarea:focus{border-color:var(--primary)}
+    select{width:100%;padding:11px 13px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none}
+    select option{background:#141824}
+    .cf-actions{display:flex;gap:10px;margin-top:20px}
+    .cf-actions .btn{margin-top:0}
+    .cf-cancel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+    .cf-cancel:hover{background:rgba(255,255,255,.12)}
   </style>
 </head>
 <body>
@@ -85,15 +112,60 @@
       <div class="tabs">
         <button class="tab act" data-tab="inquiries">교육 문의 <span class="cnt" id="cntInq"></span></button>
         <button class="tab" data-tab="brochure">소개서 요청 <span class="cnt" id="cntBro"></span></button>
+        <button class="tab" data-tab="cases">교육현장 관리 <span class="cnt" id="cntCases"></span></button>
       </div>
-      <div class="toolbar">
-        <div class="search"><input type="text" id="search" placeholder="회사명·담당자·이메일 검색…" /></div>
-        <button class="csv" id="csvBtn">CSV 내보내기</button>
+
+      <!-- 문의/소개서 테이블 -->
+      <div id="inqBroPanel">
+        <div class="toolbar">
+          <div class="search"><input type="text" id="search" placeholder="회사명·담당자·이메일 검색…" /></div>
+          <button class="csv" id="csvBtn">CSV 내보내기</button>
+        </div>
+        <div class="tbl-wrap">
+          <table id="table"><thead id="thead"></thead><tbody id="tbody"></tbody></table>
+        </div>
+        <div class="count-note" id="countNote"></div>
       </div>
-      <div class="tbl-wrap">
-        <table id="table"><thead id="thead"></thead><tbody id="tbody"></tbody></table>
+
+      <!-- 교육현장 게시글 관리 -->
+      <div id="casesPanel" class="hidden">
+        <div class="cases-toolbar">
+          <div class="count-note" id="casesCountNote" style="margin-top:0"></div>
+          <button class="new-btn" id="newCaseBtn">+ 새 글 작성</button>
+        </div>
+        <div id="casesListWrap"></div>
       </div>
-      <div class="count-note" id="countNote"></div>
+    </div>
+  </div>
+
+  <!-- 게시글 작성/수정 모달 -->
+  <div class="case-form-overlay hidden" id="caseFormOverlay">
+    <div class="case-form-box">
+      <h3 id="caseFormTitle">새 글 작성</h3>
+      <form id="caseForm">
+        <input type="hidden" id="cf_id" />
+        <div class="cf-grid">
+          <div class="fg"><label>구분(배지)</label><input type="text" id="cf_badge" value="공지" /></div>
+          <div class="fg"><label>날짜</label><input type="date" id="cf_date" required /></div>
+          <div class="fg full"><label>제목 <span style="color:#e05">*</span></label><input type="text" id="cf_title" placeholder="[회사명] 교육 내용" required /></div>
+          <div class="fg"><label>회사/기관명</label><input type="text" id="cf_company" /></div>
+          <div class="fg"><label>조회수</label><input type="number" id="cf_views" value="0" min="0" /></div>
+          <div class="fg"><label>상태</label>
+            <select id="cf_status"><option value="published">공개(published)</option><option value="draft">초안(draft)</option></select>
+          </div>
+          <div class="fg"><label>로고 텍스트</label><input type="text" id="cf_logo_text" placeholder="예: d'Alba piedmont" /></div>
+          <div class="fg full"><label>로고 이미지 URL (선택, 있으면 텍스트보다 우선)</label><input type="text" id="cf_logo_url" placeholder="https://..." /></div>
+          <div class="fg full"><label>배너 문구</label><input type="text" id="cf_banner_eyebrow" placeholder="교육 사례 후기" /></div>
+          <div class="fg full"><label>배너 제목 (비우면 제목 사용)</label><input type="text" id="cf_banner_title" /></div>
+          <div class="fg full"><label>배너 서브 문구</label><input type="text" id="cf_banner_sub" placeholder="BigxData (빅스데이터) | bigxdata.io" /></div>
+          <div class="fg full"><label>본문 (상세 페이지에 표시, 줄바꿈 그대로 반영)</label><textarea id="cf_body" placeholder="상세 내용을 입력하세요. 비워두면 목록에서 클릭할 수 없습니다."></textarea></div>
+        </div>
+        <div class="cf-actions">
+          <button class="btn" type="submit" id="cf_saveBtn">저장</button>
+          <button class="btn cf-cancel" type="button" id="cf_cancelBtn">취소</button>
+        </div>
+        <div class="err" id="cf_err"></div>
+      </form>
     </div>
   </div>
 
@@ -102,7 +174,7 @@
 
     let supabase = null;
     let currentTab = 'inquiries';
-    const cache = { inquiries: [], brochure: [] };
+    const cache = { inquiries: [], brochure: [], cases: [] };
 
     const $ = (id) => document.getElementById(id);
     const fmtDate = (s) => { try { const d = new Date(s); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); } catch(e){ return s||'-'; } };
@@ -144,25 +216,124 @@
 
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(x=>x.classList.remove('act'));
-      t.classList.add('act'); currentTab = t.dataset.tab; render();
+      t.classList.add('act'); currentTab = t.dataset.tab;
+      if (currentTab === 'cases') {
+        $('inqBroPanel').classList.add('hidden');
+        $('casesPanel').classList.remove('hidden');
+        renderCasesList();
+      } else {
+        $('casesPanel').classList.add('hidden');
+        $('inqBroPanel').classList.remove('hidden');
+        render();
+      }
     }));
     $('search').addEventListener('input', render);
     $('csvBtn').addEventListener('click', exportCsv);
 
     async function loadData() {
       $('tbody').innerHTML = '<tr><td class="loading">불러오는 중…</td></tr>';
-      const [inq, bro] = await Promise.all([
+      const [inq, bro, cs] = await Promise.all([
         supabase.from('inquiries').select('*').order('created_at',{ascending:false}),
         supabase.from('brochure_requests').select('*').order('created_at',{ascending:false}),
+        supabase.from('cases').select('*').order('published_date',{ascending:false}),
       ]);
       if (inq.error || bro.error) {
         $('tbody').innerHTML = '<tr><td class="empty">데이터 조회 실패: 로그인 계정의 조회 권한(RLS)을 확인하세요.</td></tr>';
         return;
       }
       cache.inquiries = inq.data||[]; cache.brochure = bro.data||[];
+      cache.cases = cs.data||[];
       $('cntInq').textContent = '('+cache.inquiries.length+')';
       $('cntBro').textContent = '('+cache.brochure.length+')';
+      $('cntCases').textContent = '('+cache.cases.length+')';
       render();
+    }
+
+    // ── 교육현장(Cases) 관리 ──
+    function renderCasesList() {
+      const wrap = $('casesListWrap');
+      const rows = cache.cases;
+      $('casesCountNote').textContent = `총 ${rows.length}건`;
+      if (!rows.length) { wrap.innerHTML = '<div class="empty">등록된 게시글이 없습니다.</div>'; return; }
+      wrap.innerHTML = rows.map(c => `
+        <div class="case-list-item">
+          <div class="cli-main">
+            <div class="cli-title">${esc(c.title)}${c.status==='draft' ? '<span class="draft-tag">초안</span>' : ''}</div>
+            <div class="cli-meta">${esc(c.published_date)} · 조회 ${c.views ?? 0} · ${c.body_text ? '상세 있음' : '상세 없음(목록만)'}</div>
+          </div>
+          <div class="cli-actions">
+            <button class="cli-btn" data-edit="${c.id}">수정</button>
+            <button class="cli-btn danger" data-del="${c.id}">삭제</button>
+          </div>
+        </div>
+      `).join('');
+      wrap.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openCaseForm(cache.cases.find(x=>x.id===Number(b.dataset.edit)))));
+      wrap.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => deleteCase(Number(b.dataset.del))));
+    }
+
+    function openCaseForm(c) {
+      $('cf_err').textContent = '';
+      $('cf_id').value = c ? c.id : '';
+      $('caseFormTitle').textContent = c ? '글 수정' : '새 글 작성';
+      $('cf_badge').value = c?.badge || '공지';
+      $('cf_date').value = c?.published_date || new Date().toISOString().slice(0,10);
+      $('cf_title').value = c?.title || '';
+      $('cf_company').value = c?.company || '';
+      $('cf_views').value = c?.views ?? 0;
+      $('cf_status').value = c?.status || 'published';
+      $('cf_logo_text').value = c?.logo_text || '';
+      $('cf_logo_url').value = c?.logo_url || '';
+      $('cf_banner_eyebrow').value = c?.banner_eyebrow || '교육 사례 후기';
+      $('cf_banner_title').value = c?.banner_title || '';
+      $('cf_banner_sub').value = c?.banner_sub || 'BigxData (빅스데이터) | bigxdata.io';
+      $('cf_body').value = c?.body_text || '';
+      $('caseFormOverlay').classList.remove('hidden');
+    }
+    function closeCaseForm() { $('caseFormOverlay').classList.add('hidden'); }
+
+    $('newCaseBtn').addEventListener('click', () => openCaseForm(null));
+    $('cf_cancelBtn').addEventListener('click', closeCaseForm);
+    $('caseFormOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCaseForm(); });
+
+    $('caseForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = $('cf_id').value;
+      const payload = {
+        badge: $('cf_badge').value || '공지',
+        published_date: $('cf_date').value,
+        title: $('cf_title').value.trim(),
+        company: $('cf_company').value || null,
+        views: Number($('cf_views').value) || 0,
+        status: $('cf_status').value,
+        logo_text: $('cf_logo_text').value || null,
+        logo_url: $('cf_logo_url').value || null,
+        banner_eyebrow: $('cf_banner_eyebrow').value || null,
+        banner_title: $('cf_banner_title').value || null,
+        banner_sub: $('cf_banner_sub').value || null,
+        body_text: $('cf_body').value || null,
+        updated_at: new Date().toISOString(),
+      };
+      if (!payload.title) { $('cf_err').textContent = '제목은 필수입니다.'; return; }
+      const btn = $('cf_saveBtn'); btn.disabled = true; btn.textContent = '저장 중…';
+      const { error } = id
+        ? await supabase.from('cases').update(payload).eq('id', Number(id))
+        : await supabase.from('cases').insert(payload);
+      btn.disabled = false; btn.textContent = '저장';
+      if (error) { $('cf_err').textContent = '저장 실패: ' + error.message; return; }
+      closeCaseForm();
+      const cs = await supabase.from('cases').select('*').order('published_date',{ascending:false});
+      cache.cases = cs.data || [];
+      $('cntCases').textContent = '('+cache.cases.length+')';
+      renderCasesList();
+    });
+
+    async function deleteCase(id) {
+      if (!confirm('이 게시글을 삭제할까요? 되돌릴 수 없습니다.')) return;
+      const { error } = await supabase.from('cases').delete().eq('id', id);
+      if (error) { alert('삭제 실패: ' + error.message); return; }
+      cache.cases = cache.cases.filter(c => c.id !== id);
+      $('cntCases').textContent = '('+cache.cases.length+')';
+      renderCasesList();
     }
 
     const COLS = {
