@@ -2170,22 +2170,38 @@
 </div>
 
 <script>
+  // 페이지 전환 (히스토리 미포함 — DOM만 갱신)
+  function activatePage(page) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('page-' + page)?.classList.add('active');
+    document.querySelectorAll('.gnb li a, .sub-nav-inner ul li a').forEach(a => {
+      a.classList.toggle('act', a.dataset.page === page);
+    });
+    // 폼 위주 페이지(교육문의)는 섹션 스냅 해제 — 자유 스크롤
+    document.documentElement.classList.toggle('no-snap', page === 'submit');
+    closeNav();
+    updateFloatCta();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   document.querySelectorAll('.spa-link').forEach(el => {
     el.addEventListener('click', function(e) {
       e.preventDefault();
       const page = this.dataset.page;
       if (!page) return;
-      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-      document.getElementById('page-' + page)?.classList.add('active');
-      document.querySelectorAll('.gnb li a, .sub-nav-inner ul li a').forEach(a => {
-        a.classList.toggle('act', a.dataset.page === page);
-      });
-      // 폼 위주 페이지(교육문의)는 섹션 스냅 해제 — 자유 스크롤
-      document.documentElement.classList.toggle('no-snap', page === 'submit');
-      closeNav();
-      updateFloatCta();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      activatePage(page);
+      history.pushState({ page }, '', '#' + page);
     });
+  });
+
+  // 브라우저 뒤로/앞으로 가기 지원
+  history.replaceState({ page: 'intro' }, '', location.hash || '#intro');
+  window.addEventListener('popstate', (e) => {
+    const state = e.state || { page: 'intro' };
+    if (state.page === 'case-detail' && state.caseId != null && window.__renderCaseById && window.__renderCaseById(state.caseId)) {
+      return;
+    }
+    activatePage(state.page || 'intro');
   });
 
   // 플로팅 상담 버튼: 스크롤 일정 이상 + 교육문의 페이지가 아닐 때만 표시
@@ -2410,6 +2426,17 @@
     }
   }
 
+  let allCases = [];   // 로드된 전체 게시물 (뒤로가기 시 재조회 없이 재사용)
+
+  // 브라우저 뒤로/앞으로 가기에서 특정 게시글 상세로 복귀할 때 호출됨 (index.html 메인 스크립트에서 사용)
+  window.__renderCaseById = function(id) {
+    const c = allCases.find(x => String(x.id) === String(id));
+    if (!c) return false;
+    renderCaseDetail(c);
+    switchPage('page-case-detail');
+    return true;
+  };
+
   async function main() {
     const cfg = await fetch('/api/config').then(r => r.json()).catch(() => ({}));
     const metaEl = document.getElementById('casesMeta');
@@ -2426,6 +2453,7 @@
       tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--gray-500); padding:24px;">게시판을 불러오지 못했습니다.</td></tr>';
       return;
     }
+    allCases = data;
     metaEl.textContent = `교육 현장 ${data.length}건 · 최신순`;
     if (!data.length) {
       tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--gray-500); padding:24px;">등록된 게시물이 없습니다.</td></tr>';
@@ -2443,12 +2471,18 @@
 
     tbody.querySelectorAll('tr[data-case-id]').forEach(row => {
       row.addEventListener('click', () => {
-        const c = data.find(x => String(x.id) === row.dataset.caseId);
+        const c = allCases.find(x => String(x.id) === row.dataset.caseId);
         if (!c) return;
         renderCaseDetail(c);
         switchPage('page-case-detail');
+        history.pushState({ page: 'case-detail', caseId: c.id }, '', '#case-' + c.id);
       });
     });
+
+    // 뒤로가기로 이 페이지에 진입했는데 이미 case-detail 상태였다면(재로드 없이) 즉시 복원
+    if (history.state && history.state.page === 'case-detail' && history.state.caseId != null) {
+      window.__renderCaseById(history.state.caseId);
+    }
   }
 
   main();
