@@ -158,7 +158,11 @@
           <div class="fg full"><label>배너 문구</label><input type="text" id="cf_banner_eyebrow" placeholder="교육 사례 후기" /></div>
           <div class="fg full"><label>배너 제목 (비우면 제목 사용)</label><input type="text" id="cf_banner_title" /></div>
           <div class="fg full"><label>배너 서브 문구</label><input type="text" id="cf_banner_sub" placeholder="BigxData (빅스데이터) | bigxdata.io" /></div>
-          <div class="fg full"><label>본문 (상세 페이지에 표시, 줄바꿈 그대로 반영)</label><textarea id="cf_body" placeholder="상세 내용을 입력하세요. 비워두면 목록에서 클릭할 수 없습니다."></textarea></div>
+          <div class="fg full">
+            <label>본문 (HTML 사용 가능 — 일반 텍스트만 입력하면 줄바꿈만 반영됩니다)</label>
+            <textarea id="cf_body" rows="10" placeholder="상세 내용을 입력하세요. 비워두면 목록에서 클릭할 수 없습니다.&#10;&#10;표를 넣으려면 아래 '표 템플릿 넣기' 버튼을 눌러 커서 위치에 삽입 후 내용을 채우세요."></textarea>
+            <button type="button" class="cli-btn" id="insertTableBtn" style="margin-top:8px;">+ 표 템플릿 넣기</button>
+          </div>
         </div>
         <div class="cf-actions">
           <button class="btn" type="submit" id="cf_saveBtn">저장</button>
@@ -294,6 +298,17 @@
     $('newCaseBtn').addEventListener('click', () => openCaseForm(null));
     $('cf_cancelBtn').addEventListener('click', closeCaseForm);
     $('caseFormOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCaseForm(); });
+
+    const TABLE_TEMPLATE = `\n<h3>📋 섹션 제목</h3>\n<table>\n  <tr><td>항목 1</td><td>내용 1</td></tr>\n  <tr><td>항목 2</td><td>내용 2</td></tr>\n  <tr><td>항목 3</td><td>내용 3</td></tr>\n</table>\n`;
+    $('insertTableBtn').addEventListener('click', () => {
+      const ta = $('cf_body');
+      const start = ta.selectionStart ?? ta.value.length;
+      const end = ta.selectionEnd ?? ta.value.length;
+      ta.value = ta.value.slice(0, start) + TABLE_TEMPLATE + ta.value.slice(end);
+      ta.focus();
+      const pos = start + TABLE_TEMPLATE.length;
+      ta.setSelectionRange(pos, pos);
+    });
 
     $('caseForm').addEventListener('submit', async (e) => {
       e.preventDefault();

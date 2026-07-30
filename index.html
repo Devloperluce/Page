@@ -619,7 +619,21 @@
     .case-banner .cb-sub { font-size: 12.5px; color: rgba(255,255,255,.6); }
     .case-logo-box { width: 200px; height: 160px; border-radius: 12px; background: #0B0F1A; display: flex; align-items: center; justify-content: center; margin-bottom: 26px; }
     .case-logo-box img { max-width: 70%; max-height: 60%; }
-    .case-body-text { font-size: 14.5px; color: var(--gray-700); line-height: 1.9; }
+    .case-body { font-size: 14.5px; color: var(--gray-700); line-height: 1.9; }
+    .case-body p { margin-bottom: 18px; }
+    .case-body h3 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: var(--dark); margin: 30px 0 14px; }
+    .case-body h3:first-child { margin-top: 0; }
+    .case-body table { width: 100%; border-collapse: collapse; margin: 4px 0 24px; border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; font-size: 13.5px; }
+    .case-body table th { background: #0D3B66; color: #fff; font-weight: 700; padding: 12px 16px; text-align: left; white-space: nowrap; }
+    .case-body table td { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); border-right: 1px solid var(--gray-100); vertical-align: top; }
+    .case-body table tr:last-child td { border-bottom: none; }
+    .case-body table td:last-child { border-right: none; }
+    .case-body table td:first-child { background: var(--gray-50); font-weight: 700; color: var(--dark); white-space: nowrap; }
+    .case-body table ul { margin: 0; padding-left: 18px; }
+    .case-body blockquote { border-left: 3px solid var(--primary); padding: 10px 18px; margin: 18px 0; background: var(--gray-50); color: var(--gray-700); font-style: normal; border-radius: 0 8px 8px 0; }
+    .case-body ul, .case-body ol { padding-left: 20px; margin-bottom: 18px; }
+    .case-body li { margin-bottom: 6px; }
+    .case-body strong { color: var(--dark); }
     .case-back-btn { display: inline-block; margin-top: 30px; padding: 11px 24px; border-radius: 9px; border: 1px solid var(--gray-300); background: #fff; color: var(--gray-700); font-size: 13.5px; font-weight: 700; }
     .case-back-btn:hover { border-color: var(--primary); color: var(--primary); }
 
@@ -2029,7 +2043,7 @@
         <p class="cb-sub" id="caseBannerSub"></p>
       </div>
       <div class="case-logo-box" id="caseLogoBox"></div>
-      <p class="case-body-text" id="caseBodyText"></p>
+      <div class="case-body" id="caseBodyText"></div>
       <a class="case-back-btn spa-link" data-page="cases">← 목록으로</a>
     </div>
   </div>
@@ -2377,7 +2391,16 @@
     } else {
       logoBox.style.display = 'none';
     }
-    document.getElementById('caseBodyText').innerHTML = c.body_text ? nl2br(c.body_text) : '상세 내용이 아직 등록되지 않았습니다.';
+    const bodyEl = document.getElementById('caseBodyText');
+    if (!c.body_text) {
+      bodyEl.textContent = '상세 내용이 아직 등록되지 않았습니다.';
+    } else if (/<[a-z][\s\S]*>/i.test(c.body_text)) {
+      // 표·제목 등 HTML 마크업이 포함된 경우 그대로 렌더링 (관리자가 작성한 신뢰 콘텐츠)
+      bodyEl.innerHTML = c.body_text;
+    } else {
+      // 일반 텍스트만 있는 경우 줄바꿈만 반영
+      bodyEl.innerHTML = nl2br(c.body_text);
+    }
   }
 
   async function main() {
