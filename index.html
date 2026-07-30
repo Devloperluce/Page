@@ -608,7 +608,8 @@
 
     /* ── HERO SIGNATURE VISUAL ── */
     .hero-visual { position: absolute; top: 44px; right: 46px; width: 306px; z-index: 1; pointer-events: none; }
-    .hv-card { position: relative; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 18px 18px 14px; backdrop-filter: blur(6px); box-shadow: 0 20px 50px rgba(0,0,0,.35); animation: hvFloat 7s ease-in-out infinite; }
+    .hv-card { position: relative; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 18px 18px 14px; backdrop-filter: blur(6px); box-shadow: 0 20px 50px rgba(0,0,0,.35), 0 0 60px rgba(107,33,168,.18); animation: hvFloat 7s ease-in-out infinite; overflow: hidden; }
+    .hv-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand-purple), var(--brand-violet), var(--primary)); }
     .hv-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
     .hv-title { font-size: 11.5px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: .02em; }
     .hv-dot { display: flex; gap: 4px; }
@@ -754,6 +755,7 @@
       background:
         radial-gradient(circle at 85% 18%, rgba(0,153,200,.26), transparent 28%),
         radial-gradient(circle at 72% 82%, rgba(0,196,167,.16), transparent 30%),
+        radial-gradient(circle at 6% 30%, rgba(107,33,168,.28), transparent 34%),
         linear-gradient(135deg, #0B0F1A 0%, #0D1E35 62%, #0A253F 100%);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 22px;
