@@ -589,6 +589,40 @@
       .sc-card.span2 ul { grid-template-columns: 1fr; }
     }
 
+    /* ── CASES (교육현장 게시판) ── */
+    .cases-meta { font-size: 13px; color: var(--gray-500); margin-bottom: 18px; }
+    .cases-tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--gray-300); background: #fff; box-shadow: 0 12px 34px rgba(20,24,36,.05); }
+    .cases-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 560px; }
+    .cases-tbl th { color: var(--gray-500); font-weight: 700; text-align: left; padding: 14px 20px; border-bottom: 1px solid var(--gray-200); font-size: 12px; white-space: nowrap; }
+    .cases-tbl th:last-child, .cases-tbl td:last-child { text-align: right; }
+    .cases-tbl td { padding: 15px 20px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+    .cases-tbl tr:last-child td { border-bottom: none; }
+    .cases-tbl tbody tr { transition: background .15s; }
+    .cases-row-link { cursor: pointer; }
+    .cases-row-link:hover td { background: var(--gray-50); }
+    .cases-title-cell { font-weight: 600; color: var(--dark); }
+    .cases-date, .cases-views { color: var(--gray-500); white-space: nowrap; }
+    .cs-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: var(--primary-light); color: var(--primary-dark); white-space: nowrap; }
+    .cases-more-wrap { text-align: center; margin-top: 20px; }
+    .cases-more-btn { display: inline-block; padding: 11px 26px; border-radius: 9px; border: 1px solid var(--gray-300); background: #fff; color: var(--gray-700); font-size: 13.5px; font-weight: 700; transition: .15s; cursor: pointer; }
+    .cases-more-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── CASE DETAIL (게시글 상세) ── */
+    .case-crumb { font-size: 12.5px; color: var(--gray-500); margin-bottom: 10px; }
+    .case-crumb a { color: var(--gray-500); }
+    .case-detail-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(20px, 2.6vw, 28px); font-weight: 800; color: var(--dark); line-height: 1.35; margin-bottom: 14px; }
+    .case-detail-views { font-size: 12.5px; color: var(--gray-500); padding-bottom: 22px; border-bottom: 1px solid var(--gray-200); margin-bottom: 26px; }
+    .case-banner { background: linear-gradient(135deg, #0D3B66, #0A2540); color: #fff; border-radius: 14px; padding: 22px 26px; margin-bottom: 26px; }
+    .case-banner .cb-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--brand-violet); margin-bottom: 8px; }
+    .case-banner .cb-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .case-banner .cb-title strong { color: #7DD8EF; }
+    .case-banner .cb-sub { font-size: 12.5px; color: rgba(255,255,255,.6); }
+    .case-logo-box { width: 200px; height: 160px; border-radius: 12px; background: #0B0F1A; display: flex; align-items: center; justify-content: center; margin-bottom: 26px; }
+    .case-logo-box img { max-width: 70%; max-height: 60%; }
+    .case-body-text { font-size: 14.5px; color: var(--gray-700); line-height: 1.9; }
+    .case-back-btn { display: inline-block; margin-top: 30px; padding: 11px 24px; border-radius: 9px; border: 1px solid var(--gray-300); background: #fff; color: var(--gray-700); font-size: 13.5px; font-weight: 700; }
+    .case-back-btn:hover { border-color: var(--primary); color: var(--primary); }
+
     /* ── SECTION SNAP SCROLL ── */
     html { scroll-snap-type: y mandatory; scroll-behavior: smooth; scroll-padding-top: 78px; }
     .hero-section,
@@ -1158,6 +1192,7 @@
       <ul class="gnb">
         <li><a href="#" class="spa-link act" data-page="intro">교육소개</a></li>
         <li><a href="#" class="spa-link" data-page="course">교육과정</a></li>
+        <li><a href="#" class="spa-link" data-page="cases">교육현장</a></li>
         <li><a href="#" class="spa-link" data-page="submit">교육문의</a></li>
         <li class="mobile-only"><a href="/member">로그인 / 회원가입</a></li>
       </ul>
@@ -1492,6 +1527,7 @@
         <p class="sec-desc">실제 교육에 참여한 기업 담당자와 수강생의 이야기</p>
         <div class="rev-grid">
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1502,10 +1538,11 @@
             <p class="rev-text">실습 위주의 강의라 바로 업무에 적용할 수 있었습니다. 단순 기능 교육이 아니라 현업에서 어떻게 활용할 수 있는지 구체적인 사례로 알려주셔서 좋았어요.</p>
             <div class="rev-author">
               <div class="rev-av">김</div>
-              <div><div class="rev-name">김○○ 과장</div><div class="rev-co">NH투자증권</div></div>
+              <div><div class="rev-name">금융권 A사 김**</div><div class="rev-co">금융업 · 교육 수강생</div></div>
             </div>
           </div>
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1516,10 +1553,11 @@
             <p class="rev-text">태블로를 처음 접했는데 수강생 수준에 맞게 눈높이 교육을 해주셔서 빠르게 따라갈 수 있었습니다. 다음에도 꼭 신청할 예정입니다.</p>
             <div class="rev-author">
               <div class="rev-av">이</div>
-              <div><div class="rev-name">이○○ 대리</div><div class="rev-co">삼성전자</div></div>
+              <div><div class="rev-name">제조업 B사 이**</div><div class="rev-co">제조업 · 교육 수강생</div></div>
             </div>
           </div>
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1530,10 +1568,11 @@
             <p class="rev-text">우리 회사 데이터로 직접 실습하는 커스터마이징 교육이라 실용성이 매우 높았습니다. HRD 담당자로서 직원들 만족도가 역대 최고였습니다.</p>
             <div class="rev-author">
               <div class="rev-av">박</div>
-              <div><div class="rev-name">박○○ HRD 팀장</div><div class="rev-co">카카오</div></div>
+              <div><div class="rev-name">IT업계 C사 박**</div><div class="rev-co">IT서비스업 · HRD 담당자</div></div>
             </div>
           </div>
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1544,10 +1583,11 @@
             <p class="rev-text">Claude로 반복 업무를 자동화하는 실습이 인상적이었습니다. 교육 다음 주부터 주간 보고서 작성 시간이 절반으로 줄었어요. 현업에 바로 쓸 수 있는 내용이었습니다.</p>
             <div class="rev-author">
               <div class="rev-av">정</div>
-              <div><div class="rev-name">정○○ 책임</div><div class="rev-co">SK하이닉스</div></div>
+              <div><div class="rev-name">IT업계 D사 정**</div><div class="rev-co">IT서비스업 · 교육 수강생</div></div>
             </div>
           </div>
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1558,10 +1598,11 @@
             <p class="rev-text">TTD 자격증 과정을 들었는데, 시험 출제 포인트를 정확히 짚어주셔서 한 번에 합격했습니다. 공인 인증 강사님께 직접 배운다는 게 확실히 달랐습니다.</p>
             <div class="rev-author">
               <div class="rev-av">최</div>
-              <div><div class="rev-name">최○○ 선임</div><div class="rev-co">LH 한국토지주택공사</div></div>
+              <div><div class="rev-name">공공기관 E사 최**</div><div class="rev-co">공공기관 · 교육 수강생</div></div>
             </div>
           </div>
           <div class="rev-card">
+            <svg class="rev-quote" viewBox="0 0 24 24"><path d="M9.5 8.5c-2.5 0-4.5 2-4.5 4.5v6h6v-6H8.5c0-1.7 1.3-3 3-3v-1.5zm9 0c-2.5 0-4.5 2-4.5 4.5v6h6v-6h-2.5c0-1.7 1.3-3 3-3v-1.5z"/></svg>
             <div class="rev-stars">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1572,7 +1613,7 @@
             <p class="rev-text">여러 교육을 받아봤지만 이렇게 우리 부서 데이터로 직접 대시보드를 완성해보는 교육은 처음이었습니다. 강사님의 피드백이 특히 실질적이고 꼼꼼했어요.</p>
             <div class="rev-author">
               <div class="rev-av">한</div>
-              <div><div class="rev-name">한○○ 매니저</div><div class="rev-co">CJ제일제당</div></div>
+              <div><div class="rev-name">유통·서비스업 F사 한**</div><div class="rev-co">유통업 · 교육 담당자</div></div>
             </div>
           </div>
         </div>
@@ -1962,6 +2003,94 @@
     </div>
   </div>
 
+  <!-- ══ PAGE: 교육현장 (게시판) ══ -->
+  <div class="page-section" id="page-cases">
+    <div class="hero-section">
+      <p class="hero-kicker">Cases</p>
+      <h1 class="hero-title">교육 현장</h1>
+      <p class="hero-desc">빅스데이터가 함께한 기업·기관의 실제 교육 현장 소식을 전해드립니다.</p>
+    </div>
+    <div class="content-area">
+      <p class="cases-meta">교육 현장 15건 · 최신순 (아래는 등록된 8건입니다)</p>
+      <div class="cases-tbl-wrap">
+        <table class="cases-tbl">
+          <thead><tr><th>구분</th><th>교육 내용</th><th>날짜</th><th>조회</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[HMM] 변화 관리 위원 대상 사내 강사 육성 프로그램</td>
+              <td class="cases-date">2026-03-13</td>
+              <td class="cases-views">14</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[NH투자증권] 고객 행동 데이터 기반 실무 집중 교육</td>
+              <td class="cases-date">2026-03-11</td>
+              <td class="cases-views">19</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[HMM] 데이터 기반 변화 관리 교육</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">30</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[숙명여자대학교] 2025 빅데이터 융합 윈터스쿨 온오프라인 교육 및 해커톤</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">25</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[BNK 경남은행] 금융 현업 데이터 기반 태블로 실습 교육</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">22</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[가천대학교] G-STAR 데이터 분석 역량 강화 교육</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">27</td>
+            </tr>
+            <tr class="cases-row-link spa-link" data-page="case-detail">
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[달바글로벌] 현업 맞춤 닥터 세션 (QnA 교육)</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">231</td>
+            </tr>
+            <tr>
+              <td><span class="cs-badge">공지</span></td>
+              <td class="cases-title-cell">[11번가] Tableau 중급·고급 현업 맞춤 집중 교육</td>
+              <td class="cases-date">2026-03-05</td>
+              <td class="cases-views">19</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cases-more-wrap">
+        <button class="cases-more-btn" type="button" onclick="alert('전체 게시물 자료가 준비되면 추가하겠습니다.')">전체 게시물 보기 (15건) →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE: 교육현장 상세 (예시: 달바글로벌) ══ -->
+  <div class="page-section" id="page-case-detail">
+    <div class="content-area" style="padding-top:34px;">
+      <p class="case-crumb"><a class="spa-link" data-page="cases">교육 현장</a></p>
+      <h1 class="case-detail-title">[달바글로벌] 현업 맞춤 닥터 세션 (QnA 교육)</h1>
+      <p class="case-detail-views">조회수 231</p>
+      <div class="case-banner">
+        <p class="cb-eyebrow">교육 사례 후기</p>
+        <p class="cb-title"><strong>【달바글로벌】</strong> 현업 맞춤 닥터 세션 (QnA 교육)</p>
+        <p class="cb-sub">BigxData (빅스데이터) | bigxdata.io</p>
+      </div>
+      <div class="case-logo-box">
+        <span style="color:#fff; font-family:'Plus Jakarta Sans',serif; font-size:22px; letter-spacing:.02em;">d'Alba <span style="font-weight:300;">piedmont</span></span>
+      </div>
+      <p class="case-body-text">빅스데이터(BigxData)는 데이터와 AI로 새로운 경험을 만드는 기업입니다.<br>태블로(Tableau) 라이선스 공급, 프리미어 서비스, 기업 맞춤 교육을 통합 제공하며, 국내 주요 기업과 기관의 데이터 기반 의사결정 문화를 함께 만들어가고 있습니다.</p>
+      <a class="case-back-btn spa-link" data-page="cases">← 목록으로</a>
+    </div>
+  </div>
 
 </div>
 
@@ -2002,6 +2131,7 @@
         <ul>
           <li><a class="spa-link" data-page="intro">교육소개</a></li>
           <li><a class="spa-link" data-page="course">교육과정</a></li>
+          <li><a class="spa-link" data-page="cases">교육현장</a></li>
           <li><a class="spa-link" data-page="submit">교육문의</a></li>
         </ul>
       </div>
