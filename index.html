@@ -634,6 +634,13 @@
     .case-body ul, .case-body ol { padding-left: 20px; margin-bottom: 18px; }
     .case-body li { margin-bottom: 6px; }
     .case-body strong { color: var(--dark); }
+    .case-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 4px 0 24px; }
+    .case-steps .cs-step { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 16px 14px; }
+    .case-steps .cs-num { font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: .05em; margin-bottom: 8px; text-transform: uppercase; }
+    .case-steps .cs-title { font-size: 13.5px; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.4; }
+    .case-steps .cs-desc { font-size: 12px; color: var(--gray-600); line-height: 1.55; }
+    @media (max-width: 720px) { .case-steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .case-steps { grid-template-columns: 1fr; } }
     .case-back-btn { display: inline-block; margin-top: 30px; padding: 11px 24px; border-radius: 9px; border: 1px solid var(--gray-300); background: #fff; color: var(--gray-700); font-size: 13.5px; font-weight: 700; }
     .case-back-btn:hover { border-color: var(--primary); color: var(--primary); }
 
