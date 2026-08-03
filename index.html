@@ -644,16 +644,15 @@
     .case-back-btn { display: inline-block; margin-top: 30px; padding: 11px 24px; border-radius: 9px; border: 1px solid var(--gray-300); background: #fff; color: var(--gray-700); font-size: 13.5px; font-weight: 700; }
     .case-back-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-    /* ── SECTION SNAP SCROLL (부드러운 근접 스냅 — 스크롤 중엔 부분적으로 보이다가 멈출 때만 정렬) ── */
-    html { scroll-snap-type: y proximity; scroll-behavior: smooth; scroll-padding-top: 78px; }
+    /* ── 자유 스크롤 (섹션 스냅 없음 — 항상 부분적으로 자연스럽게 보이며 스크롤) ── */
+    html { scroll-behavior: smooth; scroll-padding-top: 78px; }
     .hero-section,
     .client-slide-section,
     .content-area > .trust-bar,
     .content-area > section,
     .content-area > .track-cards,
     .content-area > .course-cta,
-    .site-footer { scroll-snap-align: start; scroll-margin-top: 78px; }
-    html.no-snap { scroll-snap-type: none; }
+    .site-footer { scroll-margin-top: 78px; }
     @media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; scroll-behavior: auto; } }
 
     /* ── SCROLL REVEAL ── */
@@ -698,8 +697,6 @@
     /* ── MODAL ── */
     .modal-overlay { position: fixed; inset: 0; z-index: 500; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(6,9,15,.72); backdrop-filter: blur(4px); overflow-y: auto; }
     .modal-overlay.open { display: flex; animation: modalFade .2s ease both; }
-    /* 모달 열림 동안 스냅 스크롤 해제 (fixed 위치 밀림 방지) */
-    html.modal-open { scroll-snap-type: none; }
     @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
     .modal-box { position: relative; width: 100%; max-width: 520px; max-height: calc(100vh - 48px); overflow-y: auto; overflow-x: hidden; margin: auto; background: linear-gradient(160deg, #101725, #0B0F1A); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 36px 36px 32px; box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: modalUp .25s ease both; }
     @keyframes modalUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -2444,12 +2441,13 @@
 
       const headerBtn = document.getElementById('headerLoginBtn');
       if (headerBtn) {
-        headerBtn.textContent = displayName + ' 님';
+        headerBtn.textContent = '마이페이지';
+        headerBtn.title = displayName + ' 님으로 로그인됨';
         headerBtn.href = '/member';
       }
       const mobileItem = document.getElementById('mobileLoginItem');
       if (mobileItem) {
-        mobileItem.textContent = displayName + ' 님 (마이페이지)';
+        mobileItem.textContent = '마이페이지';
       }
       if (isAdmin) {
         const writeBtn = document.getElementById('casesWriteBtn');
