@@ -2388,7 +2388,8 @@
 
 <!-- ══ 교육현장(Cases) 게시판 — Supabase 연동 ══ -->
 <script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+  // Supabase 라이브러리는 동적으로 불러옴 — CDN이 실패해도 게시판(기본 데이터)은 표시되도록
+  const withTimeout = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
 
   const esc = v => (v == null ? '' : String(v)).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   const nl2br = v => esc(v).replace(/\n/g, '<br>');
@@ -2467,32 +2468,18 @@
     return true;
   };
 
-  async function main() {
-    const cfg = await fetch('/api/config').then(r => r.json()).catch(() => ({}));
+  function renderList(data, sourceLabel) {
     const metaEl = document.getElementById('casesMeta');
     const tbody = document.getElementById('casesTbody');
-    if (!cfg.url || !cfg.anonKey) {
-      metaEl.textContent = '';
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--gray-500); padding:24px;">게시판을 불러올 수 없습니다.</td></tr>';
-      return;
-    }
-    const sb = createClient(cfg.url, cfg.anonKey);
-    checkAuthAndHeader(sb);   // 로그인 상태 → 헤더 표시 및 관리자 글쓰기 버튼 노출
-    const { data, error } = await sb.from('cases').select('*').eq('status', 'published').order('published_date', { ascending: false });
-    if (error || !data) {
-      metaEl.textContent = '';
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--gray-500); padding:24px;">게시판을 불러오지 못했습니다.</td></tr>';
-      return;
-    }
     allCases = data;
-    metaEl.textContent = `교육 현장 ${data.length}건 · 최신순`;
+    metaEl.textContent = `교육 현장 ${data.length}건 · 최신순` + (sourceLabel || '');
     if (!data.length) {
       tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--gray-500); padding:24px;">등록된 게시물이 없습니다.</td></tr>';
       return;
     }
     tbody.innerHTML = data.map(c => {
       const hasDetail = !!c.body_text;
-      return `<tr${hasDetail ? ' class="cases-row-link" data-case-id="' + c.id + '"' : ''}>
+      return `<tr${hasDetail ? ' class="cases-row-link" data-case-id="' + esc(c.id) + '"' : ''}>
         <td><span class="cs-badge">${esc(c.badge || '공지')}</span></td>
         <td class="cases-title-cell">${esc(c.title)}</td>
         <td class="cases-date">${esc(c.published_date)}</td>
@@ -2514,6 +2501,40 @@
     if (history.state && history.state.page === 'case-detail' && history.state.caseId != null) {
       window.__renderCaseById(history.state.caseId);
     }
+  }
+
+  // DB에서 게시물 조회 — 실패/지연 시 null 반환
+  async function loadFromSupabase() {
+    try {
+      const cfg = await withTimeout(fetch('/api/config').then(r => r.json()), 5000);
+      if (!cfg || !cfg.url || !cfg.anonKey) return null;
+      const { createClient } = await withTimeout(import('https://esm.sh/@supabase/supabase-js@2'), 8000);
+      const sb = createClient(cfg.url, cfg.anonKey);
+      checkAuthAndHeader(sb);   // 로그인 상태 → 헤더 표시 및 관리자 글쓰기 버튼 노출
+      const { data, error } = await withTimeout(
+        sb.from('cases').select('*').eq('status', 'published').order('published_date', { ascending: false }), 8000);
+      if (error || !Array.isArray(data) || !data.length) return null;
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // DB를 쓸 수 없을 때 보여줄 기본 게시물 (assets/cases-fallback.json)
+  async function loadFallback() {
+    try {
+      const r = await fetch('/assets/cases-fallback.json');
+      if (!r.ok) return [];
+      return await r.json();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async function main() {
+    const data = await loadFromSupabase();
+    if (data) return renderList(data);
+    renderList(await loadFallback());
   }
 
   main();
