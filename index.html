@@ -2523,7 +2523,7 @@
   // DB를 쓸 수 없을 때 보여줄 기본 게시물 (assets/cases-fallback.json)
   async function loadFallback() {
     try {
-      const r = await fetch('/assets/cases-fallback.json');
+      const r = await withTimeout(fetch('/assets/cases-fallback.json', { cache: 'no-cache' }), 5000);
       if (!r.ok) return [];
       return await r.json();
     } catch (e) {
@@ -2532,9 +2532,13 @@
   }
 
   async function main() {
+    // 1) 기본 게시물을 즉시 표시 (DB 응답을 기다리지 않음)
+    const fallback = await loadFallback();
+    if (fallback.length) renderList(fallback);
+    // 2) DB에서 게시물을 받아오면 그걸로 교체
     const data = await loadFromSupabase();
-    if (data) return renderList(data);
-    renderList(await loadFallback());
+    if (data) renderList(data);
+    else if (!fallback.length) renderList([]);
   }
 
   main();
